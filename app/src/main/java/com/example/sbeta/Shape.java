@@ -1,4 +1,6 @@
 package com.example.sbeta;
 
-public class Shape {
+public abstract class Shape {
+    Integer x;
+    Integer y;
 }
