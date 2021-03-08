@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ExperimentListActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
 
     public ListView Experiment_list_view;
-    public static ArrayAdapter<Experiment> Experiment_ArrayAdapter;
+    public ArrayAdapter<Experiment> Experiment_ArrayAdapter;
     public ArrayList<Experiment> Experiment_list;
 
     @Override
