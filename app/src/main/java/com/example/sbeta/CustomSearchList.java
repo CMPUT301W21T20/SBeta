@@ -2,6 +2,7 @@ package com.example.sbeta;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class CustomSearchList extends ArrayAdapter<Experiment> {
 
     public CustomSearchList(Context context, ArrayList<Experiment> searchResults) {
         super(context, 0, searchResults);
+        this.searchResults = searchResults;
         this.context = context;
     }
 
@@ -32,7 +34,7 @@ public class CustomSearchList extends ArrayAdapter<Experiment> {
 
         Experiment result = searchResults.get(position);
 
-        TextView experName = view.findViewById(R.id.exper_name);
+        TextView experName = view.findViewById(R.id.experName);
         TextView description = view.findViewById(R.id.experDesc);
         TextView experOwner = view.findViewById(R.id.experOwner);
         TextView experStatus = view.findViewById(R.id.experStatus);
