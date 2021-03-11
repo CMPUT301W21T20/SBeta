@@ -14,12 +14,24 @@ public class Experiment {
     String experimentType;
     String status;
     String name;
+    String userId;
 
-    public Experiment(User owner, String description, String status, String name) {
-        this.owner = owner;
+//    public Experiment(User owner, String description, String status, String name) {
+//        this.owner = owner;
+//        this.description = description;
+//        this.status = status;
+//        this.name = name;
+//    }
+
+    public Experiment(String description, Boolean isEnded, Boolean isPublished, Integer minTrials, Boolean locationRequired, String experimentType, String name, String userId) {
         this.description = description;
-        this.status = status;
+        this.isEnded = isEnded;
+        this.isPublished = isPublished;
+        this.minTrials = minTrials;
+        this.locationRequired = locationRequired;
+        this.experimentType = experimentType;
         this.name = name;
+        this.userId = userId;
     }
 
     public void setTrials(ArrayList<Trial> trials) {
@@ -99,10 +111,22 @@ public class Experiment {
     }
 
     public String getStatus() {
-        return status;
+        if (isEnded == true) {
+            return "Ended";
+        } else {
+            if (isPublished == false) {
+                return "Unpublished";
+            } else {
+                return "Published";
+            }
+        }
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }
