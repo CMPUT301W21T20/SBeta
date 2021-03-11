@@ -9,9 +9,9 @@ public class Experiment {
     String description;
     Boolean isEnded;
     Boolean isPublished;
-    Integer minTrials;
+    long minTrials;
     Boolean locationRequired;
     String experimentType;
-
+    String userId;
 
 }
