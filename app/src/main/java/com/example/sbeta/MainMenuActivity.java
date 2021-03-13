@@ -1,5 +1,6 @@
 package com.example.sbeta;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,12 +11,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -25,14 +31,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
 
     ListView experList;
     ArrayAdapter<Experiment> experAdapter;
     ArrayList<Experiment> dataList;
     Button searchButton;
     EditText searchWord;
+    static String logInUserName;
+    CollectionReference collectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +49,13 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         final String TAG = "Sample";
         FirebaseFirestore db;
+        logInUserName = getIntent().getStringExtra("userName");
 
         experList = findViewById(R.id.exper_list);
         searchButton = findViewById(R.id.search_button);
         searchWord = findViewById(R.id.searchKeyWord);
         db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference = db.collection("experiments");
+        collectionReference = db.collection("experiments");
 
         dataList = new ArrayList<>();
 
@@ -105,6 +115,61 @@ public class MainMenuActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // this addExperimentButton will call a fragment that used to add new experiment with required information
+        final FloatingActionButton addExperimentButton = findViewById(R.id.add_experiment_button);
+        addExperimentButton.setOnClickListener(v -> new AddNewExperimentFragment().show(getSupportFragmentManager(), "ADD_EXPERIMENT"));
+
+
+        /**
+         * just a easy function to delete experiment, will be deleted in later version
+         */
+        experList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String description = dataList.get(position).description;
+                DocumentReference an_experimentReference = collectionReference.document(description);
+
+                an_experimentReference.delete();
+                experAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+
+
+    }
+
+    /**
+     * this will generate a new document of experiment on the database
+     * @param new_experiment
+     * this is the experiment that is going to be added to the database
+     */
+    public void onOkPressed(Experiment new_experiment){
+
+        HashMap<String, Object> experiment_to_add = new HashMap<>();
+        experiment_to_add.put("description", new_experiment.description);
+        experiment_to_add.put("experimentType", new_experiment.experimentType);
+        experiment_to_add.put("isEnded", false);
+        experiment_to_add.put("isPublished", true);
+        experiment_to_add.put("locationRequired", new_experiment.locationRequired);
+        experiment_to_add.put("minTrials", new_experiment.minTrials);
+        experiment_to_add.put("userName", new_experiment.getUserName());
+
+        collectionReference
+                .document(new_experiment.description)
+                .set(experiment_to_add)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("false message", "data cannot be added" + e.toString());
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("success message", "data added successfully");
+                    }
+                });
 
 
     }
