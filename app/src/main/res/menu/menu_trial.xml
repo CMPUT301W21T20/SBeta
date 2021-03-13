@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/edit_trial"
+        android:title=" Edit" />
+    <item android:id="@+id/statistics"
+        android:title="Statistics" />
+    <item android:id="@+id/ignore"
+        android:title="Ignore" />
+    <item android:id="@+id/questions"
+        android:title="Questions" />
+    <item android:id="@+id/unpublish_exp"
+        android:title="Unpulish" />
+    <item android:id="@+id/end_exp"
+        android:title="End Experiment" />
+    <item android:title="Scan Barcode"
+        android:id="@+id/scan_barcode"></item>
+</menu>

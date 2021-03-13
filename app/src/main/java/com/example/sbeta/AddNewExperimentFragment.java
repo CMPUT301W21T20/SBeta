@@ -74,7 +74,7 @@ public class AddNewExperimentFragment extends DialogFragment {
         type_list.add(type3);
         type_list.add(type4);
 
-        ArrayAdapter<String> typeList_adapter = new ArrayAdapter<String>(Objects.requireNonNull(getActivity()).getBaseContext(), android.R.layout.simple_spinner_item, type_list);
+        ArrayAdapter<String> typeList_adapter = new ArrayAdapter<String>(requireActivity().getBaseContext(), android.R.layout.simple_spinner_item, type_list);
         TypeSpinner.setAdapter(typeList_adapter);
         TypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -98,14 +98,23 @@ public class AddNewExperimentFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String description = description_view.getText().toString();
-                        String minTrials = minTrials_view.getText().toString();
-                        Experiment new_experiment = new Experiment();
-                        new_experiment.description = description;
-                        if (minTrials != "") {
-                            new_experiment.minTrials = Integer.parseInt(minTrials);
+                        String minTrialsString = minTrials_view.getText().toString();
+                        boolean locationRequired = location_required_switch.isChecked();
+                        String experimentType = selectedType;
+                        if (minTrialsString == "") {
+                            minTrialsString = "0";
                         }
-                        new_experiment.locationRequired = location_required_switch.isChecked();
-                        new_experiment.experimentType = selectedType;
+                        String userName = MainMenuActivity.logInUserName;
+
+                        Experiment new_experiment = new Experiment(
+                                description,
+                                false,
+                                true,
+                                Long.parseLong(minTrialsString),
+                                locationRequired,
+                                experimentType,
+                                description,
+                                userName);
 
                         Toast.makeText(getActivity(),"you selected " + selectedType,Toast.LENGTH_LONG).show();
                         listener.onOkPressed(new_experiment);
