@@ -75,7 +75,7 @@ public class MainMenuActivity extends AppCompatActivity {
                     Integer minTrials = 1;
                     Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
-                    String userId = (String) doc.getData().get("userId");
+                    String userId = (String) doc.getData().get("userName");
 
                     dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
