@@ -88,7 +88,8 @@ public class SearchDisplay extends AppCompatActivity {
                     Boolean isPublished = (Boolean) doc.getBoolean("isPublished");
                     Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
                     //Integer minTrials = (Integer) doc.get("minTrials");
-                    Integer minTrials = 1;
+                    //Integer minTrials = 1;
+                    long minTrials = (long) doc.getData().get("minTrials");
                     String userId = (String) doc.getData().get("userName");
 
                     if (name.toLowerCase().contains(keyword.toLowerCase()) ||
