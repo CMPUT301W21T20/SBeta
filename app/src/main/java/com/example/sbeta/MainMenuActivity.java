@@ -72,7 +72,8 @@ public class MainMenuActivity extends AppCompatActivity {
                     Boolean isEnd = (Boolean) doc.getBoolean("isEnded");
                     Boolean isPublished = (Boolean) doc.getBoolean("isPublished");
                     //Integer minTrials = (Integer) doc.get("minTrials");
-                    Integer minTrials = 1;
+                    //Integer minTrials = 1;
+                    long minTrials = (long) doc.getData().get("minTrials");
                     Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
                     String userId = (String) doc.getData().get("userName");
