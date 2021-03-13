@@ -1,5 +1,6 @@
 package com.example.sbeta;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,22 +13,24 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class TrialAdapter extends ArrayAdapter<Trial> {
-    private int resourceId;
-    public TrialAdapter(Context context, int textViewResourceId, ArrayList<Trial> objects)
-    {
-        super(context, textViewResourceId, objects);
-        resourceId = textViewResourceId;
 
+    private ArrayList<Trial> trials;
+    private Context context;
+
+    public TrialAdapter(@NonNull Context context, ArrayList<Trial> trials) {
+        super(context, 0, trials);
+        this.trials = trials;
+        this.context = context;
     }
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
-    {
-        Trial trial = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
 
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.trial_content, parent, false);
+        }
+        Trial trial = trials.get(position);
         return view;
     }
-
-
 
 
 }

@@ -59,6 +59,18 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 
         dataList = new ArrayList<>();
 
+        //enter trial list
+        experList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Experiment currentExp = dataList.get(position);
+                Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+                intent.putExtra("chosenExperiment", position);
+                startActivity(intent);
+
+            }
+        });
+
 //        User testUser = new User("123456");
 //        Experiment testExper1 = new Experiment(testUser, "this is test", "published", "Experiment A");
 //        Experiment testExper2 = new Experiment(testUser, "URUS", "published", "Car");
