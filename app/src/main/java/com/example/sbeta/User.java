@@ -9,4 +9,9 @@ public class User {
     ArrayList<Experiment> ownedExperiemnts;
 
 
+    public User(String name, String contact){
+        this.userID=name;
+        this.contactInfo=contact;
+    }
+
 }
