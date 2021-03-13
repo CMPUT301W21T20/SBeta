@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/manually_add"
-        android:title=" Manually Add" />
-    <item android:id="@+id/scan_qr_code"
-        android:title="Scan QR" />
-
-</menu>
