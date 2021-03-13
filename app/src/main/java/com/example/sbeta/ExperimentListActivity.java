@@ -73,7 +73,7 @@ public class ExperimentListActivity extends AppCompatActivity implements AddNewE
                                     (boolean) doc.getData().get("isEnded"),
                                     (boolean) doc.getData().get("isPublished"),
                                     (boolean) doc.getData().get("locationRequired"),
-                                    (String) doc.getData().get("userId"),
+                                    (String) doc.getData().get("userName"),
                                     (long) doc.getData().get("minTrials")
                             )
                     );
@@ -112,7 +112,7 @@ public class ExperimentListActivity extends AppCompatActivity implements AddNewE
         experiment_to_add.put("isPublished", true);
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
-        experiment_to_add.put("userID", Integer.toString(ID));
+        experiment_to_add.put("userName", Integer.toString(ID));
 
         experimentsReference
                 .document(new_experiment.description)

@@ -40,8 +40,6 @@ public class ExpArrayAdapter extends ArrayAdapter<Experiment>{
 
         content_name.setText(experiment.description);
 
-
-
         return view;
     }
 
