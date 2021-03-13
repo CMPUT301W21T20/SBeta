@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         userNamePrompt = findViewById(R.id.userNameField);
         loginButton = findViewById(R.id.loginbutton);
         registerButton = findViewById(R.id.registerbutton);
