@@ -41,7 +41,7 @@ public class CustomSearchList extends ArrayAdapter<Experiment> {
 
         experName.setText(result.getName());
         description.setText(result.getDescription());
-        experOwner.setText(result.getUserId());
+        experOwner.setText(result.getUserName());
         experStatus.setText(result.getStatus());
 
         return view;
