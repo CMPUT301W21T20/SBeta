@@ -26,6 +26,10 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class SearchDisplay extends AppCompatActivity {
+    ArrayList<Experiment> resultDataList;
+    ListView resultsList;
+    TextView title;
+    ArrayAdapter<Experiment> resultAdapter;
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
@@ -37,17 +41,20 @@ public class SearchDisplay extends AppCompatActivity {
         Intent intent = getIntent();
         String keyword = intent.getStringExtra("keyword");
 
-        ListView resultsList = findViewById(R.id.search_list);
-        TextView title = findViewById(R.id.search_title);
+        resultsList = findViewById(R.id.search_list);
+        title = findViewById(R.id.search_title);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("experiments");
+        
+        resultDataList = new ArrayList<>();
+        resultAdapter = new CustomSearchList(this, resultDataList);
+        resultsList.setAdapter(resultAdapter);
 
 //        User testUser = new User("123456");
 //        Experiment testExper3 = new Experiment(testUser, "GALAXY s31", "published", "Phone");
 //        Experiment testExper4 = new Experiment(testUser, "GALAXY note40", "end", "Samsung");
 //        Experiment []experiments = {testExper3, testExper4};
 //        ArrayList<Experiment> resultDataList = new ArrayList<>(Arrays.asList(experiments));
-        ArrayList<Experiment> resultDataList = new ArrayList<>();
 
 //        db.collection("experiments")
 //                .startAt(keyword)
@@ -82,7 +89,7 @@ public class SearchDisplay extends AppCompatActivity {
                     Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     Integer minTrials = 1;
-                    String userId = (String) doc.getData().get("userId");
+                    String userId = (String) doc.getData().get("userName");
 
                     if (name.toLowerCase().contains(keyword.toLowerCase()) ||
                             Objects.requireNonNull(userId).toLowerCase().contains(keyword.toLowerCase()) ||
@@ -94,13 +101,8 @@ public class SearchDisplay extends AppCompatActivity {
                     //resultDataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
                 //dataList.add(new Experiment("description", true, true, 1, false, "type", "namde", "userId"));
-                //resultAdapter.notifyDataSetChanged();
+                resultAdapter.notifyDataSetChanged();
             }
         });
-
-        ArrayAdapter<Experiment> resultAdapter = new CustomSearchList(this, resultDataList);
-        resultsList.setAdapter(resultAdapter);
-
-
     }
 }
