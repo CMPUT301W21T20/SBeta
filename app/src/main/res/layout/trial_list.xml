@@ -10,27 +10,29 @@
         android:layout_height="match_parent">
     </ListView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="50dp"
         android:id="@+id/operation_button"
         android:clickable="true"
         android:focusable="true"
         android:layout_gravity="bottom|end"
         tools:ignore="MissingClass"
-        android:onClick="showPopup">
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+        android:onClick="showPopup"
+        android:text="OPERATIONS">
+    </Button>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="50dp"
         android:id="@+id/add_trial_button"
         android:clickable="true"
         android:focusable="true"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity= "bottom"
         tools:ignore="MissingClass"
-        android:onClick="showPopup">
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+        android:onClick="showPopup"
+        android:text="ADD">
+    </Button>
 
 
 

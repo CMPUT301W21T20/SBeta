@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,18 @@ public class MainMenuActivity extends AppCompatActivity {
         final CollectionReference collectionReference = db.collection("experiments");
 
         dataList = new ArrayList<>();
+
+        //enter trial list
+        experList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Experiment currentExp = dataList.get(position);
+                Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+                intent.putExtra("chosenExperiment", position);
+                startActivity(intent);
+
+            }
+        });
 
 //        User testUser = new User("123456");
 //        Experiment testExper1 = new Experiment(testUser, "this is test", "published", "Experiment A");
