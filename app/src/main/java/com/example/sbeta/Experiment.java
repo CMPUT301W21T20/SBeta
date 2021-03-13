@@ -9,7 +9,7 @@ public class Experiment {
     String description;
     Boolean isEnded;
     Boolean isPublished;
-    Integer minTrials;
+    long minTrials;
     Boolean locationRequired;
     String experimentType;
     String status;
@@ -23,7 +23,7 @@ public class Experiment {
 //        this.name = name;
 //    }
 
-    public Experiment(String description, Boolean isEnded, Boolean isPublished, Integer minTrials, Boolean locationRequired, String experimentType, String name, String userId) {
+    public Experiment(String description, Boolean isEnded, Boolean isPublished, long minTrials, Boolean locationRequired, String experimentType, String name, String userId) {
         this.description = description;
         this.isEnded = isEnded;
         this.isPublished = isPublished;
@@ -98,7 +98,7 @@ public class Experiment {
         return isPublished;
     }
 
-    public Integer getMinTrials() {
+    public long getMinTrials() {
         return minTrials;
     }
 
