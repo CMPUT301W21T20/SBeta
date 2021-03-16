@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -32,6 +33,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
 
@@ -65,7 +68,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Experiment currentExp = dataList.get(position);
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
-                intent.putExtra("chosenExperiment", position);
+                intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
                 startActivity(intent);
 
             }
@@ -156,7 +159,11 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
      * @param new_experiment
      * this is the experiment that is going to be added to the database
      */
+
+    @Override
     public void onOkPressed(Experiment new_experiment){
+
+        List<Map<String, Object>> trials = new ArrayList<>();
 
         HashMap<String, Object> experiment_to_add = new HashMap<>();
         experiment_to_add.put("description", new_experiment.description);
@@ -166,6 +173,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
         experiment_to_add.put("userName", new_experiment.getUserName());
+
+        experiment_to_add.put("trials", trials);
 
         collectionReference
                 .document(new_experiment.description)
@@ -183,6 +192,11 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     }
                 });
 
+    }
+
+    @Override
+    public void onOkPressed() {
 
     }
+
 }

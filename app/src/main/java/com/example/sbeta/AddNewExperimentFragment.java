@@ -35,6 +35,7 @@ public class AddNewExperimentFragment extends DialogFragment {
     String type3 = "Non-negative integer counts";
     String type4 = "Measurement trials";
     String selectedType;
+    Experiment chosenExperiment = null;
 
     public AddNewExperimentFragment() {
 
@@ -42,6 +43,7 @@ public class AddNewExperimentFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment new_experiment);
+        void onOkPressed();
     }
 
     @Override
@@ -88,38 +90,39 @@ public class AddNewExperimentFragment extends DialogFragment {
             }
         });
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        return builder
-                .setView(view)
-                .setTitle("add new experiment")
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String description = description_view.getText().toString();
-                        String minTrialsString = minTrials_view.getText().toString();
-                        boolean locationRequired = location_required_switch.isChecked();
-                        String experimentType = selectedType;
-                        if (minTrialsString == "") {
-                            minTrialsString = "0";
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            return builder
+                    .setView(view)
+                    .setTitle("add new experiment")
+                    .setNegativeButton("Cancel", null)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String description = description_view.getText().toString();
+                            String minTrialsString = minTrials_view.getText().toString();
+                            boolean locationRequired = location_required_switch.isChecked();
+                            String experimentType = selectedType;
+                            if (minTrialsString == "") {
+                                minTrialsString = "0";
+                            }
+                            String userName = MainMenuActivity.logInUserName;
+
+                            Experiment new_experiment = new Experiment(
+                                    description,
+                                    false,
+                                    true,
+                                    Long.parseLong(minTrialsString),
+                                    locationRequired,
+                                    experimentType,
+                                    description,
+                                    userName);
+
+                            Toast.makeText(getActivity(), "you selected " + selectedType, Toast.LENGTH_LONG).show();
+                            listener.onOkPressed(new_experiment);
                         }
-                        String userName = MainMenuActivity.logInUserName;
+                    }).create();
 
-                        Experiment new_experiment = new Experiment(
-                                description,
-                                false,
-                                true,
-                                Long.parseLong(minTrialsString),
-                                locationRequired,
-                                experimentType,
-                                description,
-                                userName);
-
-                        Toast.makeText(getActivity(),"you selected " + selectedType,Toast.LENGTH_LONG).show();
-                        listener.onOkPressed(new_experiment);
-                    }
-                }).create();
     }
 
 

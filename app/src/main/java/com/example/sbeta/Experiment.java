@@ -15,6 +15,7 @@ public class Experiment {
     String status;
     String name;
     String userName;
+    ArrayList<Trial> ignoreTrials;
 
 //    public Experiment(User owner, String description, String status, String name) {
 //        this.owner = owner;
@@ -77,6 +78,10 @@ public class Experiment {
 
     public ArrayList<Trial> getTrials() {
         return trials;
+    }
+
+    public ArrayList<Trial> getIgnoreTrials() {
+        return ignoreTrials;
     }
 
     public User getOwner() {

@@ -26,7 +26,9 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial_list);
-        //Intent intent = getIntent();
+        Intent intent = getIntent();
+        String expType = intent.getStringExtra("ExperimentType").toString();
+
 
         trialList = findViewById(R.id.trial_list);
         trialDataList = new ArrayList<>();
@@ -87,9 +89,16 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 Toast.makeText(TrialActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+
                                 switch (item.getItemId()) {
                                     case R.id.manually_add:
-                                        //do your code
+                                        if (expType == "Binomial trials") {
+                                            Intent intent = new Intent(TrialActivity.this, AddBinomialTrial.class);
+                                        }
+                                        else {
+                                            Intent intent = new Intent(TrialActivity.this, AddCountTrial.class);
+                                        }
+                                        startActivity(intent);
                                         return true;
                                     case R.id.scan_qr_code:
                                         // do your code
@@ -107,42 +116,6 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         operationButton.setOnClickListener(listener);
         addButton.setOnClickListener(listener);
-
-        /*
-
-
-        operationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(TrialActivity.this, v);
-                popup.getMenuInflater().inflate(R.menu.operation_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        return false;
-                    }
-                });
-                //popup.setOnMenuItemClickListener(TrialActivity.this);
-                //popup.inflate(R.menu.operation_menu);
-                popup.show();
-            }
-        });
-
-
-        Button addButton = (Button) findViewById(R.id.add_trial_button);
-
-        operationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(TrialActivity.this, v);
-                popup.setOnMenuItemClickListener(TrialActivity.this);
-                popup.inflate(R.menu.add_option);
-                popup.show();
-            }
-        });
-
-         */
-
 
     }
 
