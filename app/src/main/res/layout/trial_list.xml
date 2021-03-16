@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ListView
+        android:id="@+id/trial_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:id="@+id/operation_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="bottom|end"
+        tools:ignore="MissingClass"
+        android:onClick="showPopup"
+        android:text="OPERATIONS">
+    </Button>
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:id="@+id/add_trial_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity= "bottom"
+        tools:ignore="MissingClass"
+        android:onClick="showPopup"
+        android:text="ADD">
+    </Button>
+
+
+
+
+</FrameLayout>
