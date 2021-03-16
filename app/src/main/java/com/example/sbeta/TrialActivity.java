@@ -27,6 +27,8 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial_list);
         //Intent intent = getIntent();
+        Intent intent = getIntent();
+        String trialListTittle = intent.getStringExtra("chosenExperiment");
 
         trialList = findViewById(R.id.trial_list);
         trialDataList = new ArrayList<>();
@@ -62,7 +64,9 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         // do your code
                                         return true;
                                     case R.id.questions:
-                                        // do your code
+                                        Intent intent = new Intent(TrialActivity.this, showQuestion.class);
+                                        intent.putExtra("chosenExperiment", trialListTittle);
+                                        startActivity(intent);
                                         return true;
                                     case R.id.unpublish_exp:
                                         // do your code
