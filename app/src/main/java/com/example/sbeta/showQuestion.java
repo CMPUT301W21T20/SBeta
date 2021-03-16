@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -48,26 +49,23 @@ public class showQuestion extends AppCompatActivity {
         addQuestion = findViewById(R.id.add_question_button);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("experiments");
+        final DocumentReference experiment = collectionReference.document(title);
+        final CollectionReference questions = experiment.collection("questions");
 
         questionDataList = new ArrayList<>();
         questionAdapter = new CustomQuestionList(this, questionDataList);
         questionList.setAdapter(questionAdapter);
 
         // get data from firebase
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        questions.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 questionDataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
-                    Log.d(TAG, String.valueOf(doc.getData().get("description")));
+                    Log.d(TAG, String.valueOf(doc.getData().get("content")));
                     String name = doc.getId();
-                    ArrayList<String> questions = (ArrayList<String>) doc.get("questions");
-
-                    if (name.equals(title) && questions != null) {
-                        questionDataList.addAll(questions);
-                        break;
-                    }
+                    questionDataList.add(name);
                 }
                 questionAdapter.notifyDataSetChanged();
             }
