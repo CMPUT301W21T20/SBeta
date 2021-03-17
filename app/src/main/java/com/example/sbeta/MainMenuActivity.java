@@ -4,19 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,9 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
@@ -41,6 +39,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     ArrayList<Experiment> dataList;
     Button searchButton;
     EditText searchWord;
+    ImageButton userProfile;
     static String logInUserName;
     CollectionReference collectionReference;
 
@@ -51,14 +50,25 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         final String TAG = "Sample";
         FirebaseFirestore db;
         logInUserName = getIntent().getStringExtra("userName");
+        String userID = getIntent().getStringExtra("userID");
 
         experList = findViewById(R.id.exper_list);
         searchButton = findViewById(R.id.search_button);
         searchWord = findViewById(R.id.searchKeyWord);
+        userProfile = findViewById(R.id.user_profile);
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("experiments");
 
         dataList = new ArrayList<>();
+
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentUserProfile = new Intent(MainMenuActivity.this, UserProfileActivity.class);
+                intentUserProfile.putExtra("userID", userID);
+                startActivity(intentUserProfile);
+            }
+        });
 
         //enter trial list
         experList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
