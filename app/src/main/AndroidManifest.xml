@@ -9,7 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SBeta">
-        <activity android:name=".TrialActivity"></activity>
+        <activity
+            android:name=".addQuestion"
+            android:label="@string/title_activity_add_question"
+            android:theme="@style/Theme.SBeta.NoActionBar"></activity>
+        <activity
+            android:name=".showQuestion"
+            android:label="@string/title_activity_show_question"
+            android:theme="@style/Theme.SBeta.NoActionBar" />
+        <activity android:name=".TrialActivity" />
         <activity android:name=".SearchDisplay" />
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".MainActivity">
@@ -18,9 +26,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
     </application>
 
 </manifest>
