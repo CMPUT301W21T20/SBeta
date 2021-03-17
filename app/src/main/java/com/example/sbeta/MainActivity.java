@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(MainActivity.this, "make config", Toast.LENGTH_LONG).show();
                     userID = makeConfigFile(getApplicationContext());
                     HashMap<String, String> data = new HashMap<>();
                     DocumentReference docRef = db.collection("users").document(userID);
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
-                                data.put("username", "New User");
+                                data.put("userName", "New User");
                                 data.put("contact", "unknown");
                                 usersReference
                                         .document(finalUserID1)
