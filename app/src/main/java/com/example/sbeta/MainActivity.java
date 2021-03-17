@@ -82,74 +82,54 @@ public class MainActivity extends AppCompatActivity {
         goToMenu = findViewById(R.id.menu_button);
         final CollectionReference usersReference = db.collection("users");
 
-        String userID = readConfigFile(getApplicationContext());
-        if (userID != "") {
-            DocumentReference docRef = db.collection("users").document(userID);
-            String finalUserID = userID;
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            String userName = (String) document.getData().get("userName");
-                            Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
-                            intent.putExtra("userID", finalUserID);
-                            intent.putExtra("userName", userName);
-                            MainActivity.this.startActivity(intent);
-                        }
-                    }
-                }
-            });
-        } else {
-            Toast.makeText(MainActivity.this, "make config", Toast.LENGTH_LONG).show();
-            userID = makeConfigFile(getApplicationContext());
-            HashMap<String, String> data = new HashMap<>();
-            DocumentReference docRef = db.collection("users").document(userID);
-            String finalUserID1 = userID;
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        data.put("username", "New User");
-                        data.put("contact", "unknown");
-                        usersReference
-                                .document(finalUserID1)
-                                .set(data);
-                        Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
-                        intent.putExtra("userID", finalUserID1);
-                        intent.putExtra("userName", "New User");
-                        MainActivity.this.startActivity(intent);
-                    }
-                }
-            });
-        }
 
-        String finalUserID2 = userID;
+
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> data = new HashMap<>();
-                DocumentReference docRef = db.collection("users").document(finalUserID2);
-                String finalUserID1 = finalUserID2;
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            data.put("username", "New User");
-                            data.put("contact", "unknown");
-                            usersReference
-                                    .document(finalUserID1)
-                                    .set(data);
-                            Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
-                            intent.putExtra("userID", finalUserID1);
-                            intent.putExtra("userName", "New User");
-                            MainActivity.this.startActivity(intent);
+                String userID = readConfigFile(getApplicationContext());
+                if (userID != "") {
+                    DocumentReference docRef = db.collection("users").document(userID);
+                    String finalUserID = userID;
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    String userName = (String) document.getData().get("userName");
+                                    Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
+                                    intent.putExtra("userID", finalUserID);
+                                    intent.putExtra("userName", userName);
+                                    MainActivity.this.startActivity(intent);
+                                }
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(MainActivity.this, "make config", Toast.LENGTH_LONG).show();
+                    userID = makeConfigFile(getApplicationContext());
+                    HashMap<String, String> data = new HashMap<>();
+                    DocumentReference docRef = db.collection("users").document(userID);
+                    String finalUserID1 = userID;
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                data.put("username", "New User");
+                                data.put("contact", "unknown");
+                                usersReference
+                                        .document(finalUserID1)
+                                        .set(data);
+                                Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
+                                intent.putExtra("userID", finalUserID1);
+                                intent.putExtra("userName", "New User");
+                                MainActivity.this.startActivity(intent);
+                            }
+                        }
+                    });
+                }
 
             }
         });
