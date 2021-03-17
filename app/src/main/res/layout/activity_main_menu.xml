@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:translationY="40dp"
+        app:srcCompat="@drawable/ic_baseline_account_box_24" />
+
     <EditText
         android:id="@+id/searchKeyWord"
         android:layout_width="238dp"
