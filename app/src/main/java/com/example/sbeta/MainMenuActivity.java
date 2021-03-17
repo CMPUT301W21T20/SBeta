@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -66,9 +67,13 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Experiment currentExp = dataList.get(position);
+                String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
+
+                intent.putExtra("chosenExperiment", name);
+
                 startActivity(intent);
 
             }
@@ -163,8 +168,6 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     @Override
     public void onOkPressed(Experiment new_experiment){
 
-        List<Map<String, Object>> trials = new ArrayList<>();
-
         HashMap<String, Object> experiment_to_add = new HashMap<>();
         experiment_to_add.put("description", new_experiment.description);
         experiment_to_add.put("experimentType", new_experiment.experimentType);
@@ -173,8 +176,6 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
         experiment_to_add.put("userName", new_experiment.getUserName());
-
-        experiment_to_add.put("trials", trials);
 
         collectionReference
                 .document(new_experiment.description)

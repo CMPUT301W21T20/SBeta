@@ -1,8 +1,8 @@
 package com.example.sbeta;
 
 import android.location.Location;
-public class measurementTrial {
-    Double measure;
-    User participant;
-    Location location;
+public class measurementTrial extends Trial {
+    public measurementTrial(double result, String participant, Location location) {
+        super(result, participant, location);
+    }
 }

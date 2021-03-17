@@ -1,8 +1,15 @@
 package com.example.sbeta;
 
-public interface Trial {
-    String getUserName();
-    String getData();
-    String getLocation();
+import android.location.Location;
 
+public abstract class Trial {
+    double result;
+    String participant;
+    Location location;
+
+    public Trial(double result, String participant, Location location) {
+        this.result = result;
+        this.participant = participant;
+        this.location = location;
+    }
 }
