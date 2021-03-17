@@ -50,8 +50,13 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
+                                /*
                                 Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
                                 intent.putExtra("userName", userName);
+                                MainActivity.this.startActivity(intent);
+                                */
+                                Intent intent=new Intent(MainActivity.this,SearchUserActivity.class);
+                                intent.putExtra("username",userName);
                                 MainActivity.this.startActivity(intent);
                             }
                             else {
@@ -85,8 +90,13 @@ public class MainActivity extends AppCompatActivity {
                                 usersReference
                                         .document(userName)
                                         .set(data);
+                                /*
                                 Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
                                 intent.putExtra("userName", userName);
+                                MainActivity.this.startActivity(intent);
+                                */
+                                Intent intent=new Intent(MainActivity.this,SearchUserActivity.class);
+                                intent.putExtra("username:",userName);
                                 MainActivity.this.startActivity(intent);
                             }
                         }

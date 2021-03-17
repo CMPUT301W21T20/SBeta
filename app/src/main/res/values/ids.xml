@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <item name="display" type="id" />
+    <item name="UserName" type="id" />
+    <item name="UserContact" type="id" />
+    <item name="searchkey" type="id" />
+    <item name="okbutton" type="id" />
+    <item name="display_username" type="id" />
+</resources>

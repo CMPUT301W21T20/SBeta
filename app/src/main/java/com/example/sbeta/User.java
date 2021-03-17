@@ -12,6 +12,11 @@ public class User {
         this.userID = userID;
     }
 
+    public User(String userID, String contactInfo){
+        this.userID=userID;
+        this.contactInfo=contactInfo;
+    }
+
     public String getUserID() {
         return userID;
     }
