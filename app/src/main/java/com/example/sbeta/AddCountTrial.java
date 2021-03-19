@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,13 +28,15 @@ public class AddCountTrial extends AppCompatActivity {
         setContentView(R.layout.activity_add_count_trial);
 
         Button selectLocation = findViewById(R.id.location_count);
+        EditText data = findViewById(R.id.count_data);
         TextView userName = findViewById(R.id.user_name_count);
         Button confirmButton = findViewById(R.id.confirm_button_count);
         Button cancelButton = findViewById(R.id.cancel_button_count);
-        EditText data = findViewById(R.id.count_data);
+        String userId = getIntent().getStringExtra("userID");
+        String name = getIntent().getStringExtra("userName");
 
-        String userId = getIntent().getStringExtra("userName");
-        userName.setText(userId);
+        userName.setText(name);
+        /*
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("experiments");
@@ -52,15 +56,23 @@ public class AddCountTrial extends AppCompatActivity {
             public void onClick(View v) {
                 CollectionReference trials = experiment.collection("trials");
                 HashMap<String, Object> trial_to_add = new HashMap<>();
-                String result = data.getText().toString();
 
+                boolean result;
+                if (success.isChecked()) {
+                    result = true;
+                }
+                else {
+                    result = false;
+                }
 
-                trial_to_add.put("user name", userId);
+                trial_to_add.put("user id", userId);
                 //trial_to_add.put("location", location);
                 trial_to_add.put("result", result);
                 //trial_to_add.put("date", date);
                 trial_to_add.put("trial id", trialId);
+
                 String trialName = "trial "+ trialId;
+
                 trials
                         .document(trialName)
                         .set(trial_to_add)
@@ -80,5 +92,9 @@ public class AddCountTrial extends AppCompatActivity {
             }
         });
 
+         */
+
     }
+
+
 }

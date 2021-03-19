@@ -35,16 +35,16 @@ public class AddBinomialTrial extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_binomial_trial);
-
         Button selectLocation = findViewById(R.id.location);
         CheckBox success = findViewById(R.id.success);
         CheckBox failure = findViewById(R.id.failure);
         TextView userName = findViewById(R.id.user_name_binomial);
         Button confirmButton = findViewById(R.id.confirm_button);
         Button cancelButton = findViewById(R.id.cancel_button);
-        String userId = getIntent().getStringExtra("userName");
+        String userId = getIntent().getStringExtra("userID");
+        String name = getIntent().getStringExtra("userName");
 
-        userName.setText(userId);
+        userName.setText(name);
 
         //selectLocation.setOnClickListener();
 
@@ -99,7 +99,7 @@ public class AddBinomialTrial extends AppCompatActivity {
                     result = false;
                 }
 
-                trial_to_add.put("user name", userId);
+                trial_to_add.put("user id", userId);
                 //trial_to_add.put("location", location);
                 trial_to_add.put("result", result);
                 //trial_to_add.put("date", date);

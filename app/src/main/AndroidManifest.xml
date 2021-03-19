@@ -17,6 +17,8 @@
             android:name=".addQuestion"
             android:label="@string/title_activity_add_question"
             android:theme="@style/Theme.SBeta.NoActionBar"></activity>
+        <activity android:name=".UserProfileActivity"></activity>
+
         <activity
             android:name=".showQuestion"
             android:label="@string/title_activity_show_question"

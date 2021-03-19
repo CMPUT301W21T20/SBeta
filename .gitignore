@@ -5,6 +5,8 @@
 # Created by https://www.gitignore.io/api/androidstudio
 # Edit at https://www.gitignore.io/?templates=androidstudio
 
+local.properties
+
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
 
