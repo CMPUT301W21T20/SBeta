@@ -33,6 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * this is the fragment of adding a new experiment
+ */
 public class AddNewExperimentFragment extends DialogFragment {
 
     private OnFragmentInteractionListener listener;
@@ -86,6 +89,7 @@ public class AddNewExperimentFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_experiment_fragment, null);
         isCorrect = true;
         nameRepeated = false;
+        ExprNameArray = new ArrayList<>();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference ExprReference = db.collection("experiments");
@@ -154,11 +158,11 @@ public class AddNewExperimentFragment extends DialogFragment {
                             isCorrect = false;
                         }
 
-                        if(ExprNameArray.contains(ExprNameArray)){
+                        if(ExprNameArray.contains(description)){
                             nameRepeated = true;
                         }
 
-                        if (isCorrect) {
+                        if (isCorrect && nameRepeated == false) {
                             String userName = MainMenuActivity.logInUserName;
                             Experiment new_experiment = new Experiment(
                                     description,
