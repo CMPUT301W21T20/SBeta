@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * ArrayAdapter for displaying search results of experiments
+ */
 public class CustomSearchList extends ArrayAdapter<Experiment> {
 
     private ArrayList<Experiment> searchResults;

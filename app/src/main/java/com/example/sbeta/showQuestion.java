@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * This activity enables the "question forum" of experiments
+ */
 public class showQuestion extends AppCompatActivity {
     ArrayList<String> questionDataList;
     ListView questionList;

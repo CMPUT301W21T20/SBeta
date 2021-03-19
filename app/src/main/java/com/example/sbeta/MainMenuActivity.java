@@ -32,6 +32,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Main menu acitvity of our program
+ * A list of experimetns is showed here, and also the search funtion
+ * and the User profile
+ */
 public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
 
     ListView experList;

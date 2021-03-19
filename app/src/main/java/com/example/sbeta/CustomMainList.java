@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * ArrayAdapter for displaying all experiments in the main menu page
+ */
 public class CustomMainList extends ArrayAdapter<Experiment> {
 
     private ArrayList<Experiment> experiments;

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * ArrayAdapter for displaying questions in the forum for an experiment
+ */
 public class CustomQuestionList extends ArrayAdapter<String> {
 
     private ArrayList<String> questions;

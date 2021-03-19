@@ -15,6 +15,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * An arraryAdapter for displaying experiments
+ */
 public class ExpArrayAdapter extends ArrayAdapter<Experiment>{
 
 

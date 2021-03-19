@@ -111,6 +111,11 @@ public class Experiment {
         return experimentType;
     }
 
+    /**
+     * Get the status of current experiment
+     * @return
+     *   String: "Ended", "Unpublished", or "Published"
+     */
     public String getStatus() {
         if (isEnded == true) {
             return "Ended";
