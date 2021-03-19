@@ -50,6 +50,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'com.android.support:multidex:1.0.3' //enter the latest version
+    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
 }
 android {
     defaultConfig {

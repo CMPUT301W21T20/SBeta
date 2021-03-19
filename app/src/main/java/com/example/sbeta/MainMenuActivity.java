@@ -41,6 +41,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
+    String userID;
     CollectionReference collectionReference;
 
     @Override
@@ -50,7 +51,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         final String TAG = "Sample";
         FirebaseFirestore db;
         logInUserName = getIntent().getStringExtra("userName");
-        String userID = getIntent().getStringExtra("userID");
+        userID = getIntent().getStringExtra("userID");
 
         experList = findViewById(R.id.exper_list);
         searchButton = findViewById(R.id.search_button);
@@ -177,6 +178,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
         experiment_to_add.put("userName", new_experiment.getUserName());
+        experiment_to_add.put("userID", userID);
+
 
         collectionReference
                 .document(new_experiment.description)
