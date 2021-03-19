@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="description (max: 40 characters)"
+        android:hint="user name"
         android:maxLength="40"
         android:inputType="text" />
 
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="date (yyyy-mm-dd)"
+        android:hint="contact info"
         android:inputType="date" />
 
 </LinearLayout>
