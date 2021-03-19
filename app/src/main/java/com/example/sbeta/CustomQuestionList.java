@@ -18,8 +18,8 @@ import javax.annotation.Nullable;
  */
 public class CustomQuestionList extends ArrayAdapter<String> {
 
-    private ArrayList<String> questions;
-    private Context context;
+    private final ArrayList<String> questions;
+    private final Context context;
 
     public CustomQuestionList(Context context, ArrayList<String> questions) {
         super(context, 0, questions);

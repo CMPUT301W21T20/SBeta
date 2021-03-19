@@ -18,8 +18,8 @@ import javax.annotation.Nullable;
  */
 public class CustomMainList extends ArrayAdapter<Experiment> {
 
-    private ArrayList<Experiment> experiments;
-    private Context context;
+    private final ArrayList<Experiment> experiments;
+    private final Context context;
 
     public CustomMainList(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);

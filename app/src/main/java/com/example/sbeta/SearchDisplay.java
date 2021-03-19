@@ -84,9 +84,9 @@ public class SearchDisplay extends AppCompatActivity {
                     String name = doc.getId();
                     String description = (String) doc.getData().get("description");
                     String type = (String) doc.getData().get("experimentType");
-                    Boolean isEnd = (Boolean) doc.getBoolean("isEnded");
-                    Boolean isPublished = (Boolean) doc.getBoolean("isPublished");
-                    Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
+                    Boolean isEnd = doc.getBoolean("isEnded");
+                    Boolean isPublished = doc.getBoolean("isPublished");
+                    Boolean locationRequired = doc.getBoolean("locationRequired");
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     //Integer minTrials = 1;
                     long minTrials = (long) doc.getData().get("minTrials");

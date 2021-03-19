@@ -19,8 +19,8 @@ import java.util.ArrayList;
  */
 public class CustomSearchList extends ArrayAdapter<Experiment> {
 
-    private ArrayList<Experiment> searchResults;
-    private Context context;
+    private final ArrayList<Experiment> searchResults;
+    private final Context context;
 
     public CustomSearchList(Context context, ArrayList<Experiment> searchResults) {
         super(context, 0, searchResults);

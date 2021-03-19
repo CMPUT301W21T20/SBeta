@@ -71,12 +71,7 @@ public class User {
      *   false otherwise
      */
     public boolean checkSubscribed(Experiment experiment) {
-        if (this.subscribedExperiments.contains(experiment)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.subscribedExperiments.contains(experiment);
     }
 
 }

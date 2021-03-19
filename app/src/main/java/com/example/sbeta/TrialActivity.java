@@ -38,8 +38,8 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         trialList.setAdapter(trialArrayAdapter);
 
 
-        Button operationButton = (Button) findViewById(R.id.operation_button);
-        Button addButton = (Button) findViewById(R.id.add_trial_button);
+        Button operationButton = findViewById(R.id.operation_button);
+        Button addButton = findViewById(R.id.add_trial_button);
 
 
         View.OnClickListener listener = new View.OnClickListener() {
