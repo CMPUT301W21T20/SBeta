@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_show_question">showQuestion</string>
     <string name="title_activity_add_question">addQuestion</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
 </resources>
