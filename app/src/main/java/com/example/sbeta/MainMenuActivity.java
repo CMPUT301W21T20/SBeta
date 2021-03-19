@@ -81,6 +81,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+                intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
                 startActivity(intent);
 

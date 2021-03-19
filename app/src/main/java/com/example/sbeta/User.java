@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+import com.google.type.Expr;
+
 import java.util.ArrayList;
 
 /**
@@ -59,6 +61,22 @@ public class User {
     public void addsubscribedExperimetns (Experiment newExp) {
         this.subscribedExperiments.add(newExp);
         return;
+    }
+
+    /**
+     * Check if a particular experiment is subsribed by this user
+     * @param experiment
+     * @return
+     *   true if this experiment is subscribed by this user,
+     *   false otherwise
+     */
+    public boolean checkSubscribed(Experiment experiment) {
+        if (this.subscribedExperiments.contains(experiment)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

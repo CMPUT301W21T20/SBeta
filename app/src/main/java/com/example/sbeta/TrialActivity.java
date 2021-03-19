@@ -29,6 +29,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         //Intent intent = getIntent();
         Intent intent = getIntent();
         String trialListTittle = intent.getStringExtra("chosenExperiment");
+        String userID = intent.getStringExtra("userID");
 
         trialList = findViewById(R.id.trial_list);
         trialDataList = new ArrayList<>();
