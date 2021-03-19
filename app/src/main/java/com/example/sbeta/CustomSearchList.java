@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// custom search results list
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;

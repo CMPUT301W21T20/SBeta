@@ -34,8 +34,7 @@ import java.util.HashMap;
 
 /**
  * Main menu acitvity of our program
- * A list of experimetns is showed here, and also the search funtion
- * and the User profile
+ * this is the main page that shows the experiments , user profile and searching box
  */
 public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
 
@@ -46,6 +45,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
+    String userID;
     CollectionReference collectionReference;
 
     @Override
@@ -55,7 +55,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         final String TAG = "Sample";
         FirebaseFirestore db;
         logInUserName = getIntent().getStringExtra("userName");
-        String userID = getIntent().getStringExtra("userID");
+        userID = getIntent().getStringExtra("userID");
 
         experList = findViewById(R.id.exper_list);
         searchButton = findViewById(R.id.search_button);
@@ -119,7 +119,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 
                     dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
-                //dataList.add(new Experiment("description", true, true, 1, false, "type", "namde", "userId"));
+                //dataList.add(new Experiment("description", true, true, 1, false, "type", "name", "userId"));
                 experAdapter.notifyDataSetChanged();
             }
         });
@@ -183,6 +183,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
         experiment_to_add.put("userName", new_experiment.getUserName());
+        experiment_to_add.put("userID", userID);
+
 
         collectionReference
                 .document(new_experiment.description)

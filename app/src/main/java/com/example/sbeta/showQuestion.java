@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// This is an activity that show question list
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;

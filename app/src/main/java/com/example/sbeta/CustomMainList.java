@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// custom main list
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import javax.annotation.Nullable;
 
 /**
  * ArrayAdapter for displaying all experiments in the main menu page
+ * custom main list
  */
 public class CustomMainList extends ArrayAdapter<Experiment> {
 

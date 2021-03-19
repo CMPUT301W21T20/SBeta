@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// This is an activity that show the search results
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * This is an activity that show the search results
+ */
 public class SearchDisplay extends AppCompatActivity {
     ArrayList<Experiment> resultDataList;
     ListView resultsList;

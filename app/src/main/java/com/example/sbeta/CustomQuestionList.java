@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// custom question list
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
