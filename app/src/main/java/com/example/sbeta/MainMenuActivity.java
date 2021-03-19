@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Main menu acitvity of our program
  * this is the main page that shows the experiments , user profile and searching box
  */
 public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
@@ -80,6 +81,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+                intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
                 startActivity(intent);
 
@@ -106,12 +108,12 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     Log.d(TAG, String.valueOf(doc.getData().get("description")));
                     String name = doc.getId();
                     String description = (String) doc.getData().get("description");
-                    Boolean isEnd = (Boolean) doc.getBoolean("isEnded");
-                    Boolean isPublished = (Boolean) doc.getBoolean("isPublished");
+                    Boolean isEnd = doc.getBoolean("isEnded");
+                    Boolean isPublished = doc.getBoolean("isPublished");
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     //Integer minTrials = 1;
                     long minTrials = (long) doc.getData().get("minTrials");
-                    Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
+                    Boolean locationRequired = doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
                     String userId = (String) doc.getData().get("userName");
 

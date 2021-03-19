@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class TrialAdapter extends ArrayAdapter<Trial> {
 
-    private ArrayList<Trial> trials;
-    private Context context;
+    private final ArrayList<Trial> trials;
+    private final Context context;
 
     public TrialAdapter(@NonNull Context context, ArrayList<Trial> trials) {
         super(context, 0, trials);

@@ -208,9 +208,9 @@ public class Experiment {
     }
 
     /**
-     * This returns status
+     * Get the status of current experiment
      * @return
-     *      Return status
+     *   String: "Ended", "Unpublished", or "Published"
      */
     public String getStatus() {
         if (isEnded == true) {

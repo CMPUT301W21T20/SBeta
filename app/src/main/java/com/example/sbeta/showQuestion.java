@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * This is an activity that show question list
+ * This activity enables the "question forum" of experiments
  */
 public class showQuestion extends AppCompatActivity {
     ArrayList<String> questionDataList;

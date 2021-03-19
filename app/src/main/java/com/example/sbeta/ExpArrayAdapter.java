@@ -15,11 +15,14 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * An arraryAdapter for displaying experiments
+ */
 public class ExpArrayAdapter extends ArrayAdapter<Experiment>{
 
 
-    private ArrayList<Experiment> experiments;
-    private Context context;
+    private final ArrayList<Experiment> experiments;
+    private final Context context;
 
     public ExpArrayAdapter(Context context, ArrayList<Experiment> experiments) {
         super(context,0,experiments);
