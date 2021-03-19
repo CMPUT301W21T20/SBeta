@@ -114,7 +114,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 
                     dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
-                //dataList.add(new Experiment("description", true, true, 1, false, "type", "namde", "userId"));
+                //dataList.add(new Experiment("description", true, true, 1, false, "type", "name", "userId"));
                 experAdapter.notifyDataSetChanged();
             }
         });

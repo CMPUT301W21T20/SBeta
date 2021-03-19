@@ -27,25 +27,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f83b69e-ff07-4ea0-9494-cddd3230cd0e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/addQuestionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/addQuestionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/searchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/searchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomMainList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomMainList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomQuestionList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomQuestionList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomSearchList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomSearchList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/Experiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/SearchDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/SearchDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/addQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/addQuestion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/showQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/showQuestion.java" afterDir="false" />
-    </list>
+    <list default="true" id="9f83b69e-ff07-4ea0-9494-cddd3230cd0e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[8KE0219404008618]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -210,25 +198,33 @@
     </state>
     <state x="0" y="28" width="1439" height="787" key="AndroidCreateResourceFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1615101224222" />
     <state x="0" y="49" key="AndroidCreateResourceFileDialog/0.25.1440.787@0.25.1440.787" timestamp="1615194321827" />
-    <state width="1398" height="181" key="GridCell.Tab.0.bottom" timestamp="1616141124421">
-      <screen x="0" y="25" width="1440" height="805" />
+    <state width="1364" height="198" key="GridCell.Tab.0.bottom" timestamp="1616145234895">
+      <screen x="0" y="25" width="1440" height="791" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.bottom/0.25.1440.787@0.25.1440.787" timestamp="1615450830093" />
+    <state width="1364" height="198" key="GridCell.Tab.0.bottom/0.25.1440.791@0.25.1440.791" timestamp="1616145234895" />
+    <state width="1254" height="198" key="GridCell.Tab.0.bottom/0.25.1440.794@0.25.1440.794" timestamp="1616145169462" />
     <state width="1398" height="181" key="GridCell.Tab.0.bottom/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
-    <state width="1398" height="181" key="GridCell.Tab.0.center" timestamp="1616141124421">
-      <screen x="0" y="25" width="1440" height="805" />
+    <state width="1364" height="198" key="GridCell.Tab.0.center" timestamp="1616145234894">
+      <screen x="0" y="25" width="1440" height="791" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.center/0.25.1440.787@0.25.1440.787" timestamp="1615450830092" />
+    <state width="1364" height="198" key="GridCell.Tab.0.center/0.25.1440.791@0.25.1440.791" timestamp="1616145234894" />
+    <state width="1254" height="198" key="GridCell.Tab.0.center/0.25.1440.794@0.25.1440.794" timestamp="1616145169461" />
     <state width="1398" height="181" key="GridCell.Tab.0.center/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
-    <state width="1398" height="181" key="GridCell.Tab.0.left" timestamp="1616141124420">
-      <screen x="0" y="25" width="1440" height="805" />
+    <state width="1364" height="198" key="GridCell.Tab.0.left" timestamp="1616145234894">
+      <screen x="0" y="25" width="1440" height="791" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.left/0.25.1440.787@0.25.1440.787" timestamp="1615450830092" />
+    <state width="1364" height="198" key="GridCell.Tab.0.left/0.25.1440.791@0.25.1440.791" timestamp="1616145234894" />
+    <state width="1254" height="198" key="GridCell.Tab.0.left/0.25.1440.794@0.25.1440.794" timestamp="1616145169460" />
     <state width="1398" height="181" key="GridCell.Tab.0.left/0.25.1440.805@0.25.1440.805" timestamp="1616141124420" />
-    <state width="1398" height="181" key="GridCell.Tab.0.right" timestamp="1616141124421">
-      <screen x="0" y="25" width="1440" height="805" />
+    <state width="1364" height="198" key="GridCell.Tab.0.right" timestamp="1616145234895">
+      <screen x="0" y="25" width="1440" height="791" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.right/0.25.1440.787@0.25.1440.787" timestamp="1615450830093" />
+    <state width="1364" height="198" key="GridCell.Tab.0.right/0.25.1440.791@0.25.1440.791" timestamp="1616145234895" />
+    <state width="1254" height="198" key="GridCell.Tab.0.right/0.25.1440.794@0.25.1440.794" timestamp="1616145169461" />
     <state width="1398" height="181" key="GridCell.Tab.0.right/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
     <state x="308" y="165" key="IDE.errors.dialog" timestamp="1615095754113">
       <screen x="0" y="25" width="1440" height="787" />
