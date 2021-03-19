@@ -40,7 +40,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         setContentView(R.layout.trial_list);
 
         Intent intent = getIntent();
-        String expType = intent.getStringExtra("ExperimentType").toString();
+        String expType = intent.getStringExtra("ExperimentType");
         String currentUser = intent.getStringExtra("userID");
         String name = intent.getStringExtra("userName");
 
@@ -78,9 +78,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 for(QueryDocumentSnapshot doc: value) {
                     if (expType.equals("Binomial trials")) {
                         String userName = (String) doc.getData().get("user id");
-                        boolean check = (boolean) doc.getData().get("result");
-                        double result;
-                        if (check==true) {result = 1;} else {result = 0;}
+                        double result = (double) doc.getData().get("result");
                         //String location =
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
@@ -88,8 +86,8 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                     else if (expType.equals("Count-based")) {
                         String userName = (String) doc.getData().get("user id");
-                        double result;
-                        result = (double) doc.getData().get("result");
+                        String resultStr;
+                        double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
                         trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum));
@@ -104,8 +102,8 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                     else {
                         String userName = (String) doc.getData().get("user id").toString();
-                        double result;
-                        result = (double) doc.getData().get("result");
+                        String resultStr;
+                        double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
                         trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum));
@@ -127,19 +125,6 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 }
             }
         });
-
-        /*
-        Collections.sort(trialDataList, new Comparator<Trial>() {
-            @Override
-            public int compare(Trial o1, Trial o2) {
-                return Integer.compare(Integer.parseInt(o1.getTrialName()), Integer.parseInt(o2.getTrialName()));
-            }
-        });
-
-         */
-
-
-
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -205,6 +190,10 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         }
                                         else {
                                             intent = new Intent(TrialActivity.this, AddCountTrial.class);
+                                            intent.putExtra("chosenExperiment", trialListTittle);
+                                            intent.putExtra("trial number", trialNum);
+                                            intent.putExtra("userID", currentUser);
+                                            intent.putExtra("userName", name);
                                             startActivity(intent);
                                         }
 

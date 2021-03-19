@@ -36,11 +36,11 @@
    <EditText
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="DATA: "
+       android:hint="DATA"
        android:textSize="30dp"
        android:id="@+id/count_data"
        android:layout_marginLeft="10dp"
-       android:inputType="number"
+       android:inputType="numberDecimal"
        android:ems="10"></EditText>
 
     <LinearLayout

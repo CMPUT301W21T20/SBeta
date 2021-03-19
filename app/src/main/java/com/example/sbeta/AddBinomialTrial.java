@@ -91,12 +91,12 @@ public class AddBinomialTrial extends AppCompatActivity {
                 CollectionReference trials = experiment.collection("trials");
                 HashMap<String, Object> trial_to_add = new HashMap<>();
 
-                boolean result;
+                double result;
                 if (success.isChecked()) {
-                    result = true;
+                    result = 1;
                 }
                 else {
-                    result = false;
+                    result = 0;
                 }
 
                 trial_to_add.put("user id", userId);

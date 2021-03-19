@@ -36,7 +36,6 @@ public class AddCountTrial extends AppCompatActivity {
         String name = getIntent().getStringExtra("userName");
 
         userName.setText(name);
-        /*
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("experiments");
@@ -56,43 +55,38 @@ public class AddCountTrial extends AppCompatActivity {
             public void onClick(View v) {
                 CollectionReference trials = experiment.collection("trials");
                 HashMap<String, Object> trial_to_add = new HashMap<>();
+                String resultStr = data.getText().toString();
+                if (!resultStr.equals("")) {
+                    double result = Double.parseDouble(resultStr);
+                    trial_to_add.put("user id", userId);
+                    //trial_to_add.put("location", location);
+                    trial_to_add.put("result", result);
+                    //trial_to_add.put("date", date);
+                    trial_to_add.put("trial id", trialId);
 
-                boolean result;
-                if (success.isChecked()) {
-                    result = true;
+                    String trialName = "trial " + trialId;
+
+                    trials
+                            .document(trialName)
+                            .set(trial_to_add)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("false message", "trial cannot be added" + e.toString());
+                                }
+                            })
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success message", "trial added successfully");
+                                }
+                            });
                 }
-                else {
-                    result = false;
-                }
-
-                trial_to_add.put("user id", userId);
-                //trial_to_add.put("location", location);
-                trial_to_add.put("result", result);
-                //trial_to_add.put("date", date);
-                trial_to_add.put("trial id", trialId);
-
-                String trialName = "trial "+ trialId;
-
-                trials
-                        .document(trialName)
-                        .set(trial_to_add)
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("false message", "trial cannot be added" + e.toString());
-                            }
-                        })
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("success message", "trial added successfully");
-                            }
-                        });
                 onBackPressed();
             }
         });
 
-         */
+
 
     }
 
