@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// This is an activity that allow to add question
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +27,9 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+/**
+ * This is an activity that allow to add question
+ */
 public class addQuestion extends AppCompatActivity {
     TextView addQuesTittle;
     EditText questionName;
