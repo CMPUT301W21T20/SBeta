@@ -158,11 +158,11 @@ public class AddNewExperimentFragment extends DialogFragment {
                             isCorrect = false;
                         }
 
-                        if(ExprNameArray.contains(ExprNameArray)){
+                        if(ExprNameArray.contains(description)){
                             nameRepeated = true;
                         }
 
-                        if (isCorrect) {
+                        if (isCorrect && nameRepeated == false) {
                             String userName = MainMenuActivity.logInUserName;
                             Experiment new_experiment = new Experiment(
                                     description,
