@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// custom main list
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * custom main list
+ */
 public class CustomMainList extends ArrayAdapter<Experiment> {
 
     private ArrayList<Experiment> experiments;

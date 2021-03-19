@@ -24,7 +24,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 /**
- * Test class for MainActivity. All the UI tests are written here. Robotium test framework is used
+ * Test class for add question. All the UI tests are written here. Robotium test framework is used
  */
 @RunWith(AndroidJUnit4.class)
 public class addQuestionTest{

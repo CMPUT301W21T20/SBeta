@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// custom question list
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * custom question list
+ */
 public class CustomQuestionList extends ArrayAdapter<String> {
 
     private ArrayList<String> questions;

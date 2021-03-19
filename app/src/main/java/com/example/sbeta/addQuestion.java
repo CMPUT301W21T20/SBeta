@@ -1,5 +1,9 @@
 package com.example.sbeta;
 
+// This is an activity that allow to add question
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -23,6 +27,9 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+/**
+ * This is an activity that allow to add question
+ */
 public class addQuestion extends AppCompatActivity {
     TextView addQuesTittle;
     EditText questionName;
@@ -60,30 +67,40 @@ public class addQuestion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                CollectionReference experiments = experiment.collection("questions");
-                HashMap<String, Object> question_to_add = new HashMap<>();
-                String name = questionName.getText().toString();
-                String content = quesContent.getText().toString();
+                if (quesContent.getText().toString().equals("") || questionName.getText().toString().equals("")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(addQuestion.this);
+                    builder.setMessage("Cannot be empty!");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    });
+                    builder.create().show();
+                } else {
+                    CollectionReference experiments = experiment.collection("questions");
+                    HashMap<String, Object> question_to_add = new HashMap<>();
+                    String name = questionName.getText().toString();
+                    String content = quesContent.getText().toString();
 
-                question_to_add.put("content", content);
+                    question_to_add.put("content", content);
 
-                experiments
-                        .document(name)
-                        .set(question_to_add)
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("false message", "question cannot be added" + e.toString());
-                            }
-                        })
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("success message", "question added successfully");
-                            }
-                        });
-                onBackPressed();
-                // String content = quesContent.getText().toString();
+                    experiments
+                            .document(name)
+                            .set(question_to_add)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("false message", "question cannot be added" + e.toString());
+                                }
+                            })
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("success message", "question added successfully");
+                                }
+                            });
+                    onBackPressed();
+                    // String content = quesContent.getText().toString();
+                }
             }
         });
 

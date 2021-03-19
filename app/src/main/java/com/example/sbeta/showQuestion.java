@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// This is an activity that show question list
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +29,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * This is an activity that show question list
+ */
 public class showQuestion extends AppCompatActivity {
     ArrayList<String> questionDataList;
     ListView questionList;
