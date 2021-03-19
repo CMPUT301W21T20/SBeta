@@ -44,9 +44,13 @@ public class AddNewExperimentFragment extends DialogFragment {
     String type3 = "Non-negative integer counts";
     String type4 = "Measurement trials";
     String selectedType;
+
+    Experiment chosenExperiment = null;
+
     ArrayList<String> ExprNameArray;
     private boolean isCorrect;
     private boolean nameRepeated;
+
 
 
 
@@ -58,6 +62,7 @@ public class AddNewExperimentFragment extends DialogFragment {
      */
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment new_experiment);
+        void onOkPressed();
     }
 
     /**
@@ -134,6 +139,7 @@ public class AddNewExperimentFragment extends DialogFragment {
             }
         });
 
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         return builder
@@ -163,7 +169,7 @@ public class AddNewExperimentFragment extends DialogFragment {
                         }
 
                         if (isCorrect && nameRepeated == false) {
-                            String userName = MainMenuActivity.logInUserName;
+
                             Experiment new_experiment = new Experiment(
                                     description,
                                     false,
@@ -173,6 +179,7 @@ public class AddNewExperimentFragment extends DialogFragment {
                                     experimentType,
                                     description,
                                     userName);
+
                             Toast.makeText(getActivity(), "you selected " + selectedType, Toast.LENGTH_LONG).show();
                             listener.onOkPressed(new_experiment);
                         }
@@ -184,6 +191,7 @@ public class AddNewExperimentFragment extends DialogFragment {
                         }
                     }
                 }).create();
+
     }
 
 
