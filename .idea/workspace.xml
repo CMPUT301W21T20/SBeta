@@ -27,19 +27,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f83b69e-ff07-4ea0-9494-cddd3230cd0e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/addQuestionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/addQuestionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/searchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/sbeta/searchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomMainList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomMainList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomQuestionList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomQuestionList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomSearchList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/CustomSearchList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/Experiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/SearchDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/SearchDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/addQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/addQuestion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/showQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/showQuestion.java" afterDir="false" />
-    </list>
+    <list default="true" id="9f83b69e-ff07-4ea0-9494-cddd3230cd0e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

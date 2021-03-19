@@ -90,6 +90,7 @@ public class AddNewExperimentFragment extends DialogFragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference ExprReference = db.collection("experiments");
 
+        // this part will update the current documentID
         ExprReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
