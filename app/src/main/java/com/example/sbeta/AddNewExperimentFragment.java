@@ -169,7 +169,7 @@ public class AddNewExperimentFragment extends DialogFragment {
                         }
 
                         if (isCorrect && nameRepeated == false) {
-
+                            String userName = MainMenuActivity.logInUserName;
                             Experiment new_experiment = new Experiment(
                                     description,
                                     false,
