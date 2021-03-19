@@ -42,13 +42,9 @@ public class AddBinomialTrial extends AppCompatActivity {
         TextView userName = findViewById(R.id.user_name_binomial);
         Button confirmButton = findViewById(R.id.confirm_button);
         Button cancelButton = findViewById(R.id.cancel_button);
+        String userId = getIntent().getStringExtra("userName");
 
-
-
-        String nameString = "userA";
-        //userName.setText(nameString);
-
-        userName.setText(nameString);
+        userName.setText(userId);
 
         //selectLocation.setOnClickListener();
 
@@ -79,6 +75,7 @@ public class AddBinomialTrial extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("experiments");
         String title = getIntent().getStringExtra("chosenExperiment");
+        int trialId = getIntent().getIntExtra("trial number", 0);
         final DocumentReference experiment = collectionReference.document(title);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +88,7 @@ public class AddBinomialTrial extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CollectionReference experiments = experiment.collection("trials");
+                CollectionReference trials = experiment.collection("trials");
                 HashMap<String, Object> trial_to_add = new HashMap<>();
 
                 boolean result;
@@ -102,14 +99,15 @@ public class AddBinomialTrial extends AppCompatActivity {
                     result = false;
                 }
 
-                trial_to_add.put("user name", nameString);
+                trial_to_add.put("user name", userId);
                 //trial_to_add.put("location", location);
                 trial_to_add.put("result", result);
                 //trial_to_add.put("date", date);
+                trial_to_add.put("trial id", trialId);
 
-                String trialName = nameString + " " + "location";
+                String trialName = "trial "+ trialId;
 
-                experiments
+                trials
                         .document(trialName)
                         .set(trial_to_add)
                         .addOnFailureListener(new OnFailureListener() {

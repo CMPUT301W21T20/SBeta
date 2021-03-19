@@ -25,6 +25,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/location_count"
         android:text="Select Location"
         android:textSize="30dp"
         android:layout_marginLeft="40dp"
@@ -49,7 +50,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cancel_button"
+            android:id="@+id/cancel_button_count"
             android:text="CANCEL"
             android:layout_marginTop="100dp"
             android:layout_marginLeft="50dp"
@@ -57,7 +58,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/confirm_button"
+            android:id="@+id/confirm_button_count"
             android:text="CONFIRM"
             android:layout_marginTop="100dp"
             android:layout_marginLeft="50dp"
