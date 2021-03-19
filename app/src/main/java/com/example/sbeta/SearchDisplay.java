@@ -3,9 +3,12 @@ package com.example.sbeta;
 // This is an activity that show the search results
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,6 +57,16 @@ public class SearchDisplay extends AppCompatActivity {
         resultDataList = new ArrayList<>();
         resultAdapter = new CustomSearchList(this, resultDataList);
         resultsList.setAdapter(resultAdapter);
+        /*
+        resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SearchDisplay.this, TrialActivity.class);
+                startActivity(intent);
+            }
+        });
+
+         */
 
 //        User testUser = new User("123456");
 //        Experiment testExper3 = new Experiment(testUser, "GALAXY s31", "published", "Phone");
