@@ -36,6 +36,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main menu acitvity of our program
+ * this is the main page that shows the experiments , user profile and searching box
+ */
 public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
 
     ListView experList;
@@ -45,6 +49,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
+    String userID;
     CollectionReference collectionReference;
 
     @Override
@@ -54,7 +59,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         final String TAG = "Sample";
         FirebaseFirestore db;
         logInUserName = getIntent().getStringExtra("userName");
-        String userID = getIntent().getStringExtra("userID");
+        userID = getIntent().getStringExtra("userID");
 
         experList = findViewById(R.id.exper_list);
         searchButton = findViewById(R.id.search_button);
@@ -80,6 +85,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+
 
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
                 intent.putExtra("userID", userID);
@@ -111,18 +117,18 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     Log.d(TAG, String.valueOf(doc.getData().get("description")));
                     String name = doc.getId();
                     String description = (String) doc.getData().get("description");
-                    Boolean isEnd = (Boolean) doc.getBoolean("isEnded");
-                    Boolean isPublished = (Boolean) doc.getBoolean("isPublished");
+                    Boolean isEnd = doc.getBoolean("isEnded");
+                    Boolean isPublished = doc.getBoolean("isPublished");
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     //Integer minTrials = 1;
                     long minTrials = (long) doc.getData().get("minTrials");
-                    Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
+                    Boolean locationRequired = doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
                     String userId = (String) doc.getData().get("userName");
 
                     dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
-                //dataList.add(new Experiment("description", true, true, 1, false, "type", "namde", "userId"));
+                //dataList.add(new Experiment("description", true, true, 1, false, "type", "name", "userId"));
                 experAdapter.notifyDataSetChanged();
             }
         });
@@ -188,6 +194,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
         experiment_to_add.put("userName", new_experiment.getUserName());
+        experiment_to_add.put("userID", userID);
+
 
         collectionReference
                 .document(new_experiment.description)

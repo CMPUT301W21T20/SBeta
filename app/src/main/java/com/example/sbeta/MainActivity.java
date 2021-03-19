@@ -34,10 +34,20 @@ import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.UUID;
 
+/**
+ * Serve as launching activity of our program
+ * It checks for a local config.txt file and compares it with the database
+ */
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button goToMenu;
 
+    /**
+     * Read the userID from the local config.txt file
+     * @param context
+     * @return
+     *   return the userID (String) read from the config file, empty string if config.txtt does not exist
+     */
     private String readConfigFile(Context context) {
         String userID = "";
         try {
@@ -61,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
         return userID;
     }
 
+    /**
+     * Make a config file and assign a new userID
+     * @param context
+     * @return
+     *   return the newly generated userID (String)
+     */
     private String makeConfigFile(Context context) {
         String userID = UUID.randomUUID().toString();
         try {

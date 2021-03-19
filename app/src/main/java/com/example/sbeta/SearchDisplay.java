@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// This is an activity that show the search results
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * This is an activity that show the search results
+ */
 public class SearchDisplay extends AppCompatActivity {
     ArrayList<Experiment> resultDataList;
     ListView resultsList;
@@ -97,9 +102,9 @@ public class SearchDisplay extends AppCompatActivity {
                     String name = doc.getId();
                     String description = (String) doc.getData().get("description");
                     String type = (String) doc.getData().get("experimentType");
-                    Boolean isEnd = (Boolean) doc.getBoolean("isEnded");
-                    Boolean isPublished = (Boolean) doc.getBoolean("isPublished");
-                    Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
+                    Boolean isEnd = doc.getBoolean("isEnded");
+                    Boolean isPublished = doc.getBoolean("isPublished");
+                    Boolean locationRequired = doc.getBoolean("locationRequired");
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     //Integer minTrials = 1;
                     long minTrials = (long) doc.getData().get("minTrials");

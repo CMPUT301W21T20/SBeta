@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// custom search results list
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
@@ -14,10 +16,13 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * ArrayAdapter for displaying search results of experiments
+ */
 public class CustomSearchList extends ArrayAdapter<Experiment> {
 
-    private ArrayList<Experiment> searchResults;
-    private Context context;
+    private final ArrayList<Experiment> searchResults;
+    private final Context context;
 
     public CustomSearchList(Context context, ArrayList<Experiment> searchResults) {
         super(context, 0, searchResults);
