@@ -53,7 +53,7 @@ public class SearchUserActivity extends AppCompatActivity {
 
                 for (QueryDocumentSnapshot doc : snapshots) {
                     Log.d(TAG, String.valueOf(doc.getData().get("userName")));
-                    String name = doc.getId();
+                    String name = (String)doc.getData().get("userName");
 
                     if (name.length() == 0) throw new IllegalArgumentException("wrong");
 
