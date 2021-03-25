@@ -17,10 +17,20 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * This activity is the page for user profile
+ * the user can edit their user name and contact info here.
+ * the user can also search for other users in this activity.
+ */
 public class UserProfileActivity extends AppCompatActivity {
     TextView userNameText, contactText;
     Button editUser;
 
+    /**
+     * Used to update the user profile activity after the user changed their profile
+     * @param userName (String)
+     * @param contact (String)
+     */
     public void updateData(String userName, String contact) {
         userNameText.setText("User Name: " + userName);
         contactText.setText("Contact: " + contact);

@@ -16,12 +16,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
+ * ArrayAdapter for displaying all experiments in the main menu page
  * custom main list
  */
 public class CustomMainList extends ArrayAdapter<Experiment> {
 
-    private ArrayList<Experiment> experiments;
-    private Context context;
+    private final ArrayList<Experiment> experiments;
+    private final Context context;
 
     public CustomMainList(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);

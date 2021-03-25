@@ -19,6 +19,10 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * This fragment enables the user to edit their profile (both user name and contact info
+ * It updates the user info in the database, and calls the userProfileActivity for updates
+ */
 public class EditUserProfileFragment extends DialogFragment {
     private EditText userNameField, contactInfoField;
 

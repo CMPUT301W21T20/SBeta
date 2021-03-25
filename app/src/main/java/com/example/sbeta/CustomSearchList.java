@@ -17,12 +17,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 /**
- * custom search results list
+ * ArrayAdapter for displaying search results of experiments
  */
 public class CustomSearchList extends ArrayAdapter<Experiment> {
 
-    private ArrayList<Experiment> searchResults;
-    private Context context;
+    private final ArrayList<Experiment> searchResults;
+    private final Context context;
 
     public CustomSearchList(Context context, ArrayList<Experiment> searchResults) {
         super(context, 0, searchResults);

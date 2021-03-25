@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -31,8 +33,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
+ * Main menu acitvity of our program
  * this is the main page that shows the experiments , user profile and searching box
  */
 public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
@@ -80,7 +85,13 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+
+
+                intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
+                intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
+                intent.putExtra("userName", logInUserName);
+
                 startActivity(intent);
 
             }
@@ -106,12 +117,12 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     Log.d(TAG, String.valueOf(doc.getData().get("description")));
                     String name = doc.getId();
                     String description = (String) doc.getData().get("description");
-                    Boolean isEnd = (Boolean) doc.getBoolean("isEnded");
-                    Boolean isPublished = (Boolean) doc.getBoolean("isPublished");
+                    Boolean isEnd = doc.getBoolean("isEnded");
+                    Boolean isPublished = doc.getBoolean("isPublished");
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     //Integer minTrials = 1;
                     long minTrials = (long) doc.getData().get("minTrials");
-                    Boolean locationRequired = (Boolean) doc.getBoolean("locationRequired");
+                    Boolean locationRequired = doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
                     String userId = (String) doc.getData().get("userName");
 
@@ -171,6 +182,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
      * @param new_experiment
      * this is the experiment that is going to be added to the database
      */
+
+    @Override
     public void onOkPressed(Experiment new_experiment){
 
         HashMap<String, Object> experiment_to_add = new HashMap<>();
@@ -200,6 +213,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     }
                 });
 
-
     }
+
+
 }

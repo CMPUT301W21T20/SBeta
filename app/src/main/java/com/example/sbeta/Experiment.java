@@ -18,6 +18,7 @@ public class Experiment {
     String status;
     String name;
     String userName;
+    ArrayList<Trial> ignoreTrials;
 
 //    public Experiment(User owner, String description, String status, String name) {
 //        this.owner = owner;
@@ -135,11 +136,13 @@ public class Experiment {
         return trials;
     }
 
-    /**
-     * This returns owner
-     * @return
-     *      Return owner
-     */
+
+    public ArrayList<Trial> getIgnoreTrials() {
+        return ignoreTrials;
+    }
+
+
+
     public User getOwner() {
         return owner;
     }
@@ -208,9 +211,9 @@ public class Experiment {
     }
 
     /**
-     * This returns status
+     * Get the status of current experiment
      * @return
-     *      Return status
+     *   String: "Ended", "Unpublished", or "Published"
      */
     public String getStatus() {
         if (isEnded == true) {
