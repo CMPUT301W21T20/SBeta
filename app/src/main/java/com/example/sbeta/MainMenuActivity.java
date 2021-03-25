@@ -215,9 +215,5 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 
     }
 
-    @Override
-    public void onOkPressed() {
-
-    }
 
 }
