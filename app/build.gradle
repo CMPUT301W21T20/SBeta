@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3' //enter the latest version
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
 
-    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }
 android {
