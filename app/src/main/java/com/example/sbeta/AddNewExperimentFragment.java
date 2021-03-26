@@ -62,7 +62,6 @@ public class AddNewExperimentFragment extends DialogFragment {
      */
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment new_experiment);
-        void onOkPressed();
     }
 
     /**
@@ -169,7 +168,7 @@ public class AddNewExperimentFragment extends DialogFragment {
                         }
 
                         if (isCorrect && nameRepeated == false) {
-
+                            String userName = MainMenuActivity.logInUserName;
                             Experiment new_experiment = new Experiment(
                                     description,
                                     false,
