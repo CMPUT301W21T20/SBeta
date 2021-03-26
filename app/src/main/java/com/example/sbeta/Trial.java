@@ -24,4 +24,6 @@ public abstract class Trial {
     public String getTrialName() {
         return trialName;
     }
+
+    public double getResult() { return result;}
 }

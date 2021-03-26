@@ -30,7 +30,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
     ListView trialList;
     ArrayAdapter<Trial> trialArrayAdapter;
-    ArrayList<Trial> trialDataList;
+    static ArrayList<Trial> trialDataList;
     private int trialNum;
     ArrayList<Trial> ignoreTrials;
 
@@ -145,6 +145,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         return true;
                                     case R.id.statistics:
                                         Intent StatIntent = new Intent(TrialActivity.this, StatActivity.class);
+                                        StatIntent.putExtra("ExperimentType", expType);
                                         startActivity(StatIntent);
                                         return true;
                                     case R.id.ignore:
