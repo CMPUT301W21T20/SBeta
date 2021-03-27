@@ -2,11 +2,15 @@ package com.example.sbeta;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -24,6 +28,8 @@ public class StatActivity extends AppCompatActivity {
     private ArrayList<ChartDot> chartDots;
     private ArrayList<Trial> trials;
     private BarChart histogram_chart;
+    private LineChart plots_chart;
+    private View statistic_page;
     private Description histogram_desc;
     private ArrayList<IBarDataSet> fullBarDataSet;
     String type1 = "Count-based";
@@ -39,33 +45,70 @@ public class StatActivity extends AppCompatActivity {
         selectedType = getIntent().getStringExtra("ExperimentType");
 
         // directly use the arrayList from TrialActivity, maybe better to serialize and pass;
+        Button statButton = findViewById(R.id.statistic_button);
+        Button histogramButton = findViewById(R.id.histogram_button);
+        Button plotsButton = findViewById(R.id.plots_button);
+
+        histogram_chart = findViewById(R.id.histogram);
+        statistic_page = findViewById(R.id.statistic_result_page);
+        plots_chart = findViewById(R.id.plotsChart);
+
+
+        statButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statistic_page.setVisibility(View.VISIBLE);
+                histogram_chart.setVisibility(View.GONE);
+                plots_chart.setVisibility(View.GONE);
+            }
+        });
+
+        histogramButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statistic_page.setVisibility(View.GONE);
+                histogram_chart.setVisibility(View.VISIBLE);
+                plots_chart.setVisibility(View.GONE);
+            }
+        });
+
+        plotsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statistic_page.setVisibility(View.GONE);
+                histogram_chart.setVisibility(View.GONE);
+                plots_chart.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+
+
         trials = TrialActivity.trialDataList;
         chartDots = new ArrayList<>();
-
 
         histogram_chart = findViewById(R.id.histogram);
         fullBarDataSet = new ArrayList<>(); // the final data set for the chart
         if (selectedType.equals(type1)) {
-            Type134Calculator();
+            CountHistogramCalculator();
         }
         else if (selectedType.equals(type2)) {
-            Type2Calculator();
+            BinomialHistogramCalculator();
         }
         else if (selectedType.equals(type3)) {
-            Type134Calculator();
+            CountHistogramCalculator();
         }
         else if (selectedType.equals(type4)) {
-            Type134Calculator();
-
+            CountHistogramCalculator();
         }
         else {
         }
 
 
 
+
         histogram_desc = new Description();
         histogram_desc.setText("");
-
 
         BarData histogram_data = new BarData(fullBarDataSet);
         histogram_chart.setData(histogram_data);
@@ -73,7 +116,7 @@ public class StatActivity extends AppCompatActivity {
         histogram_chart.getAxisLeft().setDrawAxisLine(false);
     }
 
-    private void Type134Calculator(){
+    private void CountHistogramCalculator(){
         for (Trial singleTrial : trials) {
             boolean isContained = false;
             double value = singleTrial.getResult();
@@ -112,7 +155,7 @@ public class StatActivity extends AppCompatActivity {
         }
     }
 
-    private void Type2Calculator(){
+    private void BinomialHistogramCalculator(){
         chartDots.add(new ChartDot(0, 0));
         chartDots.add(new ChartDot(1, 0));
         for (Trial singleTrial : trials) {
