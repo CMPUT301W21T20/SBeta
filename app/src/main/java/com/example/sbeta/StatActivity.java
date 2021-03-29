@@ -1,12 +1,15 @@
 package com.example.sbeta;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -17,7 +20,10 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * this will show the histogram, statistic, dot chart of the experiment
@@ -32,12 +38,19 @@ public class StatActivity extends AppCompatActivity {
     private View statistic_page;
     private Description histogram_desc;
     private ArrayList<IBarDataSet> fullBarDataSet;
+    private ArrayList<Double> statDataList;
+    private TextView quartiles;
+    private TextView median;
+    private TextView mean;
+    private TextView stdDev;
+
     String type1 = "Count-based";
     String type2 = "Binomial trials";
     String type3 = "Non-negative integer counts";
     String type4 = "Measurement trials";
     String selectedType;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +65,10 @@ public class StatActivity extends AppCompatActivity {
         histogram_chart = findViewById(R.id.histogram);
         statistic_page = findViewById(R.id.statistic_result_page);
         plots_chart = findViewById(R.id.plotsChart);
+        quartiles = findViewById(R.id.quartile);
+        median = findViewById(R.id.median);
+        mean= findViewById(R.id.mean);
+        stdDev = findViewById(R.id.std_dev);
 
 
         statButton.setOnClickListener(new View.OnClickListener() {
@@ -81,10 +98,62 @@ public class StatActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         trials = TrialActivity.trialDataList;
+
+        // statistic
+        statDataList = new ArrayList<>();
+        for (Trial trialA : trials) {
+            statDataList.add(trialA.getResult());
+        }
+        statDataList.sort(Comparator.naturalOrder());
+        int dSize = statDataList.size();
+        double q1, q2, q3;
+
+        if (dSize == 0) {
+            quartiles.append("  -");
+            median.append("  -");
+            mean.append("  -");
+            stdDev.append("  -");
+
+        } else {
+            if (dSize % 2 == 0) {
+                q2 = (statDataList.get((dSize / 2) - 1) + statDataList.get(dSize / 2)) / 2.0;
+                if ((dSize / 2) % 2 == 0) {
+                    q1 = (statDataList.get((dSize / 4) - 1) + statDataList.get(dSize / 4)) / 2.0;
+                    q3 = (statDataList.get((dSize / 4) - 1 + (dSize / 2)) + statDataList.get(dSize / 4) + (dSize / 2)) / 2.0;
+                } else {
+                    q1 = statDataList.get((((dSize / 2) + 1) / 2) - 1);
+                    q3 = statDataList.get(((((dSize / 2) + 1) / 2) + (dSize / 2)) - 1);
+                }
+            } else {  // dSize % 2 == 1
+                if (dSize == 1) {
+                    q1 = statDataList.get(0);
+                    q2 = statDataList.get(0);
+                    q3 = statDataList.get(0);
+                } else {  // dSize != 1
+                    if (((dSize - 1) / 2) % 2 == 0 ) {
+                        // to be continue...
+                        q1 = 0.0;
+                        q2 = 0.0;
+                        q3 = 0.0;
+                    } else {
+                        // to be check...
+                        q1 = statDataList.get(((((dSize - 1) / 2) + 1) / 2) + 1);
+                        q2 = statDataList.get(((dSize + 1) / 2) - 1);
+                        q3 = statDataList.get(((((dSize - 1) / 2) + 1) / 2) - 1 + ((dSize + 1) / 2));
+                    }
+                }
+            }
+
+            DecimalFormat df = new DecimalFormat("#.0");
+            // Quartiles
+            quartiles.append("  " + df.format(q1) + " - " + df.format(q2) + " - " + df.format(q3));
+            statDataList.clear();
+
+        }
+
+
+        // histogram
         chartDots = new ArrayList<>();
 
         histogram_chart = findViewById(R.id.histogram);
