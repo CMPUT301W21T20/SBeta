@@ -1,3 +1,4 @@
+
 package com.example.sbeta;
 
 // This is an activity that show the search results

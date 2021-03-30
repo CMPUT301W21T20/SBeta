@@ -40,7 +40,7 @@ import java.util.Map;
  * Main menu acitvity of our program
  * this is the main page that shows the experiments , user profile and searching box
  */
-public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener {
+public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
 
     ListView experList;
     ArrayAdapter<Experiment> experAdapter;
@@ -142,8 +142,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     builder.setMessage("Cannot search empty string!");
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
+                        public void onClick(DialogInterface dialog, int which) {}
                     });
                     builder.create().show();
                 } else {
@@ -180,12 +179,12 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 
     /**
      * this will generate a new document of experiment on the database
-     *
-     * @param new_experiment this is the experiment that is going to be added to the database
+     * @param new_experiment
+     * this is the experiment that is going to be added to the database
      */
 
     @Override
-    public void onOkPressed(Experiment new_experiment) {
+    public void onOkPressed(Experiment new_experiment){
 
         HashMap<String, Object> experiment_to_add = new HashMap<>();
         experiment_to_add.put("description", new_experiment.description);
@@ -215,6 +214,6 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 });
 
     }
+
+
 }
-
-

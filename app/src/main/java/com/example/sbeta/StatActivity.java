@@ -120,7 +120,7 @@ public class StatActivity extends AppCompatActivity {
                 q2 = (statDataList.get((dSize / 2) - 1) + statDataList.get(dSize / 2)) / 2.0;
                 if ((dSize / 2) % 2 == 0) {
                     q1 = (statDataList.get((dSize / 4) - 1) + statDataList.get(dSize / 4)) / 2.0;
-                    q3 = (statDataList.get((dSize / 4) - 1 + (dSize / 2)) + statDataList.get(dSize / 4) + (dSize / 2)) / 2.0;
+                    q3 = (statDataList.get((dSize / 4) - 1 + (dSize / 2)) + statDataList.get((dSize / 4) + (dSize / 2))) / 2.0;
                 } else {
                     q1 = statDataList.get((((dSize / 2) + 1) / 2) - 1);
                     q3 = statDataList.get(((((dSize / 2) + 1) / 2) + (dSize / 2)) - 1);
@@ -131,24 +131,37 @@ public class StatActivity extends AppCompatActivity {
                     q2 = statDataList.get(0);
                     q3 = statDataList.get(0);
                 } else {  // dSize != 1
+                    q2 = statDataList.get(((dSize + 1) / 2) - 1);
                     if (((dSize - 1) / 2) % 2 == 0 ) {
-                        // to be continue...
-                        q1 = 0.0;
-                        q2 = 0.0;
-                        q3 = 0.0;
+                        q1 = (statDataList.get(((dSize - 1) / 4) - 1) + statDataList.get((dSize - 1) / 4)) / 2.0;
+                        q3 = (statDataList.get(((dSize - 1) / 4) - 1 + ((dSize + 1) / 2)) + statDataList.get((dSize - 1) / 4 + ((dSize + 1) / 2))) / 2.0;
                     } else {
                         // to be check...
-                        q1 = statDataList.get(((((dSize - 1) / 2) + 1) / 2) + 1);
-                        q2 = statDataList.get(((dSize + 1) / 2) - 1);
-                        q3 = statDataList.get(((((dSize - 1) / 2) + 1) / 2) - 1 + ((dSize + 1) / 2));
+                        q1 = statDataList.get(((dSize + 1) / 4) - 1);
+                        q3 = statDataList.get((((dSize + 1) / 4) - 1) + ((dSize + 1) / 2));
                     }
                 }
             }
 
-            DecimalFormat df = new DecimalFormat("#.0");
+            DecimalFormat df = new DecimalFormat("#0.0");
             // Quartiles
-            quartiles.append("  " + df.format(q1) + " - " + df.format(q2) + " - " + df.format(q3));
-            statDataList.clear();
+            quartiles.append("\n " + df.format(q1) + " - " + df.format(q2) + " - " + df.format(q3));
+            // Median
+            median.append(" " + df.format(q2));
+            // Mean
+            double total = 0;
+            for (double each : statDataList) {
+                total += each;
+            }
+            double meanValue = total / dSize;
+            mean.append(" " + df.format(meanValue));
+            // Standard Deviation
+            double sumDiffSquare = 0;
+            for (double a : statDataList) {
+                sumDiffSquare += (Math.pow((a - meanValue), 2));
+            }
+            double stdDevValue = Math.sqrt(sumDiffSquare / dSize);
+            stdDev.append(" " + df.format(stdDevValue));
 
         }
 

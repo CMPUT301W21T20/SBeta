@@ -20,9 +20,9 @@ public class User {
         this.userID = userID;
     }
 
-    public User(String userID,String contactInfo){
-        this.userID=userID;
-        this.contactInfo=contactInfo;
+    public User(String username,String contact){
+        this.userID=username;
+        this.contactInfo=contact;
     }
 
     public String getUserName() {
