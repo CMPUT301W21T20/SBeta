@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <LinearLayout
@@ -68,11 +68,10 @@
 
             <TextView
                 android:id="@+id/quartile"
-                android:layout_width="295dp"
-                android:layout_height="62dp"
+                android:layout_width="293dp"
+                android:layout_height="90dp"
                 android:layout_marginTop="100dp"
                 android:background="#808080"
-                android:gravity="center_vertical"
                 android:text=" Quartiles:"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
@@ -101,7 +100,7 @@
                 android:layout_marginTop="36dp"
                 android:background="#6b6882"
                 android:gravity="center_vertical"
-                android:text=" Std Deviation:"
+                android:text=" Std Dev:"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
