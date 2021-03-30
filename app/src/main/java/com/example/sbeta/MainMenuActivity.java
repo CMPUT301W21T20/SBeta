@@ -1,4 +1,3 @@
-
 package com.example.sbeta;
 
 import androidx.annotation.NonNull;
@@ -9,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -32,12 +33,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Main menu acitvity of our program
  * this is the main page that shows the experiments , user profile and searching box
  */
-public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener{
+public class MainMenuActivity extends AppCompatActivity implements AddNewExperimentFragment.OnFragmentInteractionListener {
 
     ListView experList;
     ArrayAdapter<Experiment> experAdapter;
@@ -82,8 +85,13 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+
+
+                intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
                 intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
+                intent.putExtra("userName", logInUserName);
+
                 startActivity(intent);
 
             }
@@ -134,7 +142,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     builder.setMessage("Cannot search empty string!");
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {}
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
                     });
                     builder.create().show();
                 } else {
@@ -171,10 +180,12 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 
     /**
      * this will generate a new document of experiment on the database
-     * @param new_experiment
-     * this is the experiment that is going to be added to the database
+     *
+     * @param new_experiment this is the experiment that is going to be added to the database
      */
-    public void onOkPressed(Experiment new_experiment){
+
+    @Override
+    public void onOkPressed(Experiment new_experiment) {
 
         HashMap<String, Object> experiment_to_add = new HashMap<>();
         experiment_to_add.put("description", new_experiment.description);
@@ -203,6 +214,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     }
                 });
 
-
     }
 }
+
+

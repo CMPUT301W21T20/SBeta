@@ -1,20 +1,36 @@
 package com.example.sbeta;
 
+import com.google.type.Expr;
+
 import java.util.ArrayList;
 
+/**
+ * This class is used to model a User,
+ * it has string fields of userID, userName, and contactInfo
+ * it has two arraylists of subscribedExperimetns and ownedExperiemnts
+ */
 public class User {
     String userID;
+    String userName;
     String contactInfo;
-    ArrayList<Experiment> subscribedExperimetns;
-    ArrayList<Experiment> ownedExperiemnts;
+    ArrayList<Experiment> subscribedExperiments;
+    ArrayList<Experiment> ownedExperiments;
 
     public User(String userID) {
         this.userID = userID;
     }
 
-    public User(String userID, String contactInfo){
+    public User(String userID,String contactInfo){
         this.userID=userID;
         this.contactInfo=contactInfo;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getUserID() {
@@ -25,11 +41,42 @@ public class User {
         return contactInfo;
     }
 
-    public ArrayList<Experiment> getSubscribedExperimetns() {
-        return subscribedExperimetns;
+    /**
+     * Get the subsribed Experiments of this user
+     * @return
+     *   Return an ArrayList of Experiments subcribed by this user
+     */
+    public ArrayList<Experiment> subscribedExperiments() {
+        return subscribedExperiments;
     }
 
-    public ArrayList<Experiment> getOwnedExperiemnts() {
-        return ownedExperiemnts;
+    /**
+     * Get the own Experiments of this user
+     * @return
+     *   Return an ArrayList of Experiments own by this user
+     */
+    public ArrayList<Experiment> getOwnedExperiments() {
+        return ownedExperiments;
     }
+
+    /**
+     * Given a new experiment, add it to the user's subsribed experiments list
+     * @param newExp
+     */
+    public void addsubscribedExperimetns (Experiment newExp) {
+        this.subscribedExperiments.add(newExp);
+        return;
+    }
+
+    /**
+     * Check if a particular experiment is subsribed by this user
+     * @param experiment
+     * @return
+     *   true if this experiment is subscribed by this user,
+     *   false otherwise
+     */
+    public boolean checkSubscribed(Experiment experiment) {
+        return this.subscribedExperiments.contains(experiment);
+    }
+
 }

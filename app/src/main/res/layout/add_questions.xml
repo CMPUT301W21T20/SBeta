@@ -28,7 +28,7 @@
         android:ems="10"
         android:gravity="start"
         android:hint="Enter your question here..."
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -22,11 +22,20 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * this is the fragment of adding a new experiment
+ */
 public class AddNewExperimentFragment extends DialogFragment {
 
     private OnFragmentInteractionListener listener;
@@ -36,14 +45,30 @@ public class AddNewExperimentFragment extends DialogFragment {
     String type4 = "Measurement trials";
     String selectedType;
 
-    public AddNewExperimentFragment() {
+    Experiment chosenExperiment = null;
 
+    ArrayList<String> ExprNameArray;
+    private boolean isCorrect;
+    private boolean nameRepeated;
+
+
+
+
+    public AddNewExperimentFragment() {
     }
 
+    /**
+     * this is the interface for MainMenuActivity to add experiment
+     */
     public interface OnFragmentInteractionListener {
         void onOkPressed(Experiment new_experiment);
     }
 
+    /**
+     * this will check if context is correct
+     * @param context
+     * this is the context provided by caller
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -55,13 +80,38 @@ public class AddNewExperimentFragment extends DialogFragment {
         }
     }
 
+    /**
+     * this will create a builder to let user type in the information of a new experiment
+     * @param savedInstanceState
+     * @return
+     * this will return a builder
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_experiment_fragment, null);
+        isCorrect = true;
+        nameRepeated = false;
+        ExprNameArray = new ArrayList<>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final CollectionReference ExprReference = db.collection("experiments");
+
+        // this part will update the current documentID
+        ExprReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                ExprNameArray.clear();
+                for (QueryDocumentSnapshot doc : value){
+                    ExprNameArray.add(doc.getId());
+                }
+            }
+        });
 
         EditText description_view = view.findViewById(R.id.description_input);
         EditText minTrials_view = view.findViewById(R.id.minTrials);
+        EditText region_view = view.findViewById(R.id.region_text);
         minTrials_view.setText("0");
         SwitchMaterial location_required_switch = view.findViewById(R.id.Location_required_switch);
 
@@ -88,6 +138,7 @@ public class AddNewExperimentFragment extends DialogFragment {
             }
         });
 
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         return builder
@@ -99,27 +150,47 @@ public class AddNewExperimentFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String description = description_view.getText().toString();
                         String minTrialsString = minTrials_view.getText().toString();
+                        String regionString = region_view.getText().toString();
                         boolean locationRequired = location_required_switch.isChecked();
                         String experimentType = selectedType;
-                        if (minTrialsString == "") {
-                            minTrialsString = "0";
+                        if (minTrialsString.equals("")) {
+                            isCorrect = false;
                         }
-                        String userName = MainMenuActivity.logInUserName;
+                        else if (description.equals("")) {
+                            isCorrect = false;
+                        }
+                        else if (regionString.equals("")) {
+                            isCorrect = false;
+                        }
 
-                        Experiment new_experiment = new Experiment(
-                                description,
-                                false,
-                                true,
-                                Long.parseLong(minTrialsString),
-                                locationRequired,
-                                experimentType,
-                                description,
-                                userName);
+                        if(ExprNameArray.contains(description)){
+                            nameRepeated = true;
+                        }
 
-                        Toast.makeText(getActivity(),"you selected " + selectedType,Toast.LENGTH_LONG).show();
-                        listener.onOkPressed(new_experiment);
+                        if (isCorrect && nameRepeated == false) {
+                            String userName = MainMenuActivity.logInUserName;
+                            Experiment new_experiment = new Experiment(
+                                    description,
+                                    false,
+                                    true,
+                                    Long.parseLong(minTrialsString),
+                                    locationRequired,
+                                    experimentType,
+                                    description,
+                                    userName);
+
+                            Toast.makeText(getActivity(), "you selected " + selectedType, Toast.LENGTH_LONG).show();
+                            listener.onOkPressed(new_experiment);
+                        }
+                        else if (nameRepeated == true){
+                            Toast.makeText(getActivity(), "Experiment name exist, please use another name", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Please fill all the blanks", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }).create();
+
     }
 
 

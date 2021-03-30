@@ -19,7 +19,6 @@
             android:label="@string/title_activity_show_question"
             android:theme="@style/Theme.SBeta.NoActionBar" />
         <activity android:name=".showStatsActivity"/>
-        <activity android:name=".TrialActivity" />
         <activity android:name=".SearchDisplay" />
         <activity android:name=".SearchUserActivity"/>
         <activity android:name=".MainMenuActivity"/>

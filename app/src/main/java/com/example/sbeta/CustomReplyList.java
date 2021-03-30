@@ -1,6 +1,6 @@
 package com.example.sbeta;
 
-// custom question list
+// custom reply list
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,16 +16,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * ArrayAdapter for displaying questions in the forum for an experiment
+ * ArrayAdapter for displaying replys in the forum for a question
  */
-public class CustomQuestionList extends ArrayAdapter<String> {
+public class CustomReplyList extends ArrayAdapter<String> {
 
-    private final ArrayList<String> questions;
+    private final ArrayList<String> replies;
     private final Context context;
 
-    public CustomQuestionList(Context context, ArrayList<String> questions) {
-        super(context, 0, questions);
-        this.questions = questions;
+    public CustomReplyList(Context context, ArrayList<String> replies) {
+        super(context, 0, replies);
+        this.replies = replies;
         this.context = context;
     }
 
@@ -33,12 +33,12 @@ public class CustomQuestionList extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @Nonnull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.question_info,parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.reply_info,parent, false);
         }
 
-        String question = questions.get(position);
-        TextView questionInfo = view.findViewById(R.id.question_name);
-        questionInfo.setText(question);
+        String reply = replies.get(position);
+        TextView replyInfo = view.findViewById(R.id.reply_content);
+        replyInfo.setText(reply);
 
         return view;
     }

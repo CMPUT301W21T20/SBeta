@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Read the userID from the local config.txt file
-     *
      * @param context
-     * @return return the userID (String) read from the config file, empty string if config.txtt does not exist
+     * @return
+     *   return the userID (String) read from the config file, empty string if config.txtt does not exist
      */
     private String readConfigFile(Context context) {
         String userID = "";
@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Make a config file and assign a new userID
-     *
      * @param context
-     * @return return the newly generated userID (String)
+     * @return
+     *   return the newly generated userID (String)
      */
     private String makeConfigFile(Context context) {
         String userID = UUID.randomUUID().toString();
@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         goToMenu = findViewById(R.id.menu_button);
         final CollectionReference usersReference = db.collection("users");
+
 
 
         goToMenu.setOnClickListener(new View.OnClickListener() {
@@ -147,5 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-}
+
+
+
+
+    }}
