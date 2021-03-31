@@ -10,10 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SBeta">
         <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".replyContent"></activity>
+        <activity android:name=".addReply" />
+        <activity android:name=".showReply" />
+        <activity android:name=".AddCountTrial" />
+        <activity android:name=".AddBinomialTrial" />
         <activity
             android:name=".addQuestion"
             android:label="@string/title_activity_add_question"
             android:theme="@style/Theme.SBeta.NoActionBar" />
+			
         <activity
             android:name=".showQuestion"
             android:label="@string/title_activity_show_question"
@@ -23,6 +29,7 @@
         <activity android:name=".SearchDisplay" />
         <activity android:name=".SearchUserActivity"/>
         <activity android:name=".MainMenuActivity"/>
+        <activity android:name=".StatActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

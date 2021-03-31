@@ -48,6 +48,7 @@ public class UserProfileActivity extends AppCompatActivity {
         contactText = findViewById(R.id.userProfileContact);
         editUser = findViewById(R.id.editUserButton);
         searchUser=findViewById(R.id.search_user_button);
+		
         final String[] userName = {""};
         final String[] contact = { "" };
 

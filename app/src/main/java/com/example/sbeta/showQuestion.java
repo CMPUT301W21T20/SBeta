@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+// This is an activity that show question list
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,8 +30,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * This activity enables the "question forum" of experiments
+ */
 public class showQuestion extends AppCompatActivity {
     ArrayList<String> questionDataList;
+    ArrayList<String> contentList;
     ListView questionList;
     TextView questionListTittle;
     ArrayAdapter<String> questionAdapter;
@@ -55,17 +62,21 @@ public class showQuestion extends AppCompatActivity {
         questionDataList = new ArrayList<>();
         questionAdapter = new CustomQuestionList(this, questionDataList);
         questionList.setAdapter(questionAdapter);
+        contentList = new ArrayList<>();
 
         // get data from firebase
         questions.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 questionDataList.clear();
+                contentList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                     Log.d(TAG, String.valueOf(doc.getData().get("content")));
                     String name = doc.getId();
+                    String content = (String) doc.getData().get("content");
                     questionDataList.add(name);
+                    contentList.add(content);
                 }
                 questionAdapter.notifyDataSetChanged();
             }
@@ -77,6 +88,19 @@ public class showQuestion extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(showQuestion.this, addQuestion.class);
                 intent.putExtra("chosenExperiment", title);
+                startActivity(intent);
+            }
+        });
+
+        // check the reply for this question
+        questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = questionDataList.get(position);
+                Intent intent = new Intent(showQuestion.this, showReply.class);
+                intent.putExtra("QuestionName", name);
+                intent.putExtra("experimentName", title);
+                intent.putExtra("QuestionContent", contentList.get(position));
                 startActivity(intent);
             }
         });

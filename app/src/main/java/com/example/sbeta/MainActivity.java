@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         goToMenu = findViewById(R.id.menu_button);
         final CollectionReference usersReference = db.collection("users");
 
-
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,3 +148,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+

@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -32,6 +33,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Main menu acitvity of our program
@@ -82,8 +85,12 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
+
+                intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
                 intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
+                intent.putExtra("userName", logInUserName);
+
                 startActivity(intent);
 
             }
@@ -174,6 +181,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
      * @param new_experiment
      * this is the experiment that is going to be added to the database
      */
+
+    @Override
     public void onOkPressed(Experiment new_experiment){
 
         HashMap<String, Object> experiment_to_add = new HashMap<>();
@@ -203,6 +212,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     }
                 });
 
-
     }
 }
+
+
+
