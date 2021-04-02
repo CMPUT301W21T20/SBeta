@@ -3,15 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/trialInfo"
-        android:textSize="20dp"
-        android:padding="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="trial">
-    </TextView>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/trialNum"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:text="trial"
+            android:layout_gravity="left"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
+
+        </TextView>
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_to_ignore"
+            android:layout_gravity="right"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

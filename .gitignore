@@ -4,6 +4,8 @@
 =======
 # Created by https://www.gitignore.io/api/androidstudio
 # Edit at https://www.gitignore.io/?templates=androidstudio
+**/.DS_Store
+local.properties
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
@@ -168,3 +170,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 >>>>>>> HaoSiyuan
+.idea/workspace.xml
+.idea/workspace.xml
