@@ -8,6 +8,7 @@ public abstract class Trial {
     Location location;
     String trialName;
     int trialNum;
+    boolean isIgnored = false;
 
     public Trial(double result, String participant, Location location, String trialName, int trialNum) {
         this.result = result;
@@ -26,4 +27,10 @@ public abstract class Trial {
     }
 
     public double getResult() { return result;}
+
+    public boolean getIsIgnored() {return isIgnored;}
+
+    public void setIgnored(boolean ignored) {
+        isIgnored = ignored;
+    }
 }

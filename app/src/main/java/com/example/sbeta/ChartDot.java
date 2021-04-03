@@ -1,5 +1,8 @@
 package com.example.sbeta;
 
+/**
+ * this is a class to restore the coordinate of results for trails
+ */
 public class ChartDot {
     private double x;
     private double y;
