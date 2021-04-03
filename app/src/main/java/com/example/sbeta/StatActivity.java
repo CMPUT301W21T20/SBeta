@@ -7,6 +7,7 @@ import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -26,7 +27,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- * this will show the histogram, statistic, dot chart of the experiment
+ * this activity will show the histogram, statistic, dot chart of the experiment
  */
 
 public class StatActivity extends AppCompatActivity {
@@ -100,7 +101,7 @@ public class StatActivity extends AppCompatActivity {
 
         trials = TrialActivity.trialDataList;
 
-        // statistic
+        // statistic part //---------------------------------------------------------------
         statDataList = new ArrayList<>();
         for (Trial trialA : trials) {
             statDataList.add(trialA.getResult());
@@ -164,9 +165,10 @@ public class StatActivity extends AppCompatActivity {
             stdDev.append(" " + df.format(stdDevValue));
 
         }
+        //---------------------------------------------------------------
 
 
-        // histogram
+        // histogram part //---------------------------------------------------------------
         chartDots = new ArrayList<>();
 
         histogram_chart = findViewById(R.id.histogram);
@@ -186,9 +188,6 @@ public class StatActivity extends AppCompatActivity {
         else {
         }
 
-
-
-
         histogram_desc = new Description();
         histogram_desc.setText("");
 
@@ -196,10 +195,17 @@ public class StatActivity extends AppCompatActivity {
         histogram_chart.setData(histogram_data);
         histogram_chart.setDescription(histogram_desc);
         histogram_chart.getAxisLeft().setDrawAxisLine(false);
+
+        //---------------------------------------------------------------
     }
 
     private void CountHistogramCalculator(){
         for (Trial singleTrial : trials) {
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()){
+                continue;
+            }
+
             boolean isContained = false;
             double value = singleTrial.getResult();
             for (ChartDot singleDot : chartDots) {
@@ -209,6 +215,7 @@ public class StatActivity extends AppCompatActivity {
                     break;
                 }
             }
+            // add as a new dot if no dots in the list has the same value with the current trial
             if (!isContained) {
                 chartDots.add(new ChartDot(value, 1));
             }
