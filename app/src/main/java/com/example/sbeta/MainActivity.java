@@ -44,9 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Read the userID from the local config.txt file
+<<<<<<< HEAD
+     *
+     * @param context
+     * @return return the userID (String) read from the config file, empty string if config.txtt does not exist
+=======
      * @param context
      * @return
      *   return the userID (String) read from the config file, empty string if config.txtt does not exist
+>>>>>>> mid-pointcheck
      */
     private String readConfigFile(Context context) {
         String userID = "";
@@ -73,9 +79,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Make a config file and assign a new userID
+<<<<<<< HEAD
+     *
+     * @param context
+     * @return return the newly generated userID (String)
+=======
      * @param context
      * @return
      *   return the newly generated userID (String)
+>>>>>>> mid-pointcheck
      */
     private String makeConfigFile(Context context) {
         String userID = UUID.randomUUID().toString();
@@ -99,7 +111,10 @@ public class MainActivity extends AppCompatActivity {
         final CollectionReference usersReference = db.collection("users");
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> mid-pointcheck
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +163,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+<<<<<<< HEAD
+    }
+}
+=======
 
 
 
@@ -155,3 +174,4 @@ public class MainActivity extends AppCompatActivity {
     }}
 
 
+>>>>>>> mid-pointcheck

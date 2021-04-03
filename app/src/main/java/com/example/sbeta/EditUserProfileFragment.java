@@ -58,4 +58,8 @@ public class EditUserProfileFragment extends DialogFragment {
 
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> mid-pointcheck
