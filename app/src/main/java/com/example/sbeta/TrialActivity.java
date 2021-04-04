@@ -199,11 +199,25 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             intent.putExtra("userName", name);
                                             startActivity(intent);
                                         }
-
-
                                         return true;
                                     case R.id.scan_qr_code:
-                                        // do your code
+                                        Intent intentToGenerate;
+                                        if (expType.equals("Binomial trials")) {
+                                            intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
+                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                            intentToGenerate.putExtra("trial number", trialNum);
+                                            intentToGenerate.putExtra("userID", currentUser);
+                                            intentToGenerate.putExtra("userName", name);
+                                            startActivity(intentToGenerate);
+                                        }
+                                        else {
+                                            intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
+                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                            intentToGenerate.putExtra("trial number", trialNum);
+                                            intentToGenerate.putExtra("userID", currentUser);
+                                            intentToGenerate.putExtra("userName", name);
+                                            startActivity(intentToGenerate);
+                                        }
                                         return true;
                                     default:
                                         return false;
