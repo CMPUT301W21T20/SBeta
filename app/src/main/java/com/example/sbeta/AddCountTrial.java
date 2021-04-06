@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
-public class AddCountTrial extends AppCompatActivity {
+public class AddCountTrial extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +33,11 @@ public class AddCountTrial extends AppCompatActivity {
         TextView userName = findViewById(R.id.user_name_count);
         Button confirmButton = findViewById(R.id.confirm_button_count);
         Button cancelButton = findViewById(R.id.cancel_button_count);
+
+        String expType = getIntent().getStringExtra("ExperimentType");
         String userId = getIntent().getStringExtra("userID");
         String name = getIntent().getStringExtra("userName");
-
+        String locationRequired = getIntent().getStringExtra("locationRequired");
         userName.setText(name);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,7 +59,10 @@ public class AddCountTrial extends AppCompatActivity {
                 CollectionReference trials = experiment.collection("trials");
                 HashMap<String, Object> trial_to_add = new HashMap<>();
                 String resultStr = data.getText().toString();
+                Location location = null;
+
                 if (!resultStr.equals("")) {
+
                     double result = Double.parseDouble(resultStr);
                     trial_to_add.put("user id", userId);
                     //trial_to_add.put("location", location);
@@ -66,23 +72,36 @@ public class AddCountTrial extends AppCompatActivity {
 
                     String trialName = "trial " + trialId;
 
-                    trials
-                            .document(trialName)
-                            .set(trial_to_add)
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("false message", "trial cannot be added" + e.toString());
-                                }
-                            })
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("success message", "trial added successfully");
-                                }
-                            });
+                    if (locationRequired.equals("true") && location == null) {
+                        Toast.makeText(AddCountTrial.this, "Location is required", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (expType.equals("Count-based") && result < 0) {
+                        Toast.makeText(AddCountTrial.this,"Count should be non-negative", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (expType.equals("Non-negative integer counts") && (result != (int) result || result < 0)) {
+                        Toast.makeText(AddCountTrial.this,"Non-negative integer Count should be a non-negative integer", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        trials
+                                .document(trialName)
+                                .set(trial_to_add)
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("false message", "trial cannot be added" + e.toString());
+                                    }
+                                })
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("success message", "trial added successfully");
+                                    }
+                                });
+                        onBackPressed();
+                    }
+                } else {
+                Toast.makeText(AddCountTrial.this, "Please enter a result", Toast.LENGTH_SHORT).show();
                 }
-                onBackPressed();
             }
         });
 

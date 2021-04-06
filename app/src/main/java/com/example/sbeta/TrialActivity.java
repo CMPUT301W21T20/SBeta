@@ -49,6 +49,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         String expType = intent.getStringExtra("ExperimentType");
         String currentUser = intent.getStringExtra("userID");
         String name = intent.getStringExtra("userName");
+        String locationRequired = intent.getStringExtra("locationRequired");
 
 
         //Intent intent = getIntent();
@@ -93,7 +94,6 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                     else if (expType.equals("Count-based")) {
                         String userName = (String) doc.getData().get("user id");
-                        String resultStr;
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
@@ -109,7 +109,6 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                     else {
                         String userName = (String) doc.getData().get("user id").toString();
-                        String resultStr;
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
@@ -271,14 +270,17 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             intent.putExtra("trial number", trialNum);
                                             intent.putExtra("userID", currentUser);
                                             intent.putExtra("userName", name);
+                                            intent.putExtra("locationRequired", locationRequired);
                                             startActivity(intent);
                                         }
                                         else {
                                             intent = new Intent(TrialActivity.this, AddCountTrial.class);
+                                            intent.putExtra("ExperimentType", expType);
                                             intent.putExtra("chosenExperiment", trialListTittle);
                                             intent.putExtra("trial number", trialNum);
                                             intent.putExtra("userID", currentUser);
                                             intent.putExtra("userName", name);
+                                            intent.putExtra("locationRequired", locationRequired);
                                             startActivity(intent);
                                         }
 

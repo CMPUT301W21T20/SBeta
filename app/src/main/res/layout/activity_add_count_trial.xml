@@ -40,7 +40,7 @@
        android:textSize="30dp"
        android:id="@+id/count_data"
        android:layout_marginLeft="10dp"
-       android:inputType="numberDecimal"
+       android:inputType="numberSigned|numberDecimal"
        android:ems="10"></EditText>
 
     <LinearLayout

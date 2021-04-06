@@ -2,6 +2,9 @@ package com.example.sbeta;
 
 import android.location.Location;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public abstract class Trial {
     double result;
     String participant;
@@ -9,6 +12,7 @@ public abstract class Trial {
     String trialName;
     int trialNum;
     boolean isIgnored = false;
+    Date createDate;
 
     public Trial(double result, String participant, Location location, String trialName, int trialNum) {
         this.result = result;
@@ -16,6 +20,7 @@ public abstract class Trial {
         this.location = location;
         this.trialName = trialName;
         this.trialNum = trialNum;
+        this.createDate = Calendar.getInstance().getTime();
     }
 
     public int getTrialNum() {
@@ -29,6 +34,10 @@ public abstract class Trial {
     public double getResult() { return result;}
 
     public boolean getIsIgnored() {return isIgnored;}
+
+    public Date getCreateDate() {
+        return createDate;
+    }
 
     public void setIgnored(boolean ignored) {
         isIgnored = ignored;
