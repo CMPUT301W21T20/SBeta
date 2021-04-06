@@ -9,23 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SBeta">
-<<<<<<< HEAD
         <activity android:name=".UserProfileActivity"></activity>
-=======
         <activity android:name=".replyContent"></activity>
         <activity android:name=".addReply" />
         <activity android:name=".showReply" />
         <activity android:name=".AddCountTrial" />
         <activity android:name=".AddBinomialTrial" />
->>>>>>> mid-pointcheck
         <activity
             android:name=".addQuestion"
             android:label="@string/title_activity_add_question"
             android:theme="@style/Theme.SBeta.NoActionBar" />
-<<<<<<< HEAD
-=======
-        <activity android:name=".UserProfileActivity" />
->>>>>>> mid-pointcheck
         <activity
             android:name=".showQuestion"
             android:label="@string/title_activity_show_question"
@@ -33,13 +26,9 @@
         <activity android:name=".showStatsActivity"/>
         <activity android:name=".TrialActivity" />
         <activity android:name=".SearchDisplay" />
-<<<<<<< HEAD
         <activity android:name=".SearchUserActivity"/>
         <activity android:name=".MainMenuActivity"/>
-=======
-        <activity android:name=".MainMenuActivity" />
         <activity android:name=".StatActivity" />
->>>>>>> mid-pointcheck
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
