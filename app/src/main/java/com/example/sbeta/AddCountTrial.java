@@ -19,6 +19,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class AddCountTrial extends AppCompatActivity{
@@ -59,6 +61,7 @@ public class AddCountTrial extends AppCompatActivity{
                 CollectionReference trials = experiment.collection("trials");
                 HashMap<String, Object> trial_to_add = new HashMap<>();
                 String resultStr = data.getText().toString();
+                Date date = Calendar.getInstance().getTime();
                 Location location = null;
 
                 if (!resultStr.equals("")) {
@@ -67,7 +70,7 @@ public class AddCountTrial extends AppCompatActivity{
                     trial_to_add.put("user id", userId);
                     //trial_to_add.put("location", location);
                     trial_to_add.put("result", result);
-                    //trial_to_add.put("date", date);
+                    trial_to_add.put("date", date);
                     trial_to_add.put("trial id", trialId);
 
                     String trialName = "trial " + trialId;

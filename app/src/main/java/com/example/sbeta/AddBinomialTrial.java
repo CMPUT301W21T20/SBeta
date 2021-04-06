@@ -28,6 +28,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class AddBinomialTrial extends AppCompatActivity {
@@ -92,6 +94,7 @@ public class AddBinomialTrial extends AppCompatActivity {
             public void onClick(View v) {
                 CollectionReference trials = experiment.collection("trials");
                 HashMap<String, Object> trial_to_add = new HashMap<>();
+                Date date = Calendar.getInstance().getTime();
                 Location location = null;
 
                 double result;
@@ -109,7 +112,7 @@ public class AddBinomialTrial extends AppCompatActivity {
                     trial_to_add.put("user id", userId);
                     //trial_to_add.put("location", location);
                     trial_to_add.put("result", result);
-                    //trial_to_add.put("date", date);
+                    trial_to_add.put("date", date);
                     trial_to_add.put("trial id", trialId);
 
                     String trialName = "trial " + trialId;

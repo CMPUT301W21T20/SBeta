@@ -20,7 +20,6 @@ public abstract class Trial {
         this.location = location;
         this.trialName = trialName;
         this.trialNum = trialNum;
-        this.createDate = Calendar.getInstance().getTime();
     }
 
     public int getTrialNum() {

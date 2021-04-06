@@ -30,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 
 public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
@@ -90,6 +91,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         //String location =
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
+                        //Date date = (Date) doc.getData().get("date");
                         trialDataList.add(new binomialTrial(result, userName, null, name, trialNum));
                     }
                     else if (expType.equals("Count-based")) {
