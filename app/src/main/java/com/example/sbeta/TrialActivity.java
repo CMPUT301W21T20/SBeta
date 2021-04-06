@@ -145,6 +145,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 //Toast.makeText(TrialActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 switch (item.getItemId()) {
                                     case R.id.edit_trial:
                                         // do your code
@@ -163,6 +164,33 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         startActivity(intent);
                                         return true;
                                     case R.id.unpublish_exp:
+                                        DocumentReference docRefPub = db.collection("experiments").document(trialListTittle);
+                                        docRefPub.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()){
+                                                        String ownerID = (String) document.getData().get("userID");
+                                                        Log.i("ownerID", ownerID);
+                                                        Log.i("currentUser", currentUser);
+                                                        if (ownerID.equals(currentUser)) {
+                                                            Log.i("Changing", "YES");
+                                                            if ((Boolean) document.getData().get("isPublished")) {
+                                                                docRefPub.update("isPublished", false);
+                                                                Toast.makeText(TrialActivity.this, "This experiment is unpublished!", Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                docRefPub.update("isPublished", true);
+                                                                Toast.makeText(TrialActivity.this, "This experiment is published!", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(TrialActivity.this, "Only owner can make this operation!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+
                                         // do your code
                                         return true;
                                     case R.id.end_exp:
@@ -170,16 +198,15 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                     case R.id.scan_barcode:
                                         //do your code
                                     case R.id.subscribe:
-                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         CollectionReference subscribedExps = db.collection("users").document(userID).collection("subscribedExp");
-                                        DocumentReference docRef = db.collection("users").document(userID).collection("subscribedExp").document(trialListTittle);
-                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        DocumentReference docRefSub = db.collection("users").document(userID).collection("subscribedExp").document(trialListTittle);
+                                        docRefSub.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                 if (task.isSuccessful()) {
                                                     DocumentSnapshot document = task.getResult();
                                                     if (document.exists()) {
-                                                        docRef.delete();
+                                                        docRefSub.delete();
                                                         Toast.makeText(TrialActivity.this, "This experiment is unsubsribed!", Toast.LENGTH_SHORT).show();
                                                         return;
                                                     } else {
