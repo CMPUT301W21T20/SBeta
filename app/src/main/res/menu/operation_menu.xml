@@ -9,7 +9,7 @@
     <item android:id="@+id/questions"
         android:title="Questions" />
     <item android:id="@+id/unpublish_exp"
-        android:title="Unpublish" />
+        android:title="Publish/Unpublish" />
     <item android:id="@+id/end_exp"
         android:title="End Experiment" />
     <item android:title="Scan Barcode"
