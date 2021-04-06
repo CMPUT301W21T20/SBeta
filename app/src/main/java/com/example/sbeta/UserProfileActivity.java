@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class UserProfileActivity extends AppCompatActivity {
     TextView userNameText, contactText;
     Button editUser;
+    Button searchUser;
 
     /**
      * Used to update the user profile activity after the user changed their profile
@@ -46,6 +47,8 @@ public class UserProfileActivity extends AppCompatActivity {
         userNameText = findViewById(R.id.userProfileName);
         contactText = findViewById(R.id.userProfileContact);
         editUser = findViewById(R.id.editUserButton);
+
+        searchUser=findViewById(R.id.search_user_button);
         final String[] userName = {""};
         final String[] contact = { "" };
 
@@ -79,6 +82,15 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        searchUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle BUNDLE=new Bundle();
+
+                SearchUserFragment frag=new SearchUserFragment();
+                frag.show(getSupportFragmentManager(),"search");
+            }
+        });
     }
 
 

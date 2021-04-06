@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Read the userID from the local config.txt file
+     *
      * @param context
-     * @return
-     *   return the userID (String) read from the config file, empty string if config.txtt does not exist
+     * @return return the userID (String) read from the config file, empty string if config.txtt does not exist
      */
     private String readConfigFile(Context context) {
         String userID = "";
@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
         goToMenu = findViewById(R.id.menu_button);
         final CollectionReference usersReference = db.collection("users");
 
-
-
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,10 +146,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-    }}
-
-
+    }
+}

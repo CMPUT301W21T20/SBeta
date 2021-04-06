@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="display" type="id" />
+    <item name="UserName" type="id" />
+    <item name="UserContact" type="id" />
+    <item name="searchkey" type="id" />
+    <item name="okbutton" type="id" />
+    <item name="display_username" type="id" />
+    <item name="userProfileName" type="id" />
+    <item name="userProfileContact" type="id" />
+    <item name="editUserButton" type="id" />
+    <item name="search_user_button" type="id" />
+    <item name="userNameEdit" type="id" />
+    <item name="userContactEdit" type="id" />
+    <item name="welcome_to_stats" type="id" />
+    <item name="menu_button" type="id" />
+    <item name="user_profile" type="id" />
+</resources>
