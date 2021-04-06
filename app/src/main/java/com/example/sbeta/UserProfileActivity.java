@@ -25,10 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class UserProfileActivity extends AppCompatActivity {
     TextView userNameText, contactText;
     Button editUser;
-<<<<<<< HEAD
     Button searchUser;
-=======
->>>>>>> mid-pointcheck
 
     /**
      * Used to update the user profile activity after the user changed their profile
@@ -50,10 +47,8 @@ public class UserProfileActivity extends AppCompatActivity {
         userNameText = findViewById(R.id.userProfileName);
         contactText = findViewById(R.id.userProfileContact);
         editUser = findViewById(R.id.editUserButton);
-<<<<<<< HEAD
+
         searchUser=findViewById(R.id.search_user_button);
-=======
->>>>>>> mid-pointcheck
         final String[] userName = {""};
         final String[] contact = { "" };
 
@@ -87,7 +82,6 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
         searchUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,8 +91,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 frag.show(getSupportFragmentManager(),"search");
             }
         });
-=======
->>>>>>> mid-pointcheck
     }
 
 

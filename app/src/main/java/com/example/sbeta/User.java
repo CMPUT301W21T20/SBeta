@@ -20,18 +20,16 @@ public class User {
         this.userID = userID;
     }
 
-<<<<<<< HEAD
-    public User(String userID, String contactInfo){
-        this.userID=userID;
-        this.contactInfo=contactInfo;
-=======
+    public User(String userID, String contactInfo) {
+        this.userID = userID;
+        this.contactInfo = contactInfo;
+    }
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
->>>>>>> mid-pointcheck
     }
 
     public String getUserID() {
