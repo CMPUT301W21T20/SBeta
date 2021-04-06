@@ -49,7 +49,7 @@
             android:layout_alignParentRight="true"
             android:visibility="gone" />
 
-        <com.github.mikephil.charting.charts.LineChart
+        <com.github.mikephil.charting.charts.ScatterChart
             android:id="@+id/plotsChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
