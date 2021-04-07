@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -19,10 +20,13 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
 import java.sql.Timestamp;
@@ -45,10 +49,10 @@ public class StatActivity extends AppCompatActivity {
     private ArrayList<ChartDot> chartDots;
     private ArrayList<Trial> trials;
     private BarChart histogram_chart;
-    private ScatterChart plots_chart;
+    private LineChart plots_chart;
     private View statistic_page;
     private ArrayList<IBarDataSet> fullBarDataSet;
-    private ArrayList<IScatterDataSet> fullPlotDataSet;
+    private ArrayList<ILineDataSet> fullPlotDataSet;
     private ArrayList<Double> statDataList;
     private TextView quartiles;
     private TextView median;
@@ -231,7 +235,7 @@ public class StatActivity extends AppCompatActivity {
         else {
         }
 
-        plots_chart.setData(new ScatterData(fullPlotDataSet));
+        plots_chart.setData(new LineData(fullPlotDataSet));
         plots_chart.getDescription().setText("Plot Chart");
         plots_chart.setMaxVisibleValueCount(5); //if the y value no more than 5, it will not show
         plots_chart.setDrawGridBackground(false);
@@ -246,7 +250,9 @@ public class StatActivity extends AppCompatActivity {
 
         //---------------------------------------------------------------
     }
-
+    /**
+     * this is used to calculate the dateset of non_neg and measurement histogram chart
+     */
     private void NumHistogramCalculator(){
         for (Trial singleTrial : trials) {
             // if the trial's isIgnored is true, just ignore it
@@ -292,7 +298,9 @@ public class StatActivity extends AppCompatActivity {
 
         }
     }
-
+    /**
+     * this is used to calculate the dateset of binomial histogram chart
+     */
     private void BinomialHistogramCalculator(){
         chartDots.add(new ChartDot(0, 0));
         chartDots.add(new ChartDot(1, 0));
@@ -334,7 +342,9 @@ public class StatActivity extends AppCompatActivity {
         }
 
     }
-
+    /**
+     * this is used to calculate the dateset of non_neg and measurement plot chart
+     */
     private void NumPlotCalculator(){
 
         ArrayList<Entry> valueList = new ArrayList<>();
@@ -351,12 +361,15 @@ public class StatActivity extends AppCompatActivity {
 
         }
 
-        ScatterDataSet plot_dataSet = new ScatterDataSet(valueList, "Trials");
+        LineDataSet plot_dataSet = new LineDataSet(valueList, "Trials");
         plot_dataSet.setColor(Color.BLACK);
         fullPlotDataSet.add(plot_dataSet);
 
     }
 
+    /**
+     * this is used to calculate the dateset of binomial plot chart
+     */
     private void BinomialPlotCalculator(){
         ArrayList<Entry> ValueList = new ArrayList<>();
         oldestTime = null;
@@ -423,7 +436,6 @@ public class StatActivity extends AppCompatActivity {
 
             }
             Double TruthRate = Double.valueOf( divisionFormat.format( (double) TruthSum / plotCounter) );
-
             ValueList.add(new Entry(valueOfX, TruthRate.floatValue()));
             valueOfX++;
             calendar.setTime(new Date(focusedTime.getTime()));
@@ -433,8 +445,8 @@ public class StatActivity extends AppCompatActivity {
 
 
 
-        ScatterDataSet plot_dataSet = new ScatterDataSet(ValueList, "True Dots");
-        plot_dataSet.setColor(Color.RED);
+        LineDataSet plot_dataSet = new LineDataSet(ValueList, "True Dots");
+        plot_dataSet.setColor(Color.BLACK);
         fullPlotDataSet.add(plot_dataSet);
 
     }
