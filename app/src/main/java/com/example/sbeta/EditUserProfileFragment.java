@@ -56,3 +56,4 @@ public class EditUserProfileFragment extends DialogFragment {
                 }).create();
     }
 }
+

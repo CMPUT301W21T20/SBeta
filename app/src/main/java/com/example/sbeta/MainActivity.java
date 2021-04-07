@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Make a config file and assign a new userID
+     *
      * @param context
-     * @return
-     *   return the newly generated userID (String)
+     * @return return the newly generated userID (String)
      */
     private String makeConfigFile(Context context) {
         String userID = UUID.randomUUID().toString();
@@ -148,3 +148,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+

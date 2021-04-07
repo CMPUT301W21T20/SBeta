@@ -26,6 +26,7 @@ public class User {
         this.userID = userID;
         this.contactInfo = contactInfo;
     }
+
     public String getUserName() {
         return userName;
     }
