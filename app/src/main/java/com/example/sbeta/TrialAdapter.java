@@ -40,13 +40,18 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         title.setText(trial.getTrialName());
 
         CheckBox ignoreBox = view.findViewById(R.id.check_to_ignore);
+        ignoreBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ignoreBox.isChecked()) {
+                    trials.get(position).setIgnored(true);
+                }
+                else {
+                    trials.get(position).setIgnored(false);
+                }
+            }
+        });
 
-        if (ignoreBox.isChecked()) {
-            trials.get(position).setIgnored(true);
-        }
-        else {
-            trials.get(position).setIgnored(false);
-        }
         return view;
     }
 

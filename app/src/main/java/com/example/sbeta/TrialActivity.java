@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.Timestamp;
+//import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,6 +30,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -85,7 +87,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(TrialActivity.this, TrialInfo.class);
-                intent.putExtra("date", trialDataList.get(position).getCreateDate().toString());
+                intent.putExtra("date", trialDataList.get(position).getCreatedTime().toString());
                 intent.putExtra("chosenTrial", trialDataList.get(position).getTrialName());
                 intent.putExtra("correspondingExp", trialListTittle);
                 intent.putExtra("owner", owner);
@@ -109,18 +111,32 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         //String location =
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        Timestamp time =  (Timestamp) doc.getData().get("date");
-                        Date date = time.toDate();
-                        trialDataList.add(new binomialTrial(result, userName, null, name, trialNum, date));
+
+
+                        binomialTrial theTrial = new binomialTrial(result, userName, null, name, trialNum);
+
+                        if (doc.getData().get("date") != null){
+                            Toast.makeText(TrialActivity.this, "This one has date", Toast.LENGTH_LONG).show();
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
+                        trialDataList.add(theTrial);
                     }
                     else if (expType.equals("Count-based")) {
                         String userName = (String) doc.getData().get("user id");
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        Timestamp time =  (Timestamp) doc.getData().get("date");
-                        Date date = time.toDate();
-                        trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum, date));
+
+                        countBasedTrial theTrial = new countBasedTrial(result, userName, null, name, trialNum);
+
+                        if (doc.getData().get("date") != null){
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
+                        trialDataList.add(theTrial);
                     }
                     else if (expType.equals("Measurement trials")) {
                         String userName = (String) doc.getData().get("user id");
@@ -128,18 +144,30 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        Timestamp time =  (Timestamp) doc.getData().get("date");
-                        Date date = time.toDate();
-                        trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum, date));
+
+                        measurementTrial theTrial = new measurementTrial(result, userName, null, name, trialNum);
+
+                        if (doc.getData().get("date") != null){
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
+                        trialDataList.add(theTrial);
                     }
                     else {
                         String userName = (String) doc.getData().get("user id").toString();
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        Timestamp time =  (Timestamp) doc.getData().get("date");
-                        Date date = time.toDate();
-                        trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum, date));
+
+                        nonNegativeCount theTrial = new nonNegativeCount(result, userName, null, name, trialNum);
+
+                        if (doc.getData().get("date") != null){
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
+                        trialDataList.add(theTrial);
                     }
 
                     Collections.sort(trialDataList, new Comparator<Trial>() {
@@ -176,8 +204,9 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 switch (item.getItemId()) {
                                     case R.id.statistics:
-                                        Intent statIntent=new Intent(TrialActivity.this,showStatsActivity.class);
+                                        Intent statIntent=new Intent(TrialActivity.this,StatActivity.class);
                                         statIntent.putExtra("chosenExperiment",trialListTittle);
+                                        statIntent.putExtra("ExperimentType", expType);
                                         startActivity(statIntent);
                                         return true;
                                     case R.id.questions:

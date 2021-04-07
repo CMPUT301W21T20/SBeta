@@ -2,8 +2,9 @@ package com.example.sbeta;
 
 import android.location.Location;
 
-import java.util.Calendar;
-import java.util.Date;
+
+import java.sql.Timestamp;
+
 
 public abstract class Trial {
     double result;
@@ -12,15 +13,16 @@ public abstract class Trial {
     String trialName;
     int trialNum;
     boolean isIgnored = false;
-    Date createDate;
 
-    public Trial(double result, String participant, Location location, String trialName, int trialNum, Date createDate) {
+    Timestamp createdTime;
+
+
+    public Trial(double result, String participant, Location location, String trialName, int trialNum) {
         this.result = result;
         this.participant = participant;
         this.location = location;
         this.trialName = trialName;
         this.trialNum = trialNum;
-        this.createDate = createDate;
     }
 
     public int getTrialNum() {
@@ -35,11 +37,15 @@ public abstract class Trial {
 
     public boolean getIsIgnored() {return isIgnored;}
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
     public void setIgnored(boolean ignored) {
         isIgnored = ignored;
+    }
+
+    public Timestamp getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
 }

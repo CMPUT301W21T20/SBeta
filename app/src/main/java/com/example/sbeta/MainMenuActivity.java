@@ -49,7 +49,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
-    String userID;
+    static String userID;
     CollectionReference collectionReference;
 
     @Override
@@ -114,7 +114,10 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 dataList.clear();
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) { //do not show experiment that isEnded and is not published
+                    if ( !(boolean) doc.get("isPublished")  ||  (boolean) doc.get("isEnded")){
+                        continue; //
+                    }
 
                     Log.d(TAG, String.valueOf(doc.getData().get("description")));
                     String name = doc.getId();
@@ -150,6 +153,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 } else {
                     Intent intent = new Intent(MainMenuActivity.this, SearchDisplay.class);
                     intent.putExtra("keyword", searchWord.getText().toString());
+                    intent.putExtra("userID", userID);
+                    intent.putExtra("userName", logInUserName);
                     searchWord.setText("");
                     startActivity(intent);
                 }

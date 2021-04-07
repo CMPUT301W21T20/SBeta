@@ -32,6 +32,7 @@
       <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_trial_info.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddBinomialTrial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddBinomialTrial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddCountTrial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddCountTrial.java" afterDir="false" />
@@ -46,13 +47,20 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_binomial_trial.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_binomial_trial.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_count_trial.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_count_trial.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/operation_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/operation_menu.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/StatActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/StatActivity.java" afterDir="false" />
+>>>>>>> 575d357ca1c2f20badd75bab824ae0452b4afecd
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3_API_30]" />
+=======
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[8KE0219404008618]" />
+>>>>>>> 575d357ca1c2f20badd75bab824ae0452b4afecd
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -229,40 +237,64 @@
     <state x="0" y="28" width="1439" height="787" key="AndroidCreateResourceFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1615101224222" />
     <state x="0" y="49" key="AndroidCreateResourceFileDialog/0.25.1440.787@0.25.1440.787" timestamp="1615194321827" />
     <state x="0" y="25" key="AndroidCreateResourceFileDialog/0.25.1440.806@0.25.1440.806" timestamp="1616652733631" />
+<<<<<<< HEAD
     <state width="1274" height="186" key="GridCell.Tab.0.bottom" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
+=======
+    <state width="1396" height="198" key="GridCell.Tab.0.bottom" timestamp="1617784110356">
+      <screen x="0" y="25" width="1440" height="788" />
+>>>>>>> 575d357ca1c2f20badd75bab824ae0452b4afecd
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.bottom/0.25.1440.787@0.25.1440.787" timestamp="1615450830093" />
+    <state width="1396" height="198" key="GridCell.Tab.0.bottom/0.25.1440.788@0.25.1440.788" timestamp="1617784110356" />
     <state width="1364" height="198" key="GridCell.Tab.0.bottom/0.25.1440.791@0.25.1440.791" timestamp="1616146783814" />
     <state width="1254" height="198" key="GridCell.Tab.0.bottom/0.25.1440.794@0.25.1440.794" timestamp="1616145169462" />
     <state width="1398" height="181" key="GridCell.Tab.0.bottom/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
     <state width="1398" height="181" key="GridCell.Tab.0.bottom/0.25.1440.806@0.25.1440.806" timestamp="1616666529135" />
     <state width="1398" height="174" key="GridCell.Tab.0.bottom/0.25.1440.811@0.25.1440.811" timestamp="1617087305039" />
+<<<<<<< HEAD
     <state width="1274" height="186" key="GridCell.Tab.0.bottom/0.25.1440.817@0.25.1440.817" timestamp="1617800511117" />
     <state width="1274" height="186" key="GridCell.Tab.0.center" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
+=======
+    <state width="1396" height="198" key="GridCell.Tab.0.center" timestamp="1617784110356">
+      <screen x="0" y="25" width="1440" height="788" />
+>>>>>>> 575d357ca1c2f20badd75bab824ae0452b4afecd
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.center/0.25.1440.787@0.25.1440.787" timestamp="1615450830092" />
+    <state width="1396" height="198" key="GridCell.Tab.0.center/0.25.1440.788@0.25.1440.788" timestamp="1617784110356" />
     <state width="1364" height="198" key="GridCell.Tab.0.center/0.25.1440.791@0.25.1440.791" timestamp="1616146783813" />
     <state width="1254" height="198" key="GridCell.Tab.0.center/0.25.1440.794@0.25.1440.794" timestamp="1616145169461" />
     <state width="1398" height="181" key="GridCell.Tab.0.center/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
     <state width="1398" height="181" key="GridCell.Tab.0.center/0.25.1440.806@0.25.1440.806" timestamp="1616666529135" />
     <state width="1398" height="174" key="GridCell.Tab.0.center/0.25.1440.811@0.25.1440.811" timestamp="1617087305039" />
+<<<<<<< HEAD
     <state width="1274" height="186" key="GridCell.Tab.0.center/0.25.1440.817@0.25.1440.817" timestamp="1617800511117" />
     <state width="1274" height="186" key="GridCell.Tab.0.left" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
+=======
+    <state width="1396" height="198" key="GridCell.Tab.0.left" timestamp="1617784110355">
+      <screen x="0" y="25" width="1440" height="788" />
+>>>>>>> 575d357ca1c2f20badd75bab824ae0452b4afecd
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.left/0.25.1440.787@0.25.1440.787" timestamp="1615450830092" />
+    <state width="1396" height="198" key="GridCell.Tab.0.left/0.25.1440.788@0.25.1440.788" timestamp="1617784110355" />
     <state width="1364" height="198" key="GridCell.Tab.0.left/0.25.1440.791@0.25.1440.791" timestamp="1616146783813" />
     <state width="1254" height="198" key="GridCell.Tab.0.left/0.25.1440.794@0.25.1440.794" timestamp="1616145169460" />
     <state width="1398" height="181" key="GridCell.Tab.0.left/0.25.1440.805@0.25.1440.805" timestamp="1616141124420" />
     <state width="1398" height="181" key="GridCell.Tab.0.left/0.25.1440.806@0.25.1440.806" timestamp="1616666529135" />
     <state width="1398" height="174" key="GridCell.Tab.0.left/0.25.1440.811@0.25.1440.811" timestamp="1617087305038" />
+<<<<<<< HEAD
     <state width="1274" height="186" key="GridCell.Tab.0.left/0.25.1440.817@0.25.1440.817" timestamp="1617800511117" />
     <state width="1274" height="186" key="GridCell.Tab.0.right" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
+=======
+    <state width="1396" height="198" key="GridCell.Tab.0.right" timestamp="1617784110356">
+      <screen x="0" y="25" width="1440" height="788" />
+>>>>>>> 575d357ca1c2f20badd75bab824ae0452b4afecd
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.right/0.25.1440.787@0.25.1440.787" timestamp="1615450830093" />
+    <state width="1396" height="198" key="GridCell.Tab.0.right/0.25.1440.788@0.25.1440.788" timestamp="1617784110356" />
     <state width="1364" height="198" key="GridCell.Tab.0.right/0.25.1440.791@0.25.1440.791" timestamp="1616146783813" />
     <state width="1254" height="198" key="GridCell.Tab.0.right/0.25.1440.794@0.25.1440.794" timestamp="1616145169461" />
     <state width="1398" height="181" key="GridCell.Tab.0.right/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
