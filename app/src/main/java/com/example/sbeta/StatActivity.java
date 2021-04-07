@@ -243,7 +243,20 @@ public class StatActivity extends AppCompatActivity {
         plots_chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                return "Time";
+                String timeString = "";
+                if (value == 1) {
+                    timeString = new SimpleDateFormat("yyyy-MM-dd").format(oldestTime);
+                }
+                else {
+                    if (value % 2 != 1){
+                        return timeString;
+                    }
+                    calendar.setTime(new Date(oldestTime.getTime()));
+                    calendar.add(Calendar.DATE, (int) (value - 1));
+                    timeString = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
+                }
+
+                return timeString;
             }
         });
 
@@ -396,6 +409,7 @@ public class StatActivity extends AppCompatActivity {
         }
 
 
+        //change the time to the start of that day
         String timeString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(oldestTime);
         String NewTimeString = timeString.substring(0, 10) + " 00:00:00";
         DateFormat NewDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -445,7 +459,7 @@ public class StatActivity extends AppCompatActivity {
 
 
 
-        LineDataSet plot_dataSet = new LineDataSet(ValueList, "True Dots");
+        LineDataSet plot_dataSet = new LineDataSet(ValueList, "Trials");
         plot_dataSet.setColor(Color.BLACK);
         fullPlotDataSet.add(plot_dataSet);
 
