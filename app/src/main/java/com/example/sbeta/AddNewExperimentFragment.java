@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,6 +52,7 @@ public class AddNewExperimentFragment extends DialogFragment {
     ArrayList<String> ExprNameArray;
     private boolean isCorrect;
     private boolean nameRepeated;
+    private FirebaseFirestore db;
 
 
 
@@ -95,7 +98,7 @@ public class AddNewExperimentFragment extends DialogFragment {
         nameRepeated = false;
         ExprNameArray = new ArrayList<>();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
         final CollectionReference ExprReference = db.collection("experiments");
 
         // this part will update the current documentID
@@ -167,6 +170,7 @@ public class AddNewExperimentFragment extends DialogFragment {
                             nameRepeated = true;
                         }
 
+                        // check tha availability
                         if (isCorrect && nameRepeated == false) {
                             String userName = MainMenuActivity.logInUserName;
                             Experiment new_experiment = new Experiment(
@@ -178,6 +182,16 @@ public class AddNewExperimentFragment extends DialogFragment {
                                     experimentType,
                                     description,
                                     userName);
+
+                            final CollectionReference UsersReference = db.collection("users");
+                            final DocumentReference UserReference =  UsersReference.document(MainMenuActivity.userID);
+                            final CollectionReference OwnedExperList = UserReference.collection("ownedExp");
+                            HashMap<String, Object> OwnedExpr = new HashMap<>();
+                            OwnedExpr.put("exp" ,description);
+
+                            OwnedExperList
+                                    .document(description)
+                                    .set(OwnedExpr);
 
                             Toast.makeText(getActivity(), "you selected " + selectedType, Toast.LENGTH_LONG).show();
                             listener.onOkPressed(new_experiment);
