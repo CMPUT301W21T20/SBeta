@@ -62,7 +62,7 @@ public class SearchUserActivity extends AppCompatActivity {
                         users.add(new User(name, contact));
                     }
                 }
-                if (users.size()==0) throw new IllegalArgumentException("No such a user");
+                // if (users.size()==0) throw new IllegalArgumentException("No such a user");
             }
 
         });
