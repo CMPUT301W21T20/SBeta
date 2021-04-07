@@ -2,7 +2,9 @@ package com.example.sbeta;
 
 import android.location.Location;
 
+
 import java.sql.Timestamp;
+
 
 public abstract class Trial {
     double result;
@@ -11,7 +13,9 @@ public abstract class Trial {
     String trialName;
     int trialNum;
     boolean isIgnored = false;
+
     Timestamp createdTime;
+
 
     public Trial(double result, String participant, Location location, String trialName, int trialNum) {
         this.result = result;

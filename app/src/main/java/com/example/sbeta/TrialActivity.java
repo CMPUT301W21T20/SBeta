@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+//import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,7 +44,6 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
     ArrayAdapter<Trial> trialArrayAdapter;
     static ArrayList<Trial> trialDataList;
     private int trialNum;
-    ArrayList<Trial> ignoreTrials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,32 +54,49 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         String expType = intent.getStringExtra("ExperimentType");
         String currentUser = intent.getStringExtra("userID");
         String name = intent.getStringExtra("userName");
-
-
-        //Intent intent = getIntent();
-        //Intent intent = getIntent();
+        String locationRequired = intent.getStringExtra("locationRequired");
+        int minTrials = Integer.parseInt(intent.getStringExtra("minTrials"));
 
         String trialListTittle = intent.getStringExtra("chosenExperiment");
         String userID = intent.getStringExtra("userID");
+        String owner = intent.getStringExtra("owner");
 
-
+        this.setTitle(trialListTittle + " ("+ owner + ")");
 
         trialList = findViewById(R.id.trial_list);
         trialDataList = new ArrayList<>();
 
-        trialArrayAdapter = new TrialAdapter(this, trialDataList, ignoreTrials);
+        trialArrayAdapter = new TrialAdapter(this, trialDataList);
         trialList.setAdapter(trialArrayAdapter);
-
 
         Button operationButton = findViewById(R.id.operation_button);
         Button addButton = findViewById(R.id.add_trial_button);
-
-
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference= db.collection("experiments");
         final DocumentReference experiment = collectionReference.document(trialListTittle);
         final CollectionReference trials = experiment.collection("trials");
+
+        //min trials
+        if (trialNum >= minTrials) {
+            Toast.makeText(TrialActivity.this, "Minimum number of trials is has been sastified", Toast.LENGTH_SHORT).show();
+        }
+
+        //check trial info
+        trialList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(TrialActivity.this, TrialInfo.class);
+                intent.putExtra("date", trialDataList.get(position).getCreatedTime().toString());
+                intent.putExtra("chosenTrial", trialDataList.get(position).getTrialName());
+                intent.putExtra("correspondingExp", trialListTittle);
+                intent.putExtra("owner", owner);
+                intent.putExtra("user", name);
+                intent.putExtra("data", trialDataList.get(position).getResult());
+                intent.putExtra("expType", expType);
+                startActivity(intent);
+            }
+        });
 
 
         trials.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -106,11 +125,9 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                     else if (expType.equals("Count-based")) {
                         String userName = (String) doc.getData().get("user id");
-                        String resultStr;
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-
 
                         countBasedTrial theTrial = new countBasedTrial(result, userName, null, name, trialNum);
 
@@ -139,11 +156,9 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                     else {
                         String userName = (String) doc.getData().get("user id").toString();
-                        String resultStr;
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-
 
                         nonNegativeCount theTrial = new nonNegativeCount(result, userName, null, name, trialNum);
 
@@ -162,11 +177,13 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         }
                     });
 
-
-
                     trialArrayAdapter.notifyDataSetChanged();
 
                     trialNum = trialDataList.size();
+
+                    if (trialNum >= minTrials) {
+                        Toast.makeText(TrialActivity.this, "Minimum number of trials is has been sastified", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
@@ -186,18 +203,11 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                 //Toast.makeText(TrialActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 switch (item.getItemId()) {
-                                    case R.id.edit_trial:
-                                        // do your code
-                                        return true;
                                     case R.id.statistics:
                                         Intent statIntent=new Intent(TrialActivity.this,StatActivity.class);
                                         statIntent.putExtra("chosenExperiment",trialListTittle);
                                         statIntent.putExtra("ExperimentType", expType);
                                         startActivity(statIntent);
-
-                                        return true;
-                                    case R.id.ignore:
-                                        // do your code
                                         return true;
                                     case R.id.questions:
                                         Intent intent = new Intent(TrialActivity.this, showQuestion.class);
@@ -311,14 +321,17 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             intent.putExtra("trial number", trialNum);
                                             intent.putExtra("userID", currentUser);
                                             intent.putExtra("userName", name);
+                                            intent.putExtra("locationRequired", locationRequired);
                                             startActivity(intent);
                                         }
                                         else {
                                             intent = new Intent(TrialActivity.this, AddCountTrial.class);
+                                            intent.putExtra("ExperimentType", expType);
                                             intent.putExtra("chosenExperiment", trialListTittle);
                                             intent.putExtra("trial number", trialNum);
                                             intent.putExtra("userID", currentUser);
                                             intent.putExtra("userName", name);
+                                            intent.putExtra("locationRequired", locationRequired);
                                             startActivity(intent);
                                         }
 
