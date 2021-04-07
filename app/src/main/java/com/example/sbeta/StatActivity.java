@@ -26,10 +26,15 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * this activity will show the histogram, statistic, dot chart of the experiment
@@ -49,6 +54,8 @@ public class StatActivity extends AppCompatActivity {
     private TextView median;
     private TextView mean;
     private TextView stdDev;
+    private Timestamp oldestTime;
+    private Calendar calendar = new GregorianCalendar();
 
     String type1 = "Count-based";
     String type2 = "Binomial trials";
@@ -178,16 +185,16 @@ public class StatActivity extends AppCompatActivity {
         fullBarDataSet = new ArrayList<>(); // the final data set for the histogram chart
 
         if (selectedType.equals(type1)) {
-            CountHistogramCalculator();
+            NumHistogramCalculator(); // !!!!!
         }
         else if (selectedType.equals(type2)) {
             BinomialHistogramCalculator();
         }
         else if (selectedType.equals(type3)) {
-            CountHistogramCalculator();
+            NumHistogramCalculator();
         }
         else if (selectedType.equals(type4)) {
-            CountHistogramCalculator();
+            NumHistogramCalculator();
         }
         else {
         }
@@ -204,23 +211,22 @@ public class StatActivity extends AppCompatActivity {
         //---------------------------------------------------------------
 
         //plot chart part----------------------------------------------------------
-        Timestamp time = new Timestamp(0);
-        Date date = new Date(0);
+
 
 
         fullPlotDataSet = new ArrayList<>(); // the final data set for the plot chart
 
         if (selectedType.equals(type1)) {
-            CountPlotCalculator();
+            NumPlotCalculator(); //!!!!!
         }
         else if (selectedType.equals(type2)) {
             BinomialPlotCalculator();
         }
         else if (selectedType.equals(type3)) {
-            CountPlotCalculator();
+            NumPlotCalculator();
         }
         else if (selectedType.equals(type4)) {
-            CountPlotCalculator();
+            NumPlotCalculator();
         }
         else {
         }
@@ -241,7 +247,7 @@ public class StatActivity extends AppCompatActivity {
         //---------------------------------------------------------------
     }
 
-    private void CountHistogramCalculator(){
+    private void NumHistogramCalculator(){
         for (Trial singleTrial : trials) {
             // if the trial's isIgnored is true, just ignore it
             if (singleTrial.getIsIgnored()){
@@ -329,7 +335,7 @@ public class StatActivity extends AppCompatActivity {
 
     }
 
-    private void CountPlotCalculator(){
+    private void NumPlotCalculator(){
 
         ArrayList<Entry> valueList = new ArrayList<>();
         for (Trial singleTrial : trials) {
@@ -352,34 +358,85 @@ public class StatActivity extends AppCompatActivity {
     }
 
     private void BinomialPlotCalculator(){
-        ArrayList<Entry> TrueValueList = new ArrayList<>();
-        ArrayList<Entry> FalseValueList = new ArrayList<>();
-
-
-        for (Trial singleTrial : trials) {
+        ArrayList<Entry> ValueList = new ArrayList<>();
+        oldestTime = null;
+        int ignoredNum = 0;
+        for (Trial singleTrial : trials) { //find the oldest trial
             // if the trial's isIgnored is true, just ignore it
             if (singleTrial.getIsIgnored()) {
+                ignoredNum++;
                 continue;
             }
 
-            Double randomI = Math.random() * 10;
-
-            if (singleTrial.getResult() ==  (double) 1) {
-                TrueValueList.add(new Entry(randomI.floatValue(), 1));
+            if (oldestTime == null){
+                oldestTime = singleTrial.getCreatedTime();
             }
-            else if (singleTrial.getResult() == (double) 0){
-                FalseValueList.add(new Entry(randomI.floatValue(), 2));
+            else {
+                if (oldestTime.after(singleTrial.getCreatedTime())){
+                    oldestTime = singleTrial.getCreatedTime();
+                }
             }
-
-
         }
 
-        ScatterDataSet plot_dataSet_true = new ScatterDataSet(TrueValueList, "True Dots");
-        plot_dataSet_true.setColor(Color.RED);
-        ScatterDataSet plot_dataSet_false = new ScatterDataSet(FalseValueList, "False Dots");
-        plot_dataSet_false.setColor(Color.BLUE);
-        fullPlotDataSet.add(plot_dataSet_true);
-        fullPlotDataSet.add(plot_dataSet_false);
+        if (oldestTime == null){
+            return;
+        }
+
+
+        String timeString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(oldestTime);
+        String NewTimeString = timeString.substring(0, 10) + " 00:00:00";
+        DateFormat NewDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date NewDate = new Date();
+
+        try{
+            NewDate = NewDateFormat.parse(NewTimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        calendar.setTime(NewDate);
+        calendar.add(Calendar.DATE, 1); //increase the date by 1
+        NewDate = calendar.getTime();
+        Timestamp focusedTime = new Timestamp(NewDate.getTime()); // at least one trial before that time
+
+        int plotCounter = 0;
+        int plotsNumber = trials.size() - ignoredNum;
+        int valueOfX = 1;
+
+        DecimalFormat divisionFormat = new DecimalFormat("0.00");
+
+        while (plotCounter != plotsNumber){
+
+            plotCounter = 0;
+            int TruthSum = 0;
+
+            for (Trial singleTrial : trials) { // calculate the plot
+                // if the trial's isIgnored is true, just ignore it
+                if (singleTrial.getIsIgnored()) {
+                    continue;
+                }
+
+                if (singleTrial.getCreatedTime().before(focusedTime)){
+                    TruthSum += singleTrial.getResult();
+                    plotCounter++;
+                }
+
+            }
+            Double TruthRate = Double.valueOf( divisionFormat.format( (double) TruthSum / plotCounter) );
+
+            ValueList.add(new Entry(valueOfX, TruthRate.floatValue()));
+            valueOfX++;
+            calendar.setTime(new Date(focusedTime.getTime()));
+            calendar.add(Calendar.DATE, 1);
+            focusedTime = new Timestamp(calendar.getTime().getTime());
+        }
+
+
+
+        ScatterDataSet plot_dataSet = new ScatterDataSet(ValueList, "True Dots");
+        plot_dataSet.setColor(Color.RED);
+        fullPlotDataSet.add(plot_dataSet);
+
     }
 
 }
