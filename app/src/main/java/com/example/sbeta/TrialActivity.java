@@ -32,6 +32,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 
 public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
@@ -92,9 +93,15 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
 
-                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
+
                         binomialTrial theTrial = new binomialTrial(result, userName, null, name, trialNum);
-                        theTrial.setCreatedTime(createdTime);
+
+                        if (doc.getData().get("date") != null){
+                            Toast.makeText(TrialActivity.this, "This one has date", Toast.LENGTH_LONG).show();
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
                         trialDataList.add(theTrial);
                     }
                     else if (expType.equals("Count-based")) {
@@ -104,9 +111,14 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
 
-                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
+
                         countBasedTrial theTrial = new countBasedTrial(result, userName, null, name, trialNum);
-                        theTrial.setCreatedTime(createdTime);
+
+                        if (doc.getData().get("date") != null){
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
                         trialDataList.add(theTrial);
                     }
                     else if (expType.equals("Measurement trials")) {
@@ -116,9 +128,13 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
 
-                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
                         measurementTrial theTrial = new measurementTrial(result, userName, null, name, trialNum);
-                        theTrial.setCreatedTime(createdTime);
+
+                        if (doc.getData().get("date") != null){
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
                         trialDataList.add(theTrial);
                     }
                     else {
@@ -128,9 +144,14 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
 
-                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
+
                         nonNegativeCount theTrial = new nonNegativeCount(result, userName, null, name, trialNum);
-                        theTrial.setCreatedTime(createdTime);
+
+                        if (doc.getData().get("date") != null){
+                            Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
+                            Timestamp createdTime = new Timestamp(createdDate.getTime());
+                            theTrial.setCreatedTime(createdTime);
+                        }
                         trialDataList.add(theTrial);
                     }
 

@@ -149,6 +149,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 } else {
                     Intent intent = new Intent(MainMenuActivity.this, SearchDisplay.class);
                     intent.putExtra("keyword", searchWord.getText().toString());
+                    intent.putExtra("userID", userID);
+                    intent.putExtra("userName", logInUserName);
                     searchWord.setText("");
                     startActivity(intent);
                 }
