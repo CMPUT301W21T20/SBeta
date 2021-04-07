@@ -151,8 +151,9 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         // do your code
                                         return true;
                                     case R.id.statistics:
-                                        Intent statIntent=new Intent(TrialActivity.this,showStatsActivity.class);
+                                        Intent statIntent=new Intent(TrialActivity.this,StatActivity.class);
                                         statIntent.putExtra("chosenExperiment",trialListTittle);
+                                        statIntent.putExtra("ExperimentType", expType);
                                         startActivity(statIntent);
 
                                         return true;
