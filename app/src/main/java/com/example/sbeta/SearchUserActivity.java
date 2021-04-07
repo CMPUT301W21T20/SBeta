@@ -55,18 +55,16 @@ public class SearchUserActivity extends AppCompatActivity {
                     Log.d(TAG, String.valueOf(doc.getData().get("userName")));
                     String name = (String)doc.getData().get("userName");
 
-                    if (name.length() == 0) throw new IllegalArgumentException("wrong");
-
                     if (name.toLowerCase().contains(searchkey.toLowerCase())) {
                         String contact = (String) doc.getData().get("contact");
                         users.add(new User(name, contact));
                     }
                 }
-                if (users.size()==0) throw new IllegalArgumentException("No such a user");
             }
 
         });
-        adapter=new SearchUserAdapter(this,users);
+
+        adapter = new SearchUserAdapter(this, users);
         DisplayList.setAdapter(adapter);
     }
 }

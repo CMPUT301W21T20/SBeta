@@ -3,7 +3,6 @@ package com.example.sbeta;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,20 +12,25 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.ScatterChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.ScatterData;
+import com.github.mikephil.charting.data.ScatterDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- * this will show the histogram, statistic, dot chart of the experiment
+ * this activity will show the histogram, statistic, dot chart of the experiment
  */
 
 public class StatActivity extends AppCompatActivity {
@@ -34,10 +38,10 @@ public class StatActivity extends AppCompatActivity {
     private ArrayList<ChartDot> chartDots;
     private ArrayList<Trial> trials;
     private BarChart histogram_chart;
-    private LineChart plots_chart;
+    private ScatterChart plots_chart;
     private View statistic_page;
-    private Description histogram_desc;
     private ArrayList<IBarDataSet> fullBarDataSet;
+    private ArrayList<IScatterDataSet> fullPlotDataSet;
     private ArrayList<Double> statDataList;
     private TextView quartiles;
     private TextView median;
@@ -70,6 +74,7 @@ public class StatActivity extends AppCompatActivity {
         mean= findViewById(R.id.mean);
         stdDev = findViewById(R.id.std_dev);
 
+        trials = TrialActivity.trialDataList; // use the arraylist from trial page
 
         statButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +103,8 @@ public class StatActivity extends AppCompatActivity {
             }
         });
 
-        trials = TrialActivity.trialDataList;
 
-        // statistic
+        // statistic part //---------------------------------------------------------------
         statDataList = new ArrayList<>();
         for (Trial trialA : trials) {
             statDataList.add(trialA.getResult());
@@ -164,13 +168,13 @@ public class StatActivity extends AppCompatActivity {
             stdDev.append(" " + df.format(stdDevValue));
 
         }
+        //---------------------------------------------------------------
 
 
-        // histogram
+        // histogram part //---------------------------------------------------------------
         chartDots = new ArrayList<>();
+        fullBarDataSet = new ArrayList<>(); // the final data set for the histogram chart
 
-        histogram_chart = findViewById(R.id.histogram);
-        fullBarDataSet = new ArrayList<>(); // the final data set for the chart
         if (selectedType.equals(type1)) {
             CountHistogramCalculator();
         }
@@ -186,9 +190,7 @@ public class StatActivity extends AppCompatActivity {
         else {
         }
 
-
-
-
+        Description histogram_desc;
         histogram_desc = new Description();
         histogram_desc.setText("");
 
@@ -196,10 +198,50 @@ public class StatActivity extends AppCompatActivity {
         histogram_chart.setData(histogram_data);
         histogram_chart.setDescription(histogram_desc);
         histogram_chart.getAxisLeft().setDrawAxisLine(false);
+
+        //---------------------------------------------------------------
+
+        //plot chart part----------------------------------------------------------
+        fullPlotDataSet = new ArrayList<>(); // the final data set for the plot chart
+
+        if (selectedType.equals(type1)) {
+            CountPlotCalculator();
+        }
+        else if (selectedType.equals(type2)) {
+            BinomialPlotCalculator();
+        }
+        else if (selectedType.equals(type3)) {
+            CountPlotCalculator();
+        }
+        else if (selectedType.equals(type4)) {
+            CountPlotCalculator();
+        }
+        else {
+        }
+
+        plots_chart.setData(new ScatterData(fullPlotDataSet));
+        plots_chart.getDescription().setText("Plot Chart");
+        plots_chart.setMaxVisibleValueCount(5); //if the y value no more than 5, it will not show
+        plots_chart.setDrawGridBackground(false);
+
+        plots_chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return "Time";
+            }
+        });
+
+
+        //---------------------------------------------------------------
     }
 
     private void CountHistogramCalculator(){
         for (Trial singleTrial : trials) {
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()){
+                continue;
+            }
+
             boolean isContained = false;
             double value = singleTrial.getResult();
             for (ChartDot singleDot : chartDots) {
@@ -209,6 +251,7 @@ public class StatActivity extends AppCompatActivity {
                     break;
                 }
             }
+            // add as a new dot if no dots in the list has the same value with the current trial
             if (!isContained) {
                 chartDots.add(new ChartDot(value, 1));
             }
@@ -223,11 +266,12 @@ public class StatActivity extends AppCompatActivity {
 
         int index = 0;
         int colorCounter = 0;
-        for (ChartDot singleDot : chartDots) {
+        for (ChartDot singleDot : chartDots) { // add the result into the data set
             Double x = singleDot.getX();
             Double y = singleDot.getY();
             ArrayList<BarEntry> valueList = new ArrayList<>();
             valueList.add(new BarEntry(index, y.floatValue()));
+
             BarDataSet histogram_dataSet = new BarDataSet(valueList, "Result: " + x);
             histogram_dataSet.setColor(colors.get(colorCounter));
             fullBarDataSet.add(histogram_dataSet);
@@ -241,6 +285,11 @@ public class StatActivity extends AppCompatActivity {
         chartDots.add(new ChartDot(0, 0));
         chartDots.add(new ChartDot(1, 0));
         for (Trial singleTrial : trials) {
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()){
+                continue;
+            }
+
             double value = singleTrial.getResult();
             if (value == 0){
                 chartDots.get(0).increamentY();
@@ -272,6 +321,58 @@ public class StatActivity extends AppCompatActivity {
             index++;
         }
 
+    }
+
+    private void CountPlotCalculator(){
+
+        ArrayList<Entry> valueList = new ArrayList<>();
+        for (Trial singleTrial : trials) {
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()) {
+                continue;
+            }
+
+            Double randomI = Math.random() * 10;
+            Double value = singleTrial.getResult();
+            valueList.add(new Entry( randomI.floatValue(), value.floatValue() ) );
+
+
+        }
+
+        ScatterDataSet plot_dataSet = new ScatterDataSet(valueList, "Trials");
+        fullPlotDataSet.add(plot_dataSet);
+
+    }
+
+    private void BinomialPlotCalculator(){
+        ArrayList<Entry> TrueValueList = new ArrayList<>();
+        ArrayList<Entry> FalseValueList = new ArrayList<>();
+
+
+        for (Trial singleTrial : trials) {
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()) {
+                continue;
+            }
+
+            Double randomI = Math.random() * 10;
+
+            if (singleTrial.getResult() ==  (double) 1) {
+                TrueValueList.add(new Entry(randomI.floatValue(), 1));
+            }
+            else if (singleTrial.getResult() == (double) 0){
+                FalseValueList.add(new Entry(randomI.floatValue(), 2));
+            }
+
+
+        }
+
+        ScatterDataSet plot_dataSet_true = new ScatterDataSet(TrueValueList, "True Dots");
+        plot_dataSet_true.setColor(Color.RED);
+        ScatterDataSet plot_dataSet_false = new ScatterDataSet(FalseValueList, "False Dots");
+        plot_dataSet_false.setColor(Color.BLUE);
+        fullPlotDataSet.add(plot_dataSet_true);
+        fullPlotDataSet.add(plot_dataSet_false);
     }
 
 }

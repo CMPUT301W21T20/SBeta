@@ -1,5 +1,7 @@
 package com.example.sbeta;
 
+import androidx.annotation.Nullable;
+
 import com.google.type.Expr;
 
 import java.util.ArrayList;
@@ -20,10 +22,11 @@ public class User {
         this.userID = userID;
     }
 
-    public User(String userID, String contactInfo){
-        this.userID=userID;
-        this.contactInfo=contactInfo;
-	}
+    public User(@Nullable String userID,@Nullable String contactInfo) {
+        this.userID = userID;
+        this.contactInfo = contactInfo;
+    }
+
     public String getUserName() {
         return userName;
     }
