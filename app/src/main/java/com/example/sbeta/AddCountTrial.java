@@ -32,6 +32,7 @@ public class AddCountTrial extends AppCompatActivity{
 
         Button selectLocation = findViewById(R.id.location_count);
         EditText data = findViewById(R.id.count_data);
+        TextView expName = findViewById(R.id.display_exp_name);
         TextView userName = findViewById(R.id.user_name_count);
         Button confirmButton = findViewById(R.id.confirm_button_count);
         Button cancelButton = findViewById(R.id.cancel_button_count);
@@ -40,12 +41,25 @@ public class AddCountTrial extends AppCompatActivity{
         String userId = getIntent().getStringExtra("userID");
         String name = getIntent().getStringExtra("userName");
         String locationRequired = getIntent().getStringExtra("locationRequired");
+
+        String title = getIntent().getStringExtra("chosenExperiment");
+        int trialId = getIntent().getIntExtra("trial number", 0);
+        expName.setText(title);
+
         userName.setText(name);
+
+        if (expType.equals("Count-based")) {
+            this.setTitle("Count-based Experiment");
+        }
+        else if (expType.equals("Non-negative integer counts")) {
+            this.setTitle("Non-negative Integer experiment");
+        }
+        else {
+            this.setTitle("Measurement experiment");
+        }
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("experiments");
-        String title = getIntent().getStringExtra("chosenExperiment");
-        int trialId = getIntent().getIntExtra("trial number", 0);
         final DocumentReference experiment = collectionReference.document(title);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +88,6 @@ public class AddCountTrial extends AppCompatActivity{
                     trial_to_add.put("trial id", trialId);
 
                     String trialName = "trial " + trialId;
-
                     if (locationRequired.equals("true") && location == null) {
                         Toast.makeText(AddCountTrial.this, "Location is required", Toast.LENGTH_SHORT).show();
                     }

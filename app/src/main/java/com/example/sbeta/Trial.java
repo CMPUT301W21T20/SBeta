@@ -14,12 +14,13 @@ public abstract class Trial {
     boolean isIgnored = false;
     Date createDate;
 
-    public Trial(double result, String participant, Location location, String trialName, int trialNum) {
+    public Trial(double result, String participant, Location location, String trialName, int trialNum, Date createDate) {
         this.result = result;
         this.participant = participant;
         this.location = location;
         this.trialName = trialName;
         this.trialNum = trialNum;
+        this.createDate = createDate;
     }
 
     public int getTrialNum() {

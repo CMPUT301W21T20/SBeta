@@ -28,11 +28,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f83b69e-ff07-4ea0-9494-cddd3230cd0e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/TrialInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_trial_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddBinomialTrial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddBinomialTrial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddCountTrial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/AddCountTrial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/MainMenuActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/MainMenuActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/Trial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/Trial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/TrialActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/TrialActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/TrialAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/TrialAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/binomialTrial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/binomialTrial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/countBasedTrial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/countBasedTrial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/measurementTrial.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/measurementTrial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/nonNegativeCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sbeta/nonNegativeCount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_binomial_trial.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_binomial_trial.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_count_trial.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_count_trial.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/operation_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/operation_menu.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,10 +89,13 @@
     <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
   </component>
   <component name="RecentsManager">
-    <key name="android.template.730714742">
+    <key name="android.template.433562892">
       <recent name="com.example.sbeta" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.sbeta" />
+    </key>
+    <key name="android.template.730714742">
       <recent name="com.example.sbeta" />
     </key>
   </component>
@@ -213,7 +229,7 @@
     <state x="0" y="28" width="1439" height="787" key="AndroidCreateResourceFileDialog/0.0.1440.900@0.0.1440.900" timestamp="1615101224222" />
     <state x="0" y="49" key="AndroidCreateResourceFileDialog/0.25.1440.787@0.25.1440.787" timestamp="1615194321827" />
     <state x="0" y="25" key="AndroidCreateResourceFileDialog/0.25.1440.806@0.25.1440.806" timestamp="1616652733631" />
-    <state width="1265" height="63" key="GridCell.Tab.0.bottom" timestamp="1617743965187">
+    <state width="1274" height="186" key="GridCell.Tab.0.bottom" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.bottom/0.25.1440.787@0.25.1440.787" timestamp="1615450830093" />
@@ -222,8 +238,8 @@
     <state width="1398" height="181" key="GridCell.Tab.0.bottom/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
     <state width="1398" height="181" key="GridCell.Tab.0.bottom/0.25.1440.806@0.25.1440.806" timestamp="1616666529135" />
     <state width="1398" height="174" key="GridCell.Tab.0.bottom/0.25.1440.811@0.25.1440.811" timestamp="1617087305039" />
-    <state width="1265" height="63" key="GridCell.Tab.0.bottom/0.25.1440.817@0.25.1440.817" timestamp="1617743965187" />
-    <state width="1265" height="63" key="GridCell.Tab.0.center" timestamp="1617743965186">
+    <state width="1274" height="186" key="GridCell.Tab.0.bottom/0.25.1440.817@0.25.1440.817" timestamp="1617800511117" />
+    <state width="1274" height="186" key="GridCell.Tab.0.center" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.center/0.25.1440.787@0.25.1440.787" timestamp="1615450830092" />
@@ -232,8 +248,8 @@
     <state width="1398" height="181" key="GridCell.Tab.0.center/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
     <state width="1398" height="181" key="GridCell.Tab.0.center/0.25.1440.806@0.25.1440.806" timestamp="1616666529135" />
     <state width="1398" height="174" key="GridCell.Tab.0.center/0.25.1440.811@0.25.1440.811" timestamp="1617087305039" />
-    <state width="1265" height="63" key="GridCell.Tab.0.center/0.25.1440.817@0.25.1440.817" timestamp="1617743965186" />
-    <state width="1265" height="63" key="GridCell.Tab.0.left" timestamp="1617743965185">
+    <state width="1274" height="186" key="GridCell.Tab.0.center/0.25.1440.817@0.25.1440.817" timestamp="1617800511117" />
+    <state width="1274" height="186" key="GridCell.Tab.0.left" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.left/0.25.1440.787@0.25.1440.787" timestamp="1615450830092" />
@@ -242,8 +258,8 @@
     <state width="1398" height="181" key="GridCell.Tab.0.left/0.25.1440.805@0.25.1440.805" timestamp="1616141124420" />
     <state width="1398" height="181" key="GridCell.Tab.0.left/0.25.1440.806@0.25.1440.806" timestamp="1616666529135" />
     <state width="1398" height="174" key="GridCell.Tab.0.left/0.25.1440.811@0.25.1440.811" timestamp="1617087305038" />
-    <state width="1265" height="63" key="GridCell.Tab.0.left/0.25.1440.817@0.25.1440.817" timestamp="1617743965185" />
-    <state width="1265" height="63" key="GridCell.Tab.0.right" timestamp="1617743965186">
+    <state width="1274" height="186" key="GridCell.Tab.0.left/0.25.1440.817@0.25.1440.817" timestamp="1617800511117" />
+    <state width="1274" height="186" key="GridCell.Tab.0.right" timestamp="1617800511117">
       <screen x="0" y="25" width="1440" height="817" />
     </state>
     <state width="1342" height="198" key="GridCell.Tab.0.right/0.25.1440.787@0.25.1440.787" timestamp="1615450830093" />
@@ -252,7 +268,7 @@
     <state width="1398" height="181" key="GridCell.Tab.0.right/0.25.1440.805@0.25.1440.805" timestamp="1616141124421" />
     <state width="1398" height="181" key="GridCell.Tab.0.right/0.25.1440.806@0.25.1440.806" timestamp="1616666529135" />
     <state width="1398" height="174" key="GridCell.Tab.0.right/0.25.1440.811@0.25.1440.811" timestamp="1617087305039" />
-    <state width="1265" height="63" key="GridCell.Tab.0.right/0.25.1440.817@0.25.1440.817" timestamp="1617743965186" />
+    <state width="1274" height="186" key="GridCell.Tab.0.right/0.25.1440.817@0.25.1440.817" timestamp="1617800511117" />
     <state x="308" y="165" key="IDE.errors.dialog" timestamp="1615095754113">
       <screen x="0" y="25" width="1440" height="787" />
     </state>

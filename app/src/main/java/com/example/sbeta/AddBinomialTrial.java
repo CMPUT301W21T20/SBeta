@@ -38,9 +38,11 @@ public class AddBinomialTrial extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_binomial_trial);
+
         Button selectLocation = findViewById(R.id.location);
         CheckBox success = findViewById(R.id.success);
         CheckBox failure = findViewById(R.id.failure);
+        TextView expName = findViewById(R.id.display_exp_name);
         TextView userName = findViewById(R.id.user_name_binomial);
         Button confirmButton = findViewById(R.id.confirm_button);
         Button cancelButton = findViewById(R.id.cancel_button);
@@ -48,9 +50,13 @@ public class AddBinomialTrial extends AppCompatActivity {
         String name = getIntent().getStringExtra("userName");
         String locationRequired = getIntent().getStringExtra("locationRequired");
 
+        String title = getIntent().getStringExtra("chosenExperiment");
+        int trialId = getIntent().getIntExtra("trial number", 0);
+        expName.setText(title);
+
         userName.setText(name);
 
-        //selectLocation.setOnClickListener();
+        this.setTitle("Binomial Experiment");
 
         success.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +84,6 @@ public class AddBinomialTrial extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("experiments");
-        String title = getIntent().getStringExtra("chosenExperiment");
-        int trialId = getIntent().getIntExtra("trial number", 0);
         final DocumentReference experiment = collectionReference.document(title);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

@@ -90,6 +90,9 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("userName", logInUserName);
                 intent.putExtra("locationRequired", dataList.get(position).getLocationRequired().toString());
+                intent.putExtra("owner", dataList.get(position).getUserName());
+                int minTrials = (int) dataList.get(position).getMinTrials();
+                intent.putExtra("minTrials", Integer.toString(minTrials));
 
                 startActivity(intent);
 
