@@ -27,6 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -89,7 +91,11 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         //String location =
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        trialDataList.add(new binomialTrial(result, userName, null, name, trialNum));
+
+                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
+                        binomialTrial theTrial = new binomialTrial(result, userName, null, name, trialNum);
+                        theTrial.setCreatedTime(createdTime);
+                        trialDataList.add(theTrial);
                     }
                     else if (expType.equals("Count-based")) {
                         String userName = (String) doc.getData().get("user id");
@@ -97,7 +103,11 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum));
+
+                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
+                        countBasedTrial theTrial = new countBasedTrial(result, userName, null, name, trialNum);
+                        theTrial.setCreatedTime(createdTime);
+                        trialDataList.add(theTrial);
                     }
                     else if (expType.equals("Measurement trials")) {
                         String userName = (String) doc.getData().get("user id");
@@ -105,7 +115,11 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum));
+
+                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
+                        measurementTrial theTrial = new measurementTrial(result, userName, null, name, trialNum);
+                        theTrial.setCreatedTime(createdTime);
+                        trialDataList.add(theTrial);
                     }
                     else {
                         String userName = (String) doc.getData().get("user id").toString();
@@ -113,7 +127,11 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         double result = (double) doc.getData().get("result");
                         int trialNum = (int) (long) doc.getData().get("trial id");
                         String name = (String) "trial " + trialNum;
-                        trialDataList.add(new countBasedTrial(result, userName, null, name, trialNum));
+
+                        Timestamp createdTime = (Timestamp) doc.getData().get("date");
+                        nonNegativeCount theTrial = new nonNegativeCount(result, userName, null, name, trialNum);
+                        theTrial.setCreatedTime(createdTime);
+                        trialDataList.add(theTrial);
                     }
 
                     Collections.sort(trialDataList, new Comparator<Trial>() {
