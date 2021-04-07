@@ -25,9 +25,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
 /**
  * this activity will show the histogram, statistic, dot chart of the experiment
@@ -202,6 +204,10 @@ public class StatActivity extends AppCompatActivity {
         //---------------------------------------------------------------
 
         //plot chart part----------------------------------------------------------
+        Timestamp time = new Timestamp(0);
+        Date date = new Date(0);
+
+
         fullPlotDataSet = new ArrayList<>(); // the final data set for the plot chart
 
         if (selectedType.equals(type1)) {
@@ -340,6 +346,7 @@ public class StatActivity extends AppCompatActivity {
         }
 
         ScatterDataSet plot_dataSet = new ScatterDataSet(valueList, "Trials");
+        plot_dataSet.setColor(Color.BLACK);
         fullPlotDataSet.add(plot_dataSet);
 
     }
