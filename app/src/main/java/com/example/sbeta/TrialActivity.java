@@ -310,7 +310,6 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         popupMenu2.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                //Toast.makeText(TrialActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
 
                                 switch (item.getItemId()) {
                                     case R.id.manually_add:
