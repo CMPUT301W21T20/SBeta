@@ -216,11 +216,20 @@ public class Experiment {
      *   String: "Ended", "Unpublished", or "Published"
      */
     public String getStatus() {
-        if (isEnded == true) {
-            return "Ended";
+//        if (isEnded == true) {
+//            return "Ended";
+//        } else {
+//            if (isPublished == false) {
+//                return "Unpublished";
+//            } else {
+//                return "Published";
+//            }
+//        }
+        if (!isPublished) {
+            return "Unpublished";
         } else {
-            if (isPublished == false) {
-                return "Unpublished";
+            if (isEnded) {
+                return "Ended";
             } else {
                 return "Published";
             }

@@ -3,11 +3,9 @@ package com.example.sbeta;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -15,16 +13,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.ScatterChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.ScatterData;
+import com.github.mikephil.charting.data.ScatterDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * this activity will show the histogram, statistic, dot chart of the experiment
@@ -37,13 +51,15 @@ public class StatActivity extends AppCompatActivity {
     private BarChart histogram_chart;
     private LineChart plots_chart;
     private View statistic_page;
-    private Description histogram_desc;
     private ArrayList<IBarDataSet> fullBarDataSet;
+    private ArrayList<ILineDataSet> fullPlotDataSet;
     private ArrayList<Double> statDataList;
     private TextView quartiles;
     private TextView median;
     private TextView mean;
     private TextView stdDev;
+    private Timestamp oldestTime;
+    private Calendar calendar = new GregorianCalendar();
 
     String type1 = "Count-based";
     String type2 = "Binomial trials";
@@ -71,6 +87,7 @@ public class StatActivity extends AppCompatActivity {
         mean= findViewById(R.id.mean);
         stdDev = findViewById(R.id.std_dev);
 
+        trials = TrialActivity.trialDataList; // use the arraylist from trial page
 
         statButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,11 +116,13 @@ public class StatActivity extends AppCompatActivity {
             }
         });
 
-        trials = TrialActivity.trialDataList;
 
         // statistic part //---------------------------------------------------------------
         statDataList = new ArrayList<>();
         for (Trial trialA : trials) {
+            if (trialA.getIsIgnored()){
+                continue;
+            }
             statDataList.add(trialA.getResult());
         }
         statDataList.sort(Comparator.naturalOrder());
@@ -170,24 +189,24 @@ public class StatActivity extends AppCompatActivity {
 
         // histogram part //---------------------------------------------------------------
         chartDots = new ArrayList<>();
+        fullBarDataSet = new ArrayList<>(); // the final data set for the histogram chart
 
-        histogram_chart = findViewById(R.id.histogram);
-        fullBarDataSet = new ArrayList<>(); // the final data set for the chart
         if (selectedType.equals(type1)) {
-            CountHistogramCalculator();
+            NumHistogramCalculator(); // !!!!!
         }
         else if (selectedType.equals(type2)) {
             BinomialHistogramCalculator();
         }
         else if (selectedType.equals(type3)) {
-            CountHistogramCalculator();
+            NumHistogramCalculator();
         }
         else if (selectedType.equals(type4)) {
-            CountHistogramCalculator();
+            NumHistogramCalculator();
         }
         else {
         }
 
+        Description histogram_desc;
         histogram_desc = new Description();
         histogram_desc.setText("");
 
@@ -197,9 +216,60 @@ public class StatActivity extends AppCompatActivity {
         histogram_chart.getAxisLeft().setDrawAxisLine(false);
 
         //---------------------------------------------------------------
-    }
 
-    private void CountHistogramCalculator(){
+        //plot chart part----------------------------------------------------------
+
+
+
+        fullPlotDataSet = new ArrayList<>(); // the final data set for the plot chart
+
+        if (selectedType.equals(type1)) {
+            NumPlotCalculator(); //!!!!!
+        }
+        else if (selectedType.equals(type2)) {
+            BinomialPlotCalculator();
+        }
+        else if (selectedType.equals(type3)) {
+            NumPlotCalculator();
+        }
+        else if (selectedType.equals(type4)) {
+            NumPlotCalculator();
+        }
+        else {
+        }
+
+        plots_chart.setData(new LineData(fullPlotDataSet));
+        plots_chart.getDescription().setText("Plot Chart");
+        plots_chart.setMaxVisibleValueCount(5); //if the y value no more than 5, it will not show
+        plots_chart.setDrawGridBackground(false);
+
+        plots_chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                String timeString = "";
+                if (value == 1) {
+                    timeString = new SimpleDateFormat("yyyy-MM-dd").format(oldestTime);
+                }
+                else {
+                    if (value % 2 != 1){
+                        return timeString;
+                    }
+                    calendar.setTime(new Date(oldestTime.getTime()));
+                    calendar.add(Calendar.DATE, (int) (value - 1));
+                    timeString = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
+                }
+
+                return timeString;
+            }
+        });
+
+
+        //---------------------------------------------------------------
+    }
+    /**
+     * this is used to calculate the dateset of non_neg and measurement histogram chart
+     */
+    private void NumHistogramCalculator(){
         for (Trial singleTrial : trials) {
             // if the trial's isIgnored is true, just ignore it
             if (singleTrial.getIsIgnored()){
@@ -230,11 +300,12 @@ public class StatActivity extends AppCompatActivity {
 
         int index = 0;
         int colorCounter = 0;
-        for (ChartDot singleDot : chartDots) {
+        for (ChartDot singleDot : chartDots) { // add the result into the data set
             Double x = singleDot.getX();
             Double y = singleDot.getY();
             ArrayList<BarEntry> valueList = new ArrayList<>();
             valueList.add(new BarEntry(index, y.floatValue()));
+
             BarDataSet histogram_dataSet = new BarDataSet(valueList, "Result: " + x);
             histogram_dataSet.setColor(colors.get(colorCounter));
             fullBarDataSet.add(histogram_dataSet);
@@ -243,11 +314,18 @@ public class StatActivity extends AppCompatActivity {
 
         }
     }
-
+    /**
+     * this is used to calculate the dateset of binomial histogram chart
+     */
     private void BinomialHistogramCalculator(){
         chartDots.add(new ChartDot(0, 0));
         chartDots.add(new ChartDot(1, 0));
         for (Trial singleTrial : trials) {
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()){
+                continue;
+            }
+
             double value = singleTrial.getResult();
             if (value == 0){
                 chartDots.get(0).increamentY();
@@ -278,6 +356,115 @@ public class StatActivity extends AppCompatActivity {
             fullBarDataSet.add(histogram_dataSet);
             index++;
         }
+
+    }
+    /**
+     * this is used to calculate the dateset of non_neg and measurement plot chart
+     */
+    private void NumPlotCalculator(){
+
+        ArrayList<Entry> valueList = new ArrayList<>();
+        for (Trial singleTrial : trials) {
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()) {
+                continue;
+            }
+
+            Double randomI = Math.random() * 10;
+            Double value = singleTrial.getResult();
+            valueList.add(new Entry( randomI.floatValue(), value.floatValue() ) );
+
+
+        }
+
+        LineDataSet plot_dataSet = new LineDataSet(valueList, "Trials");
+        plot_dataSet.setColor(Color.BLACK);
+        fullPlotDataSet.add(plot_dataSet);
+
+    }
+
+    /**
+     * this is used to calculate the dateset of binomial plot chart
+     */
+    private void BinomialPlotCalculator(){
+        ArrayList<Entry> ValueList = new ArrayList<>();
+        oldestTime = null;
+        int ignoredNum = 0;
+        for (Trial singleTrial : trials) { //find the oldest trial
+            // if the trial's isIgnored is true, just ignore it
+            if (singleTrial.getIsIgnored()) {
+                ignoredNum++;
+                continue;
+            }
+
+            if (oldestTime == null){
+                oldestTime = singleTrial.getCreatedTime();
+            }
+            else {
+                if (oldestTime.after(singleTrial.getCreatedTime())){
+                    oldestTime = singleTrial.getCreatedTime();
+                }
+            }
+        }
+
+        if (oldestTime == null){
+            return;
+        }
+
+
+        //change the time to the start of that day
+        String timeString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(oldestTime);
+        String NewTimeString = timeString.substring(0, 10) + " 00:00:00";
+        DateFormat NewDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date NewDate = new Date();
+
+        try{
+            NewDate = NewDateFormat.parse(NewTimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        calendar.setTime(NewDate);
+        calendar.add(Calendar.DATE, 1); //increase the date by 1
+        NewDate = calendar.getTime();
+        Timestamp focusedTime = new Timestamp(NewDate.getTime()); // at least one trial before that time
+
+        int plotCounter = 0;
+        int plotsNumber = trials.size() - ignoredNum;
+        int valueOfX = 1;
+
+        DecimalFormat divisionFormat = new DecimalFormat("0.00");
+
+        while (plotCounter != plotsNumber){
+
+            plotCounter = 0;
+            int TruthSum = 0;
+
+            for (Trial singleTrial : trials) { // calculate the plot
+                // if the trial's isIgnored is true, just ignore it
+                if (singleTrial.getIsIgnored()) {
+                    continue;
+                }
+
+                if (singleTrial.getCreatedTime().before(focusedTime)){
+                    TruthSum += singleTrial.getResult();
+                    plotCounter++;
+                }
+
+            }
+            Double TruthRate = Double.valueOf( divisionFormat.format( (double) TruthSum / plotCounter) );
+            ValueList.add(new Entry(valueOfX, TruthRate.floatValue()));
+            valueOfX++;
+            calendar.setTime(new Date(focusedTime.getTime()));
+            calendar.add(Calendar.DATE, 1);
+            focusedTime = new Timestamp(calendar.getTime().getTime());
+        }
+
+
+
+        LineDataSet plot_dataSet = new LineDataSet(ValueList, "Trials");
+        plot_dataSet.setColor(Color.BLACK);
+        fullPlotDataSet.add(plot_dataSet);
 
     }
 

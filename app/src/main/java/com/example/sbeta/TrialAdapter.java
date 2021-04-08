@@ -20,15 +20,13 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
 
     private ArrayList<Trial> trials;
     private Context context;
-    private ArrayList<Trial> ignoreTrials;
 
 
 
-    public TrialAdapter(@NonNull Context context, ArrayList<Trial> trials, ArrayList<Trial> ignoreTrials) {
+    public TrialAdapter(@NonNull Context context, ArrayList<Trial> trials) {
         super(context, 0, trials);
         this.trials = trials;
         this.context = context;
-        this.ignoreTrials = ignoreTrials;
     }
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -42,24 +40,17 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         title.setText(trial.getTrialName());
 
         CheckBox ignoreBox = view.findViewById(R.id.check_to_ignore);
-
-
-        if (ignoreBox.isChecked()) {
-            ignoreTrials.add(trial);
-            //title.setTextColor(Color.RED);
-        }
-        else {
-
-            //if (ignoreTrials.contains(trial)) {
-                //ignoreTrials.remove(trial);
-                //view.setBackgroundColor(Color.WHITE);
-            //}
-        }
-
-
-
-
-
+        ignoreBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ignoreBox.isChecked()) {
+                    trials.get(position).setIgnored(true);
+                }
+                else {
+                    trials.get(position).setIgnored(false);
+                }
+            }
+        });
 
         return view;
     }

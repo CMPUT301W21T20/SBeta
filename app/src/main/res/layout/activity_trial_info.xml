@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"
+        android:hint="Date"></TextView>
+    <TextView
+        android:id="@+id/trial_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:layout_marginTop="15dp"
+        android:hint="Description"></TextView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Experiment: "
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Owner: "
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/experiment_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="0"
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text=" Trial Provider: "
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/trial_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="X"
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Result: "
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:layout_marginTop="15dp"
+            android:textSize="30dp"></TextView>
+    </LinearLayout>
+
+</LinearLayout>

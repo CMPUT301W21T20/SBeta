@@ -11,11 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SBeta">
+
         <activity android:name=".RegisterBarCodeCountBase"></activity>
         <activity android:name=".RegisterBarCode" />
         <activity android:name=".QRScanner" />
         <activity android:name=".GenerateCountQR" />
         <activity android:name=".GenerateBioQR" />
+
+        <activity android:name=".TrialInfo"></activity>
+        <activity android:name=".UserProfileActivity" />
+
         <activity android:name=".replyContent" />
         <activity android:name=".addReply" />
         <activity android:name=".showReply" />
@@ -25,13 +30,14 @@
             android:name=".addQuestion"
             android:label="@string/title_activity_add_question"
             android:theme="@style/Theme.SBeta.NoActionBar" />
-        <activity android:name=".UserProfileActivity" />
         <activity
             android:name=".showQuestion"
             android:label="@string/title_activity_show_question"
             android:theme="@style/Theme.SBeta.NoActionBar" />
+        <activity android:name=".showStatsActivity" />
         <activity android:name=".TrialActivity" />
         <activity android:name=".SearchDisplay" />
+        <activity android:name=".SearchUserActivity" />
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".StatActivity" />
         <activity android:name=".MainActivity">

@@ -45,17 +45,15 @@ public class EditUserProfileFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String newUserName = userNameField.getText().toString();
                         String newContact = contactInfoField.getText().toString();
+                        MainMenuActivity.logInUserName = newUserName;
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         DocumentReference docRef = db.collection("users").document(userID);
                         docRef.update("userName", newUserName);
                         docRef.update("contact", newContact);
-                        ((UserProfileActivity)getActivity()).updateData(newUserName, newContact);
+                        ((UserProfileActivity) getActivity()).updateData(newUserName, newContact);
                         Toast.makeText(view.getContext(), "User profile successfully edited",
                                 Toast.LENGTH_LONG).show();
                     }
                 }).create();
     }
-
-
-
 }

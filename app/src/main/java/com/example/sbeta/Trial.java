@@ -2,6 +2,10 @@ package com.example.sbeta;
 
 import android.location.Location;
 
+
+import java.sql.Timestamp;
+
+
 public abstract class Trial {
     double result;
     String participant;
@@ -9,6 +13,9 @@ public abstract class Trial {
     String trialName;
     int trialNum;
     boolean isIgnored = false;
+
+    Timestamp createdTime;
+
 
     public Trial(double result, String participant, Location location, String trialName, int trialNum) {
         this.result = result;
@@ -32,5 +39,13 @@ public abstract class Trial {
 
     public void setIgnored(boolean ignored) {
         isIgnored = ignored;
+    }
+
+    public Timestamp getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
 }

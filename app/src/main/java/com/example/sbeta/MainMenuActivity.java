@@ -1,3 +1,4 @@
+
 package com.example.sbeta;
 
 import androidx.annotation.NonNull;
@@ -8,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,7 +49,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
-    String userID;
+    static String userID;
     CollectionReference collectionReference;
 
     @Override
@@ -85,12 +85,14 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
-
-
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
                 intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("userName", logInUserName);
+                intent.putExtra("locationRequired", dataList.get(position).getLocationRequired().toString());
+                intent.putExtra("owner", dataList.get(position).getUserName());
+                int minTrials = (int) dataList.get(position).getMinTrials();
+                intent.putExtra("minTrials", Integer.toString(minTrials));
 
                 startActivity(intent);
 
@@ -112,7 +114,10 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 dataList.clear();
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) { //do not show experiment that is not published
+                    if ( !(boolean) doc.get("isPublished")){
+                        continue; //
+                    }
 
                     Log.d(TAG, String.valueOf(doc.getData().get("description")));
                     String name = doc.getId();
@@ -148,6 +153,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 } else {
                     Intent intent = new Intent(MainMenuActivity.this, SearchDisplay.class);
                     intent.putExtra("keyword", searchWord.getText().toString());
+                    intent.putExtra("userID", userID);
+                    intent.putExtra("userName", logInUserName);
                     searchWord.setText("");
                     startActivity(intent);
                 }
@@ -214,6 +221,5 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 });
 
     }
-
-
 }
+

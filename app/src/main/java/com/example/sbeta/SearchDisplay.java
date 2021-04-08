@@ -48,6 +48,8 @@ public class SearchDisplay extends AppCompatActivity {
 
         Intent intent = getIntent();
         String keyword = intent.getStringExtra("keyword");
+        String userID = intent.getStringExtra("userID");
+        String loginUser = intent.getStringExtra("userName");
 
         resultsList = findViewById(R.id.search_list);
         title = findViewById(R.id.search_title);
@@ -108,19 +110,41 @@ public class SearchDisplay extends AppCompatActivity {
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     //Integer minTrials = 1;
                     long minTrials = (long) doc.getData().get("minTrials");
-                    String userId = (String) doc.getData().get("userName");
+                    String userName = (String) doc.getData().get("userName");
 
                     if (name.toLowerCase().contains(keyword.toLowerCase()) ||
-                            Objects.requireNonNull(userId).toLowerCase().contains(keyword.toLowerCase()) ||
+                            Objects.requireNonNull(userName).toLowerCase().contains(keyword.toLowerCase()) ||
                             Objects.requireNonNull(type).toLowerCase().contains(keyword.toLowerCase()) ||
                             Objects.requireNonNull(description).toLowerCase().contains(keyword.toLowerCase())) {
-                        resultDataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
+                        if (isPublished == Boolean.TRUE) {
+                            resultDataList.add(new Experiment(description, isEnd, true, minTrials, locationRequired, type, name, userName));
+                        }
                     }
 
                     //resultDataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
                 //dataList.add(new Experiment("description", true, true, 1, false, "type", "namde", "userId"));
                 resultAdapter.notifyDataSetChanged();
+            }
+        });
+
+        //enter trial list
+        resultsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = resultDataList.get(position).getName();
+                Intent intent = new Intent(SearchDisplay.this, TrialActivity.class);
+                intent.putExtra("ExperimentType", resultDataList.get(position).getExperimentType());
+                intent.putExtra("userID", userID);
+                intent.putExtra("chosenExperiment", name);
+                intent.putExtra("userName", loginUser);
+                intent.putExtra("locationRequired", resultDataList.get(position).getLocationRequired().toString());
+                intent.putExtra("owner", resultDataList.get(position).getUserName());
+                int minTrials = (int) resultDataList.get(position).getMinTrials();
+                intent.putExtra("minTrials", Integer.toString(minTrials));
+
+                startActivity(intent);
+
             }
         });
     }
