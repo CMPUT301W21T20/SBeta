@@ -11,17 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SBeta">
-        <!--API key to be removed -->
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="API key to be added"/>
-        <activity android:name=".RegisterBarCodeCountBase"></activity>
+        <activity android:name=".MapsMarkerActivity"></activity>
+        <!-- API key to be removed -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="API key to be added" />
+
+        <activity android:name=".RegisterBarCodeCountBase" />
         <activity android:name=".RegisterBarCode" />
         <activity android:name=".QRScanner" />
         <activity android:name=".GenerateCountQR" />
         <activity android:name=".GenerateBioQR" />
-
-        <activity android:name=".TrialInfo"></activity>
+        <activity android:name=".TrialInfo" />
         <activity android:name=".UserProfileActivity" />
-
         <activity android:name=".replyContent" />
         <activity android:name=".addReply" />
         <activity android:name=".showReply" />
