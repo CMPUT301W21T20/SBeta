@@ -312,6 +312,12 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             }
                                         });
                                         return true;
+                                    case R.id.maps:
+                                        Intent mapIntent = new Intent(TrialActivity.this, MapsMarkerActivity.class);
+                                        mapIntent.putExtra("chosenExperiment", trialListTittle);
+                                        Log.d("From trial activity", "chosenExperiment" + trialListTittle);
+                                        startActivity(mapIntent);
+                                        return true;
                                     default:
                                         return false;
                                 }
