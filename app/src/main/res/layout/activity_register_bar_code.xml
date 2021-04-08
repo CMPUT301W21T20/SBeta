@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scanner1"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:autoFocusButtonColor="@android:color/white"
+        app:autoFocusButtonVisible="true"
+        app:maskColor="#95040404">
+
+    </com.budiyev.android.codescanner.CodeScannerView>
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/success223"
+        android:layout_below="@+id/scanner1"
+        android:text="SUCCESS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:checked="true">
+    </com.google.android.material.checkbox.MaterialCheckBox>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/failure223"
+        android:layout_below="@+id/scanner1"
+        android:layout_toRightOf="@id/success223"
+        android:text="FAILURE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+    </com.google.android.material.checkbox.MaterialCheckBox>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location223"
+        android:layout_below="@id/success223"
+        android:hint="Enter Location"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"></EditText>
+
+
+
+
+
+</RelativeLayout>

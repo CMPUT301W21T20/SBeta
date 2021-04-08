@@ -205,11 +205,28 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 switch (item.getItemId()) {
                                     case R.id.statistics:
-                                        Intent statIntent=new Intent(TrialActivity.this,StatActivity.class);
-                                        statIntent.putExtra("chosenExperiment",trialListTittle);
-                                        statIntent.putExtra("ExperimentType", expType);
-                                        startActivity(statIntent);
+
+                                        Intent StatIntent = new Intent(TrialActivity.this, StatActivity.class);
+                                        StatIntent.putExtra("ExperimentType", expType);
+                                        startActivity(StatIntent);
                                         return true;
+                                    case R.id.ignore:
+
+                                        // do your code
+                                        if (expType.equals("Binomial trials")){
+                                            Intent Lintent = new Intent(TrialActivity.this, RegisterBarCode.class);
+                                            Lintent.putExtra("chosenExperiment", trialListTittle);
+                                            startActivity(Lintent);
+                                            return true;
+                                        }
+
+                                        Intent Lintent = new Intent(TrialActivity.this, RegisterBarCodeCountBase.class);
+                                        Lintent.putExtra("chosenExperiment", trialListTittle);
+                                        startActivity(Lintent);
+
+                                        return true;
+
+
                                     case R.id.questions:
                                         Intent intent = new Intent(TrialActivity.this, showQuestion.class);
                                         intent.putExtra("chosenExperiment", trialListTittle);
@@ -336,11 +353,25 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             intent.putExtra("locationRequired", locationRequired);
                                             startActivity(intent);
                                         }
-
-
                                         return true;
                                     case R.id.scan_qr_code:
-                                        // do your code
+                                        Intent intentToGenerate;
+                                        if (expType.equals("Binomial trials")) {
+                                            intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
+                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                            intentToGenerate.putExtra("trial number", trialNum);
+                                            intentToGenerate.putExtra("userID", currentUser);
+                                            intentToGenerate.putExtra("userName", name);
+                                            startActivity(intentToGenerate);
+                                        }
+                                        else {
+                                            intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
+                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                            intentToGenerate.putExtra("trial number", trialNum);
+                                            intentToGenerate.putExtra("userID", currentUser);
+                                            intentToGenerate.putExtra("userName", name);
+                                            startActivity(intentToGenerate);
+                                        }
                                         return true;
                                     default:
                                         return false;
