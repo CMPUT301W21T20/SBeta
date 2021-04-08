@@ -164,22 +164,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         // this addExperimentButton will call a fragment that used to add new experiment with required information
         final FloatingActionButton addExperimentButton = findViewById(R.id.add_experiment_button);
         addExperimentButton.setOnClickListener(v -> new AddNewExperimentFragment().show(getSupportFragmentManager(), "ADD_EXPERIMENT"));
-
-
-        /**
-         * just a easy function to delete experiment, will be deleted in later version
-         */
-        experList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String description = dataList.get(position).description;
-                DocumentReference an_experimentReference = collectionReference.document(description);
-
-                an_experimentReference.delete();
-                experAdapter.notifyDataSetChanged();
-                return false;
-            }
-        });
+        
 
 
     }

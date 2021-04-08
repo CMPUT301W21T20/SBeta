@@ -115,9 +115,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
 
                         binomialTrial theTrial = new binomialTrial(result, userName, null, name, trialNum);
-
                         if (doc.getData().get("date") != null){
-                            Toast.makeText(TrialActivity.this, "This one has date", Toast.LENGTH_LONG).show();
                             Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
                             Timestamp createdTime = new Timestamp(createdDate.getTime());
                             theTrial.setCreatedTime(createdTime);
