@@ -3,7 +3,6 @@ package com.example.sbeta;
 // This is an activity that show the search results
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,7 +23,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -138,6 +133,10 @@ public class SearchDisplay extends AppCompatActivity {
                 intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("userName", loginUser);
+                intent.putExtra("locationRequired", resultDataList.get(position).getLocationRequired().toString());
+                intent.putExtra("owner", resultDataList.get(position).getUserId());
+                int minTrials = (int) resultDataList.get(position).getMinTrials();
+                intent.putExtra("minTrials", Integer.toString(minTrials));
 
                 startActivity(intent);
 

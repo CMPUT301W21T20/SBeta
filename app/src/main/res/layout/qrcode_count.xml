@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/count"
+        android:hint="Enter Count"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"></EditText>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:hint="Enter Location"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"></EditText>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/generate_qr_count"
+        android:text="GENERATE"
+        android:layout_marginTop="16dp"></Button>
+
+
+    <ImageView
+        android:id="@+id/qr_count_image"
+        android:layout_width="match_parent"
+        android:layout_height="368dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"></ImageView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_image"
+        android:text="SCAN"
+        android:textSize="30dp"
+        android:layout_marginTop="16dp"></Button>
+
+
+
+</LinearLayout>

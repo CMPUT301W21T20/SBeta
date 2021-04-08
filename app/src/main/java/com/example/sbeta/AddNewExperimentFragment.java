@@ -162,9 +162,9 @@ public class AddNewExperimentFragment extends DialogFragment {
                         else if (description.equals("")) {
                             isCorrect = false;
                         }
-                        else if (regionString.equals("")) {
-                            isCorrect = false;
-                        }
+//                        else if (regionString.equals("")) {
+//                            isCorrect = false;
+//                        }
 
                         if(ExprNameArray.contains(description)){
                             nameRepeated = true;

@@ -33,28 +33,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Owner: "
+            android:text="Trial Provider: "
             android:textSize="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"></TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Name: "
             android:id="@+id/user_name_count"
             android:textSize="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="60dp"></TextView>
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <fragment android:id="@+id/autocomplete_fragment_count"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/location_count"
-        android:text="Select Location"
-        android:textSize="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="100dp"></Button>
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
 
 
 

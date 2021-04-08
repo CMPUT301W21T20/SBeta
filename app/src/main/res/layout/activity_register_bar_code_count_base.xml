@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scanner2"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:autoFocusButtonColor="@android:color/white"
+        app:autoFocusButtonVisible="true"
+        app:maskColor="#95040404">
+
+    </com.budiyev.android.codescanner.CodeScannerView>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_below="@id/scanner2"
+        android:layout_height="wrap_content"
+        android:hint="Enter Data"
+        android:id="@+id/data223"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+
+        ></EditText>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location224"
+        android:layout_below="@id/data223"
+        android:hint="Enter Location"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"></EditText>
+
+
+
+
+
+</RelativeLayout>

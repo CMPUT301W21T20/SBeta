@@ -17,10 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,10 +32,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Main menu acitvity of our program
@@ -51,6 +52,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     static String logInUserName;
     static String userID;
     CollectionReference collectionReference;
+    DocumentReference userReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         userProfile = findViewById(R.id.user_profile);
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("experiments");
+        userReference = db.collection("users").document(userID);
 
         dataList = new ArrayList<>();
 
@@ -78,11 +81,12 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 startActivity(intentUserProfile);
             }
         });
-
-        //enter trial list
+        
+        //enter trial list of an experiment
         experList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
@@ -90,12 +94,23 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("userName", logInUserName);
                 intent.putExtra("locationRequired", dataList.get(position).getLocationRequired().toString());
-                intent.putExtra("owner", dataList.get(position).getUserName());
+
                 int minTrials = (int) dataList.get(position).getMinTrials();
                 intent.putExtra("minTrials", Integer.toString(minTrials));
 
-                startActivity(intent);
-
+                //get experiment owner
+                userReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                            String owner = (String) document.get("userName");
+                            intent.putExtra("owner", owner);
+                            startActivity(intent);}
+                        }
+                    }
+                });
             }
         });
 
@@ -114,8 +129,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 dataList.clear();
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) { //do not show experiment that isEnded and is not published
-                    if ( !(boolean) doc.get("isPublished")  ||  (boolean) doc.get("isEnded")){
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) { //do not show experiment that is not published
+                    if ( !(boolean) doc.get("isPublished")){
                         continue; //
                     }
 
@@ -129,7 +144,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     long minTrials = (long) doc.getData().get("minTrials");
                     Boolean locationRequired = doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
-                    String userId = (String) doc.getData().get("userName");
+                    String userId = (String) doc.getData().get("userId");
 
                     dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
@@ -164,22 +179,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         // this addExperimentButton will call a fragment that used to add new experiment with required information
         final FloatingActionButton addExperimentButton = findViewById(R.id.add_experiment_button);
         addExperimentButton.setOnClickListener(v -> new AddNewExperimentFragment().show(getSupportFragmentManager(), "ADD_EXPERIMENT"));
-
-
-        /**
-         * just a easy function to delete experiment, will be deleted in later version
-         */
-        experList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String description = dataList.get(position).description;
-                DocumentReference an_experimentReference = collectionReference.document(description);
-
-                an_experimentReference.delete();
-                experAdapter.notifyDataSetChanged();
-                return false;
-            }
-        });
+        
 
 
     }
@@ -200,7 +200,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experiment_to_add.put("isPublished", true);
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
-        experiment_to_add.put("userName", new_experiment.getUserName());
+        experiment_to_add.put("userName", new_experiment.getUserId());
         experiment_to_add.put("userID", userID);
 
 

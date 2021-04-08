@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,9 +115,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
 
                         binomialTrial theTrial = new binomialTrial(result, userName, null, name, trialNum);
-
                         if (doc.getData().get("date") != null){
-                            Toast.makeText(TrialActivity.this, "This one has date", Toast.LENGTH_LONG).show();
                             Date createdDate = ((com.google.firebase.Timestamp) doc.getData().get("date")).toDate();
                             Timestamp createdTime = new Timestamp(createdDate.getTime());
                             theTrial.setCreatedTime(createdTime);
@@ -204,11 +203,28 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 switch (item.getItemId()) {
                                     case R.id.statistics:
-                                        Intent statIntent=new Intent(TrialActivity.this,StatActivity.class);
-                                        statIntent.putExtra("chosenExperiment",trialListTittle);
-                                        statIntent.putExtra("ExperimentType", expType);
-                                        startActivity(statIntent);
+
+                                        Intent StatIntent = new Intent(TrialActivity.this, StatActivity.class);
+                                        StatIntent.putExtra("ExperimentType", expType);
+                                        startActivity(StatIntent);
                                         return true;
+                                    case R.id.ignore:
+
+                                        // do your code
+                                        if (expType.equals("Binomial trials")){
+                                            Intent Lintent = new Intent(TrialActivity.this, RegisterBarCode.class);
+                                            Lintent.putExtra("chosenExperiment", trialListTittle);
+                                            startActivity(Lintent);
+                                            return true;
+                                        }
+
+                                        Intent Lintent = new Intent(TrialActivity.this, RegisterBarCodeCountBase.class);
+                                        Lintent.putExtra("chosenExperiment", trialListTittle);
+                                        startActivity(Lintent);
+
+                                        return true;
+
+
                                     case R.id.questions:
                                         Intent intent = new Intent(TrialActivity.this, showQuestion.class);
                                         intent.putExtra("chosenExperiment", trialListTittle);
@@ -245,10 +261,35 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         // do your code
                                         return true;
                                     case R.id.end_exp:
-                                        // do your code
+                                        Log.i("task", "end!");
+                                        DocumentReference docRefEnd = db.collection("experiments").document(trialListTittle);
+                                        docRefEnd.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        String ownerID = (String) document.getData().get("userID");
+                                                        if (ownerID.equals(currentUser)) {
+                                                            if ((Boolean) document.getData().get("isEnded")) {
+                                                                Toast.makeText(TrialActivity.this, "This experiment has already been ended!", Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                docRefEnd.update("isEnded", true);
+                                                                Toast.makeText(TrialActivity.this, "This experiment is ended!", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(TrialActivity.this, "Only owner can make this operation!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                        return true;
                                     case R.id.scan_barcode:
+                                        Log.i("Task", "scan!");
                                         //do your code
                                     case R.id.subscribe:
+                                        Log.i("Task", "subsribe!");
                                         CollectionReference subscribedExps = db.collection("users").document(userID).collection("subscribedExp");
                                         DocumentReference docRefSub = db.collection("users").document(userID).collection("subscribedExp").document(trialListTittle);
                                         docRefSub.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -270,31 +311,13 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                                 }
                                             }
                                         });
-                                        /**
-                                        ArrayList<String> SubExprNameArray = new ArrayList<>();
-                                        subscribedExps.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                SubExprNameArray.clear();
-                                                for (QueryDocumentSnapshot doc : value){
-                                                    SubExprNameArray.add(doc.getId());
-                                                    Log.e("YES", (String) doc.getId());
-                                                }
-                                            }
-                                        });
-                                        if (SubExprNameArray.contains(trialListTittle)) {
-                                            Toast.makeText(TrialActivity.this, "This experiment has already been subsribed", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            HashMap<String, Object> newSub = new HashMap<>();
-                                            newSub.put("exp", trialListTittle);
-                                            subscribedExps.document(trialListTittle)
-                                                    .set(newSub);
-
-                                        }
-                                         **/
-
-
-
+                                        return true;
+                                    case R.id.maps:
+                                        Intent mapIntent = new Intent(TrialActivity.this, MapsMarkerActivity.class);
+                                        mapIntent.putExtra("chosenExperiment", trialListTittle);
+                                        Log.d("From trial activity", "chosenExperiment" + trialListTittle);
+                                        startActivity(mapIntent);
+                                        return true;
                                     default:
                                         return false;
                                 }
@@ -333,11 +356,25 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             intent.putExtra("locationRequired", locationRequired);
                                             startActivity(intent);
                                         }
-
-
                                         return true;
                                     case R.id.scan_qr_code:
-                                        // do your code
+                                        Intent intentToGenerate;
+                                        if (expType.equals("Binomial trials")) {
+                                            intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
+                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                            intentToGenerate.putExtra("trial number", trialNum);
+                                            intentToGenerate.putExtra("userID", currentUser);
+                                            intentToGenerate.putExtra("userName", name);
+                                            startActivity(intentToGenerate);
+                                        }
+                                        else {
+                                            intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
+                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                            intentToGenerate.putExtra("trial number", trialNum);
+                                            intentToGenerate.putExtra("userID", currentUser);
+                                            intentToGenerate.putExtra("userName", name);
+                                            startActivity(intentToGenerate);
+                                        }
                                         return true;
                                     default:
                                         return false;
