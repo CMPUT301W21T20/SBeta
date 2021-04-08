@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SBeta">
+        <!--API key to be removed -->
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="API key to be added"/>
+
         <activity android:name=".TrialInfo"></activity>
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".replyContent" />
