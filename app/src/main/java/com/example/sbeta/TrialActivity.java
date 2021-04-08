@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -245,10 +246,35 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         // do your code
                                         return true;
                                     case R.id.end_exp:
-                                        // do your code
+                                        Log.i("task", "end!");
+                                        DocumentReference docRefEnd = db.collection("experiments").document(trialListTittle);
+                                        docRefEnd.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        String ownerID = (String) document.getData().get("userID");
+                                                        if (ownerID.equals(currentUser)) {
+                                                            if ((Boolean) document.getData().get("isEnded")) {
+                                                                Toast.makeText(TrialActivity.this, "This experiment has already been ended!", Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                docRefEnd.update("isEnded", true);
+                                                                Toast.makeText(TrialActivity.this, "This experiment is ended!", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(TrialActivity.this, "Only owner can make this operation!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                        return true;
                                     case R.id.scan_barcode:
+                                        Log.i("Task", "scan!");
                                         //do your code
                                     case R.id.subscribe:
+                                        Log.i("Task", "subsribe!");
                                         CollectionReference subscribedExps = db.collection("users").document(userID).collection("subscribedExp");
                                         DocumentReference docRefSub = db.collection("users").document(userID).collection("subscribedExp").document(trialListTittle);
                                         docRefSub.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -270,31 +296,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                                 }
                                             }
                                         });
-                                        /**
-                                        ArrayList<String> SubExprNameArray = new ArrayList<>();
-                                        subscribedExps.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                SubExprNameArray.clear();
-                                                for (QueryDocumentSnapshot doc : value){
-                                                    SubExprNameArray.add(doc.getId());
-                                                    Log.e("YES", (String) doc.getId());
-                                                }
-                                            }
-                                        });
-                                        if (SubExprNameArray.contains(trialListTittle)) {
-                                            Toast.makeText(TrialActivity.this, "This experiment has already been subsribed", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            HashMap<String, Object> newSub = new HashMap<>();
-                                            newSub.put("exp", trialListTittle);
-                                            subscribedExps.document(trialListTittle)
-                                                    .set(newSub);
-
-                                        }
-                                         **/
-
-
-
+                                        return true;
                                     default:
                                         return false;
                                 }
