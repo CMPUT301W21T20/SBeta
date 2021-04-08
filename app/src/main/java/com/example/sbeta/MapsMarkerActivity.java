@@ -54,9 +54,14 @@ public class MapsMarkerActivity extends AppCompatActivity implements OnMapReadyC
                 trialNames.clear();
                 for (QueryDocumentSnapshot doc: value) {
                     String title = doc.getId();
-                    Log.e("Trial title", title);
-                    Double lat = Double.parseDouble((String) doc.getData().get("lat"));
-                    Double lng = Double.parseDouble((String) doc.getData().get("lng"));
+                    Log.i("Trial title", title);
+                    String latString = (String) doc.getData().get("lat");
+                    String lngString = (String) doc.getData().get("lng");
+                    if (latString.equals("null") || lngString.equals("null")) {
+                        continue;
+                    }
+                    Double lat = Double.parseDouble(latString);
+                    Double lng = Double.parseDouble(lngString);
                     com.google.android.gms.maps.model.LatLng newMarker = new com.google.android.gms.maps.model.LatLng(lat, lng);
                     googleMap.addMarker(new MarkerOptions()
                     .position(newMarker)
