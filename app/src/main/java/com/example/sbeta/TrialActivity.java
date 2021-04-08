@@ -149,8 +149,21 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         startActivity(StatIntent);
                                         return true;
                                     case R.id.ignore:
+
                                         // do your code
+                                        if (expType.equals("Binomial trials")){
+                                            Intent Lintent = new Intent(TrialActivity.this, RegisterBarCode.class);
+                                            Lintent.putExtra("chosenExperiment", trialListTittle);
+                                            startActivity(Lintent);
+                                            return true;
+                                        }
+
+                                        Intent Lintent = new Intent(TrialActivity.this, RegisterBarCodeCountBase.class);
+                                        Lintent.putExtra("chosenExperiment", trialListTittle);
+                                        startActivity(Lintent);
                                         return true;
+
+
                                     case R.id.questions:
                                         Intent intent = new Intent(TrialActivity.this, showQuestion.class);
                                         intent.putExtra("chosenExperiment", trialListTittle);

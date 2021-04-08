@@ -2,6 +2,7 @@ package com.example.sbeta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,15 @@ public class GenerateCountQR extends AppCompatActivity {
         Button generateButton;
         generateButton = findViewById(R.id.generate_qr_count);
         ImageView qrImage = findViewById(R.id.qr_count_image);
+        Button scanButton = findViewById(R.id.scan_image);
+
+        scanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GenerateCountQR.this, QRScanner.class);
+                startActivity(intent);
+            }
+        });
 
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
