@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sbeta">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +13,15 @@
         android:theme="@style/Theme.SBeta">
         <!--API key to be removed -->
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="API key to be added"/>
+        <activity android:name=".RegisterBarCodeCountBase"></activity>
+        <activity android:name=".RegisterBarCode" />
+        <activity android:name=".QRScanner" />
+        <activity android:name=".GenerateCountQR" />
+        <activity android:name=".GenerateBioQR" />
 
         <activity android:name=".TrialInfo"></activity>
         <activity android:name=".UserProfileActivity" />
+
         <activity android:name=".replyContent" />
         <activity android:name=".addReply" />
         <activity android:name=".showReply" />
