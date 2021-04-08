@@ -12,4 +12,6 @@
         android:id="@+id/scan_barcode"></item>
     <item android:title="Subscribe/Unsubscribe"
         android:id="@+id/subscribe"></item>
+    <item android:title="registerBarcode"
+        android:id="@+id/ignore"></item>
 </menu>
