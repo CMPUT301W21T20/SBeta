@@ -114,8 +114,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 dataList.clear();
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) { //do not show experiment that isEnded and is not published
-                    if ( !(boolean) doc.get("isPublished")  ||  (boolean) doc.get("isEnded")){
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) { //do not show experiment that is not published
+                    if ( !(boolean) doc.get("isPublished")){
                         continue; //
                     }
 

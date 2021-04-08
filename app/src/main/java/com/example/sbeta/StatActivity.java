@@ -120,6 +120,9 @@ public class StatActivity extends AppCompatActivity {
         // statistic part //---------------------------------------------------------------
         statDataList = new ArrayList<>();
         for (Trial trialA : trials) {
+            if (trialA.getIsIgnored()){
+                continue;
+            }
             statDataList.add(trialA.getResult());
         }
         statDataList.sort(Comparator.naturalOrder());

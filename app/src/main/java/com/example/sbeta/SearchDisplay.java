@@ -138,6 +138,10 @@ public class SearchDisplay extends AppCompatActivity {
                 intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("userName", loginUser);
+                intent.putExtra("locationRequired", resultDataList.get(position).getLocationRequired().toString());
+                intent.putExtra("owner", resultDataList.get(position).getUserName());
+                int minTrials = (int) resultDataList.get(position).getMinTrials();
+                intent.putExtra("minTrials", Integer.toString(minTrials));
 
                 startActivity(intent);
 
