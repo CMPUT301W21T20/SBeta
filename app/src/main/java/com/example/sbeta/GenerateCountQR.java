@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -88,7 +89,15 @@ public class GenerateCountQR extends AppCompatActivity {
             public void onClick(View v) {
                 //get count
                 String countStr = count.getText().toString().trim();
+                if (countStr.equals("")){
+                    Toast.makeText(getApplicationContext(), "No data entered!", Toast.LENGTH_LONG).show();
+                    return ;
+                }
                 double result = Double.parseDouble(countStr);
+                if (locationRequired.equals("true") && trialLat[0].equals("null") && trialLng[0].equals("null")){
+                    Toast.makeText(getApplicationContext(), "Location empty!", Toast.LENGTH_LONG).show();
+                    return ;
+                }
 
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 
