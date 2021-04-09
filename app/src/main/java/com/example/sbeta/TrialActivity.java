@@ -213,13 +213,24 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         // do your code
                                         if (expType.equals("Binomial trials")){
                                             Intent Lintent = new Intent(TrialActivity.this, RegisterBarCode.class);
+                                            Lintent.putExtra("ExperimentType", expType);
                                             Lintent.putExtra("chosenExperiment", trialListTittle);
+                                            Lintent.putExtra("trial number", trialNum);
+                                            Lintent.putExtra("userID", currentUser);
+                                            Lintent.putExtra("userName", name);
+                                            Lintent.putExtra("locationRequired", locationRequired);
                                             startActivity(Lintent);
                                             return true;
                                         }
 
                                         Intent Lintent = new Intent(TrialActivity.this, RegisterBarCodeCountBase.class);
+
+                                        Lintent.putExtra("ExperimentType", expType);
                                         Lintent.putExtra("chosenExperiment", trialListTittle);
+                                        Lintent.putExtra("trial number", trialNum);
+                                        Lintent.putExtra("userID", currentUser);
+                                        Lintent.putExtra("userName", name);
+                                        Lintent.putExtra("locationRequired", locationRequired);
                                         startActivity(Lintent);
 
                                         return true;
@@ -287,6 +298,10 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         return true;
                                     case R.id.scan_barcode:
                                         Log.i("Task", "scan!");
+                                        Intent Sintent = new Intent(TrialActivity.this, ScanBarCode.class);
+                                        startActivity(Sintent);
+                                        return true;
+
                                         //do your code
                                     case R.id.subscribe:
                                         Log.i("Task", "subsribe!");
@@ -366,6 +381,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             intentToGenerate.putExtra("trial number", trialNum);
                                             intentToGenerate.putExtra("userID", currentUser);
                                             intentToGenerate.putExtra("userName", name);
+                                            intentToGenerate.putExtra("locationRequired", locationRequired);
                                             startActivity(intentToGenerate);
                                         }
                                         else {
@@ -374,6 +390,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                             intentToGenerate.putExtra("trial number", trialNum);
                                             intentToGenerate.putExtra("userID", currentUser);
                                             intentToGenerate.putExtra("userName", name);
+                                            intentToGenerate.putExtra("locationRequired", locationRequired);
                                             startActivity(intentToGenerate);
                                         }
                                         return true;
