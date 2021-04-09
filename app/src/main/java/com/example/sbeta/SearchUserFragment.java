@@ -21,6 +21,10 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * This fragemet supports the user to search a user with
+ * a user name. It is case-insensitive and partial matching.
+ */
 public class SearchUserFragment extends DialogFragment {
 
     private EditText searchkeyText;

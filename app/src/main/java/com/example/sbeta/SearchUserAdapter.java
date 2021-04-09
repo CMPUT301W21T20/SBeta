@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * ArrayAdapter to display the search result for searching for users
+ */
 public class SearchUserAdapter extends ArrayAdapter<User> {
 
     private ArrayList<User> users;

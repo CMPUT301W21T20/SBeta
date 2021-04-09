@@ -22,6 +22,10 @@ import com.google.type.LatLng;
 
 import java.util.ArrayList;
 
+/**
+ * This activity maps all trials of current experiment that have a location
+ * to a map, one marker to each trial where the title is the trial name
+ */
 public class MapsMarkerActivity extends AppCompatActivity implements OnMapReadyCallback {
     private String experimentID;
     private GoogleMap mMap;
@@ -29,6 +33,10 @@ public class MapsMarkerActivity extends AppCompatActivity implements OnMapReadyC
     ArrayList<LatLng> markers = new ArrayList<>();
     ArrayList<String> trialNames = new ArrayList<>();
 
+    /**
+     * Initialize the mapFragment
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +50,10 @@ public class MapsMarkerActivity extends AppCompatActivity implements OnMapReadyC
 
     }
 
+    /**
+     * Display all trials with markers
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
 

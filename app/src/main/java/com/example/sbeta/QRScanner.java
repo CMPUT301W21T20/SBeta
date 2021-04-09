@@ -21,11 +21,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * This class enables scannig QR code
+ */
+
 public class QRScanner extends AppCompatActivity {
     CodeScanner codeScanner;
     CodeScannerView scannerView;
     String information;
 
+    /**
+     * Initialize QR sanner
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

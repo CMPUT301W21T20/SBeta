@@ -23,6 +23,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * This class ennables scannig a barcode and add the
+ * correspoding result to the database
+ */
 public class ScanBarCode extends AppCompatActivity {
 
     CodeScanner codeScanner;
