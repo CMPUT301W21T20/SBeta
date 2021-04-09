@@ -30,6 +30,12 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * This class help generate QR code for binomial trials
+ * where the result is either true or false
+ * It also records the location info if required,
+ * optional if not required.
+ */
 public class GenerateBioQR extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {

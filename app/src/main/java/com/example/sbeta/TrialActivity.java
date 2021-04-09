@@ -39,6 +39,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * This activity represents a page of all trials of an experiment
+ * and a list of option to be taken
+ */
 public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
 
     ListView trialList;

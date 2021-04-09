@@ -28,7 +28,8 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 /**
- * This is an activity that allow to add question
+ * This is an activity that allows the user to add question
+ * to an experiment
  */
 public class addQuestion extends AppCompatActivity {
     TextView addQuesTittle;

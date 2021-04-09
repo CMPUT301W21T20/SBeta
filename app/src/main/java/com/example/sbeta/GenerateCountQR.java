@@ -25,7 +25,12 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.Arrays;
-
+/**
+ * This class help generate QR code for count based trials
+ * where the result is a number
+ * It also records the location info if required,
+ * optional if not required.
+ */
 public class GenerateCountQR extends AppCompatActivity {
 
     @Override

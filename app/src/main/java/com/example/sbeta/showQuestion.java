@@ -63,7 +63,9 @@ public class showQuestion extends AppCompatActivity {
         questionAdapter = new CustomQuestionList(this, questionDataList);
         questionList.setAdapter(questionAdapter);
         contentList = new ArrayList<>();
-
+        /**
+         * get the data from firebase
+         */
         // get data from firebase
         questions.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -82,7 +84,9 @@ public class showQuestion extends AppCompatActivity {
             }
         });
 
-        // add question
+        /**
+         * add a question
+         */
         addQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +95,9 @@ public class showQuestion extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        /**
+         * check the reply for this questionn
+         */
         // check the reply for this question
         questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

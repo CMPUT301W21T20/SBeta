@@ -29,13 +29,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * This class enables the user to register a bar code
+ * to asscoiate it with a trial result, and location
+ */
 public class RegisterBarCode extends AppCompatActivity {
 
     CodeScanner codeScanner;
     CodeScannerView scannerView;
     String information;
 
-
+    /**
+     * Prompts for trial result, and location
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -31,6 +31,8 @@ import java.util.HashMap;
 
 /**
  * this is the fragment of adding a new experiment
+ * It prompts for the experiment type, optional region field
+ * and if location is required
  */
 public class AddNewExperimentFragment extends DialogFragment {
 

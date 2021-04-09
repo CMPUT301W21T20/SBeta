@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * This activity displays the result statistics of all trials
+ * of an experiment
+ */
 public class showStatsActivity extends AppCompatActivity {
 
     @Override

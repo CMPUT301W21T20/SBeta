@@ -29,7 +29,15 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-
+/**
+ * This activity enables adding count trials
+ * including counts, non-negative integer counts,
+ * and measurement trials
+ * where the user chooses enters a number
+ * If the corresponding experiment requires location,
+ * it enforces the user to provide a location
+ * otherwise, the location is optional
+ */
 public class AddCountTrial extends AppCompatActivity{
 
     @Override
