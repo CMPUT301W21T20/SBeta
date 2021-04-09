@@ -29,13 +29,6 @@ public class ExperimentTest {
     }
 
     @Test
-    public void testSetOwner() {
-        Experiment experiment = mockExperiment();
-        experiment.setOwner(new User("1234"));
-        assertEquals("1234", experiment.owner.getUserID());
-    }
-
-    @Test
     public void testSetDescription() {
         Experiment experiment = mockExperiment();
         experiment.setDescription("qqqqqqq");
@@ -108,14 +101,6 @@ public class ExperimentTest {
         assertEquals(trials, experiment.trials);
         ArrayList<Trial> get = experiment.getTrials();
         assertEquals(trials, get);
-    }
-
-    @Test
-    public void testGetOwner() {
-        Experiment experiment = mockExperiment();
-        User user = new User("1234");
-        experiment.setOwner(user);
-        assertEquals(user, experiment.getOwner());
     }
 
     @Test
@@ -195,7 +180,7 @@ public class ExperimentTest {
     }
 
     @Test
-    public void testGetUserName() {
+    public void testGetUserID() {
         Experiment experiment = mockExperiment();
         assertEquals("mockUserName", experiment.getUserId());
         experiment.userId = "change";
