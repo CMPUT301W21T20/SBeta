@@ -5,20 +5,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -32,11 +28,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * this is the fragment of adding a new experiment
+ * It prompts for the experiment type, optional region field
+ * and if location is required
  */
 public class AddNewExperimentFragment extends DialogFragment {
 
@@ -184,7 +180,7 @@ public class AddNewExperimentFragment extends DialogFragment {
                                     userName);
 
                             final CollectionReference UsersReference = db.collection("users");
-                            final DocumentReference UserReference =  UsersReference.document(MainMenuActivity.userID);
+                            final DocumentReference UserReference =  UsersReference.document(MainMenuActivity.currentUserID);
                             final CollectionReference OwnedExperList = UserReference.collection("ownedExp");
                             HashMap<String, Object> OwnedExpr = new HashMap<>();
                             OwnedExpr.put("exp" ,description);

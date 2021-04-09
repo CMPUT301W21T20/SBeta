@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * This activity shows the content of a reply to a question
+ */
 public class replyContent extends AppCompatActivity {
     TextView replyContentTittle;
     TextView replyDetail;

@@ -25,7 +25,12 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.Arrays;
-
+/**
+ * This class help generate QR code for count based trials
+ * where the result is a number
+ * It also records the location info if required,
+ * optional if not required.
+ */
 public class GenerateCountQR extends AppCompatActivity {
 
     @Override
@@ -39,6 +44,7 @@ public class GenerateCountQR extends AppCompatActivity {
         ImageView qrImage = findViewById(R.id.qr_count_image);
         Button scanButton = findViewById(R.id.scan_image);
 
+
         String locationRequired = getIntent().getStringExtra("locationRequired");
         final String[] trialLat = {"null"};
         final String[] trialLng = {"null"};
@@ -49,6 +55,7 @@ public class GenerateCountQR extends AppCompatActivity {
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apiKey);
         }
+
         PlacesClient placesClient = Places.createClient(this);
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)

@@ -30,6 +30,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * This class enables register to bar code to associate it
+ * with a count based trial result, and location
+ */
 public class RegisterBarCodeCountBase extends AppCompatActivity {
     CodeScanner codeScanner;
     CodeScannerView scannerView;

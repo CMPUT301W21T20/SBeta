@@ -22,7 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 
 /**
- * This is an activity that allow to add reply
+ * This is an activity that allows the user
+ * to add a reply to a question for an experiment
  */
 public class addReply extends AppCompatActivity {
     TextView addReplyTittle;

@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * This activity shows the details of a trial
+ */
 public class TrialInfo extends AppCompatActivity {
 
     @Override
