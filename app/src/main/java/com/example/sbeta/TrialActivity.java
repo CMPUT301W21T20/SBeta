@@ -352,29 +352,41 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
                                 switch (item.getItemId()) {
                                     case R.id.manually_add:
-                                        if (isEnd.equals("false")) {
-                                            Intent intent;
-                                            if (expType.equals("Binomial trials")) {
-                                                intent = new Intent(TrialActivity.this, AddBinomialTrial.class);
-                                                intent.putExtra("chosenExperiment", trialListTittle);
-                                                intent.putExtra("trial number", trialNum);
-                                                intent.putExtra("userID", currentUser);
-                                                intent.putExtra("userName", name);
-                                                intent.putExtra("locationRequired", locationRequired);
-                                                startActivity(intent);
-                                            } else {
-                                                intent = new Intent(TrialActivity.this, AddCountTrial.class);
-                                                intent.putExtra("ExperimentType", expType);
-                                                intent.putExtra("chosenExperiment", trialListTittle);
-                                                intent.putExtra("trial number", trialNum);
-                                                intent.putExtra("userID", currentUser);
-                                                intent.putExtra("userName", name);
-                                                intent.putExtra("locationRequired", locationRequired);
-                                                startActivity(intent);
+                                        DocumentReference endDocReference = db.collection("experiments").document(trialListTittle);
+                                        endDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document != null) {
+                                                        boolean isEnded = (boolean) document.get("isEnded");
+                                                        if (isEnded == false) {
+                                                            Intent intent;
+                                                            if (expType.equals("Binomial trials")) {
+                                                                intent = new Intent(TrialActivity.this, AddBinomialTrial.class);
+                                                                intent.putExtra("chosenExperiment", trialListTittle);
+                                                                intent.putExtra("trial number", trialNum);
+                                                                intent.putExtra("userID", currentUser);
+                                                                intent.putExtra("userName", name);
+                                                                intent.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intent);
+                                                            } else {
+                                                                intent = new Intent(TrialActivity.this, AddCountTrial.class);
+                                                                intent.putExtra("ExperimentType", expType);
+                                                                intent.putExtra("chosenExperiment", trialListTittle);
+                                                                intent.putExtra("trial number", trialNum);
+                                                                intent.putExtra("userID", currentUser);
+                                                                intent.putExtra("userName", name);
+                                                                intent.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intent);
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(TrialActivity.this, "This experiment has been ended", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }
                                             }
-                                        } else {
-                                            Toast.makeText(TrialActivity.this, "This experiment has been ended", Toast.LENGTH_SHORT).show();
-                                        }
+                                        });
                                         return true;
                                     case R.id.scan_qr_code:
                                         Intent intentToGenerate;
