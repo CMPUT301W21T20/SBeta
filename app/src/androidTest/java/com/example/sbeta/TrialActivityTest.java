@@ -54,7 +54,7 @@ public class TrialActivityTest {
         solo.clickOnText("Ok");
         assertTrue(solo.waitForText("AAAACount", 1, 2000));
 
-        solo.clickInList(0);
+        solo.clickOnText("AAAACount");
         solo.assertCurrentActivity("Wrong Activity", TrialActivity.class);
 
         Button add = (Button) solo.getView(R.id.add_trial_button);
