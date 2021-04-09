@@ -181,7 +181,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, OwnPage.class);
-                intent.putExtra("userID", userID);
+                intent.putExtra("userID",currentUserID);
                 intent.putExtra("userName", logInUserName);
                 searchWord.setText("");
                 startActivity(intent);
@@ -194,7 +194,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, SubPage.class);
-                intent.putExtra("userID", userID);
+                intent.putExtra("userID", currentUserID);
                 intent.putExtra("userName", logInUserName);
                 searchWord.setText("");
                 startActivity(intent);

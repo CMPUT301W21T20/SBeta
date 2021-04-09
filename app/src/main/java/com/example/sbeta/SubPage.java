@@ -59,7 +59,6 @@ public class SubPage extends AppCompatActivity {
                 intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("locationRequired", dataList.get(position).getLocationRequired().toString());
-                intent.putExtra("owner", dataList.get(position).getUserName());
                 int minTrials = (int) dataList.get(position).getMinTrials();
                 intent.putExtra("minTrials", Integer.toString(minTrials));
 
