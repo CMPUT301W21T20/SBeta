@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SBeta">
+
+        <activity android:name=".SubscribedExpActivity"/>
+        <activity android:name=".OwnedExpActivity"/>
         <activity android:name=".UserProfileActivity"></activity>
         <activity android:name=".replyContent"></activity>
         <activity android:name=".addReply" />

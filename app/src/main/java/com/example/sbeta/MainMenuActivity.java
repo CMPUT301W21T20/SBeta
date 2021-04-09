@@ -46,6 +46,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     ArrayAdapter<Experiment> experAdapter;
     ArrayList<Experiment> dataList;
     Button searchButton;
+    Button OwnedExperiment;
+    Button SubscribedExperiment;
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
@@ -64,6 +66,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experList = findViewById(R.id.exper_list);
         searchButton = findViewById(R.id.search_button);
         searchWord = findViewById(R.id.searchKeyWord);
+        OwnedExperiment=findViewById(R.id.personal_exp);
+        SubscribedExperiment=findViewById(R.id.sub_exp);
         userProfile = findViewById(R.id.user_profile);
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("experiments");
@@ -79,11 +83,29 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
             }
         });
 
+        OwnedExperiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent OwnedIntent=new Intent(MainMenuActivity.this,OwnedExpActivity.class);
+                OwnedIntent.putExtra("userID",userID);
+                startActivity(OwnedIntent);
+            }
+        });
+
+        SubscribedExperiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent SubscribedIntent=new Intent(MainMenuActivity.this,SubscribedExpActivity.class);
+                SubscribedIntent.putExtra("userID",userID);
+                startActivity(SubscribedIntent);
+            }
+        });
+
         //enter trial list
         experList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = dataList.get(position).getName();
+                String name = dataList.get(position).getName();  // description
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
                 intent.putExtra("userID", userID);

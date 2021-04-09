@@ -56,6 +56,10 @@ public class Experiment {
         this.name = name;
         this.userName = userName;
     }
+    public Experiment(String expName,String expType){
+        this.name=expName;
+        this.experimentType=expType;
+    }
 
     /**
      * This set trials

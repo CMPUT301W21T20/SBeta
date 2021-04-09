@@ -15,4 +15,12 @@
     <item name="welcome_to_stats" type="id" />
     <item name="menu_button" type="id" />
     <item name="user_profile" type="id" />
+    <item name="personal_exp" type="id" />
+    <item name="prefix" type="id" />
+    <item name="expname" type="id" />
+    <item name="display_personal" type="id" />
+    <item name="display_subscribed" type="id" />
+    <item name="i_own" type="id" />
+    <item name="i_subscribe" type="id" />
+    <item name="sub_exp" type="id" />
 </resources>

@@ -7,6 +7,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+    <Button
+        android:id="@+id/personal_exp"
+        android:layout_width="91dp"
+        android:layout_height="69dp" />
+
+    <Button
+        android:id="@+id/sub_exp"
+        android:layout_width="91dp"
+        android:layout_height="69dp" />
+
     <ImageButton
         android:id="@+id/user_profile"
         android:layout_width="70dp"
