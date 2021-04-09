@@ -19,12 +19,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TrialActivityTest {
     private Solo solo;
     @Rule
-    public ActivityTestRule<TrialActivity> rule =
-            new ActivityTestRule<>(TrialActivity.class, true, true);
+    public ActivityTestRule<MainActivity> rule =
+            new ActivityTestRule<>(MainActivity.class, true, true);
 
     @Before
     public void setUp() throws Exception {
@@ -33,23 +34,36 @@ public class TrialActivityTest {
 
     @Test
     public void start() throws Exception {
-        //Activity activity = rule.getActivity();
+        Activity activity = rule.getActivity();
     }
 
     @Test
     public  void addTrial() {
-        /*
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnButton("Menu");
+
+        solo.assertCurrentActivity("Wrong Activity", MainMenuActivity.class);
+        solo.clickOnView(solo.getView(R.id.add_experiment_button));
+        //
+        solo.enterText((EditText) solo.getView(R.id.description_input), "AAAACount");
+        solo.enterText((EditText) solo.getView(R.id.region_text), "Edmonton");
+        solo.clearEditText((EditText) solo.getView(R.id.minTrials)); //Clear the EditText
+        solo.enterText((EditText) solo.getView(R.id.minTrials), "1");
+        solo.clickOnView(solo.getView(R.id.type_spinner));
+        solo.clickOnText("Count-based");
+        solo.clickOnText("Ok");
+
         solo.clickInList(0);
 
         Button op = (Button) solo.getView(R.id.add_trial_button);
         solo.clickOnView(op);
         solo.clickOnMenuItem("Manually Add");
+        solo.enterText((EditText) solo.getView(R.id.count_data), "3");
+        solo.clickOnText("CONFIRM");
 
-         */
+        assertTrue(solo.waitForText("AAAACount", 1, 2000));
 
-
-
+        solo.clickInList(0);
     }
 
 

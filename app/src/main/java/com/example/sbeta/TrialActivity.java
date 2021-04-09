@@ -393,25 +393,40 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                                         });
                                         return true;
                                     case R.id.scan_qr_code:
-                                        Intent intentToGenerate;
-                                        if (expType.equals("Binomial trials")) {
-                                            intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
-                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
-                                            intentToGenerate.putExtra("trial number", trialNum);
-                                            intentToGenerate.putExtra("userID", currentUser);
-                                            intentToGenerate.putExtra("userName", name);
-                                            intentToGenerate.putExtra("locationRequired", locationRequired);
-                                            startActivity(intentToGenerate);
-                                        }
-                                        else {
-                                            intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
-                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
-                                            intentToGenerate.putExtra("trial number", trialNum);
-                                            intentToGenerate.putExtra("userID", currentUser);
-                                            intentToGenerate.putExtra("userName", name);
-                                            intentToGenerate.putExtra("locationRequired", locationRequired);
-                                            startActivity(intentToGenerate);
-                                        }
+                                        DocumentReference endDocReferenceQR = db.collection("experiments").document(trialListTittle);
+                                        endDocReferenceQR.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document != null) {
+                                                        boolean isEnded = (boolean) document.get("isEnded");
+                                                        if (isEnded == false) {
+                                                            Intent intentToGenerate;
+                                                            if (expType.equals("Binomial trials")) {
+                                                                intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
+                                                                intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                                                intentToGenerate.putExtra("trial number", trialNum);
+                                                                intentToGenerate.putExtra("userID", currentUser);
+                                                                intentToGenerate.putExtra("userName", name);
+                                                                intentToGenerate.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intentToGenerate);
+                                                            } else {
+                                                                intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
+                                                                intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                                                intentToGenerate.putExtra("trial number", trialNum);
+                                                                intentToGenerate.putExtra("userID", currentUser);
+                                                                intentToGenerate.putExtra("userName", name);
+                                                                intentToGenerate.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intentToGenerate);
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(TrialActivity.this, "This experiment has been ended", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
                                         return true;
                                     default:
                                         return false;
