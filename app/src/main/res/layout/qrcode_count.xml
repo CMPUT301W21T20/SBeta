@@ -16,13 +16,12 @@
         android:padding="12dp"
         android:background="@android:drawable/editbox_background"></EditText>
 
-    <EditText
+    <fragment android:id="@+id/autocomplete_fragment_count"
+        android:layout_below="@id/success223"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/location"
-        android:hint="Enter Location"
-        android:padding="12dp"
-        android:background="@android:drawable/editbox_background"></EditText>
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
 
     <Button
         android:layout_width="wrap_content"
