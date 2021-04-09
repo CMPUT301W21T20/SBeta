@@ -123,7 +123,7 @@ public class OwnPage extends AppCompatActivity {
                                     Boolean locationRequired = document.getBoolean("locationRequired");
                                     long minTrials = (long) document.getData().get("minTrials");
                                     String userName = (String) document.getData().get("userID");
-                                    dataList.add(new Experiment(description, isEnd, true, minTrials, locationRequired, type, name, userName));
+                                    dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userName));
                                     System.out.println(type);
                                     experAdapter.notifyDataSetChanged();
 
