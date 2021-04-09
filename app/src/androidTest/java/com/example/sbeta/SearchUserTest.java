@@ -50,10 +50,8 @@ public class SearchUserTest {
 
         solo.clickOnButton("search");
         solo.enterText((EditText) solo.getView(R.id.searchkey), "user");
-        solo.assertCurrentActivity("Wrong Activity", UserProfileActivity.class);
-
-        //solo.assertCurrentActivity("Wrong Activity", SearchDisplay.class);
-
+        solo.clickOnText("OK");
+        solo.assertCurrentActivity("Wrong Activity", SearchUserActivity.class);
     }
 
     /**
