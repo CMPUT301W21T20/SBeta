@@ -46,11 +46,16 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     ArrayAdapter<Experiment> experAdapter;
     ArrayList<Experiment> dataList;
     Button searchButton;
+    Button subscribedButton;
+    Button ownedButton;
+    Button QrButton;
+    Button BarButton;
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
     static String userID;
     CollectionReference collectionReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,26 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         userID = getIntent().getStringExtra("userID");
 
         experList = findViewById(R.id.exper_list);
+        subscribedButton = findViewById(R.id.mySubScription);
+        ownedButton = findViewById(R.id.Own);
+        QrButton = findViewById(R.id.ScanQr);
+        BarButton= findViewById(R.id.ScanBar);
+        QrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentUserProfile = new Intent(MainMenuActivity.this, QRScanner.class);
+                startActivity(intentUserProfile);
+            }
+        });
+
+        BarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentUserProfile = new Intent(MainMenuActivity.this, ScanBarCode.class);
+                startActivity(intentUserProfile);
+            }
+        });
+
         searchButton = findViewById(R.id.search_button);
         searchWord = findViewById(R.id.searchKeyWord);
         userProfile = findViewById(R.id.user_profile);
@@ -107,7 +132,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 //        Experiment []experiments = {testExper1, testExper2, testExper3, testExper4};
 //        dataList.addAll(Arrays.asList(experiments));
 
-        experAdapter = new CustomMainList(this, dataList);
+        experAdapter = new CustomSearchList(this, dataList);
         experList.setAdapter(experAdapter);
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -137,8 +162,30 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 experAdapter.notifyDataSetChanged();
             }
         });
+        ownedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, OwnPage.class);
+                intent.putExtra("userID", userID);
+                intent.putExtra("userName", logInUserName);
+                searchWord.setText("");
+                startActivity(intent);
+
+            }
+        });
 
         // search
+        subscribedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, SubPage.class);
+                intent.putExtra("userID", userID);
+                intent.putExtra("userName", logInUserName);
+                searchWord.setText("");
+                startActivity(intent);
+
+            }
+        });
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
