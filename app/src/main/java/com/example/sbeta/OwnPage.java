@@ -33,6 +33,14 @@ public class OwnPage extends AppCompatActivity {
     ArrayList<Experiment> dataList;
     ArrayList<String> expName = new ArrayList<>() ;
     ListView experList;
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+        experAdapter.notifyDataSetChanged();
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +64,29 @@ public class OwnPage extends AppCompatActivity {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(OwnPage.this, TrialActivity.class);
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
-                intent.putExtra("userID", userID);
+                intent.putExtra("userID",userID);
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("locationRequired", dataList.get(position).getLocationRequired().toString());
+
+                intent.putExtra("isEnd", dataList.get(position).getEnded().toString());
                 int minTrials = (int) dataList.get(position).getMinTrials();
                 intent.putExtra("minTrials", Integer.toString(minTrials));
+                DocumentReference userDocReference = db.collection("users").document(dataList.get(position).getUserId());
 
-                startActivity(intent);
+                //get experiment owner name
+                userDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                                String owner = (String) document.get("userName");
+                                intent.putExtra("owner", owner);
+                                startActivity(intent);}
+                        }
+                    }
+                });
+
 
             }
         });
@@ -99,7 +123,7 @@ public class OwnPage extends AppCompatActivity {
                                     Boolean locationRequired = document.getBoolean("locationRequired");
                                     long minTrials = (long) document.getData().get("minTrials");
                                     String userName = (String) document.getData().get("userID");
-                                    dataList.add(new Experiment(description, isEnd, true, minTrials, locationRequired, type, name, userName));
+                                    dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userName));
                                     System.out.println(type);
                                     experAdapter.notifyDataSetChanged();
 
@@ -128,4 +152,5 @@ public class OwnPage extends AppCompatActivity {
 
 
     }
+
 }

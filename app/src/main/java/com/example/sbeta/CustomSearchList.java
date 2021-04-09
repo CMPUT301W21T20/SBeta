@@ -51,7 +51,7 @@ public class CustomSearchList extends ArrayAdapter<Experiment> {
 
         experName.setText(result.getName());
 
-        description.setText(result.getDescription());
+        description.setText(result.getExperimentType());
 
 
         DocumentReference userDocReference = db.collection("users").document(result.getUserId());
