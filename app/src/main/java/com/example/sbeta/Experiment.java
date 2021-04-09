@@ -42,8 +42,6 @@ public class Experiment {
      *      This is to show which type the experiment is
      * @param name
      *      This is the name of experiments
-     * @param userName
-     *      This is the owner of experiments
      */
     public Experiment(String description, Boolean isEnded, Boolean isPublished, long minTrials, Boolean locationRequired, String experimentType, String name, String userId) {
         this.description = description;
