@@ -38,7 +38,7 @@ public class TrialActivityTest {
     }
 
     @Test
-    public  void addTrial() {
+    public void testTrialActivity() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         solo.clickOnButton("Menu");
 
@@ -52,27 +52,42 @@ public class TrialActivityTest {
         solo.clickOnView(solo.getView(R.id.type_spinner));
         solo.clickOnText("Count-based");
         solo.clickOnText("Ok");
+        assertTrue(solo.waitForText("AAAACount", 1, 2000));
 
-        solo.clickInList(0);
+        solo.clickOnText("AAAACount");
+        solo.assertCurrentActivity("Wrong Activity", TrialActivity.class);
 
-        Button op = (Button) solo.getView(R.id.add_trial_button);
-        solo.clickOnView(op);
+        Button add = (Button) solo.getView(R.id.add_trial_button);
+        solo.clickOnView(add);
         solo.clickOnMenuItem("Manually Add");
         solo.enterText((EditText) solo.getView(R.id.count_data), "3");
         solo.clickOnText("CONFIRM");
 
-        assertTrue(solo.waitForText("AAAACount", 1, 2000));
+        solo.clickOnView(add);
+        solo.clickOnMenuItem("Manually Add");
+        solo.enterText((EditText) solo.getView(R.id.count_data), "2");
+        solo.clickOnText("CONFIRM");
 
+        //check end
+        Button operation = (Button) solo.getView(R.id.operation_button);
+        solo.clickOnView(operation);
+        solo.clickOnMenuItem("End Experiment");
+        solo.assertCurrentActivity("Wrong Activity", TrialActivity.class);
+        solo.clickOnView(add);
+        solo.clickOnMenuItem("Manually Add");
+        solo.assertCurrentActivity("Wrong Activity", TrialActivity.class);
+        solo.clickOnView(add);
+        solo.clickOnMenuItem("Scan QR");
+        solo.assertCurrentActivity("Wrong Activity", TrialActivity.class);
+
+        //check switch activity
         solo.clickInList(0);
+        solo.assertCurrentActivity("Wrong Activity", TrialInfo.class);
     }
-
 
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
     }
-
-
-
 
 }
