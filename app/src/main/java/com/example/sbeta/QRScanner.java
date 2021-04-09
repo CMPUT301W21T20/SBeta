@@ -19,6 +19,7 @@ import com.google.zxing.Result;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 public class QRScanner extends AppCompatActivity {
     CodeScanner codeScanner;
@@ -52,18 +53,20 @@ public class QRScanner extends AppCompatActivity {
                         HashMap<String, Object> trial_to_add = new HashMap<>();
                         DocumentReference experiment = db.collection("experiments").document(exp);
                         CollectionReference trials = experiment.collection("trials");
-                        trial_to_add.put("Lat", Lat);
-                        trial_to_add.put("Lng", Lng);
+                        trial_to_add.put("lat", Lat);
+                        trial_to_add.put("lng", Lng);
                         trial_to_add.put("user id", Uid);
                         trial_to_add.put("result", data);
                         Date date = Calendar.getInstance().getTime();
                         trial_to_add.put("date", date);
-                        trial_to_add.put("trial id", (int) (1000));
-                        trials.document("trial " + (int) (1000)).set(trial_to_add);
+                        Random rand = new Random();
+                        int num = rand.nextInt(10000);
+                        trial_to_add.put("trial id", (int) (num));
+                        trials.document("trial " + (int) (num)).set(trial_to_add);
                         finish();
 
 
-                        Toast.makeText(QRScanner.this, exp, Toast.LENGTH_LONG).show();
+                        Toast.makeText(QRScanner.this,"added successfully", Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -21,6 +21,7 @@ import com.google.zxing.Result;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 public class ScanBarCode extends AppCompatActivity {
 
@@ -63,7 +64,10 @@ public class ScanBarCode extends AppCompatActivity {
                                         double data  = (Double) document.getData().get("data");
                                         Date date = Calendar.getInstance().getTime();
                                         String Exp = (String) document.getData().get("experiment");
-                                        double num = (Double) document.getData().get("num");
+                                        Random rand = new Random();
+                                        int num = rand.nextInt(10000);
+
+
 
 
 
@@ -71,16 +75,17 @@ public class ScanBarCode extends AppCompatActivity {
                                         DocumentReference experiment = db.collection("experiments").document(Exp);
                                         CollectionReference trials = experiment.collection("trials");
                                         HashMap<String, Object> trial_to_add = new HashMap<>();
-                                        trial_to_add.put("Lat", Lat);
-                                        trial_to_add.put("Lng", Lng);
+                                        trial_to_add.put("lat", Lat);
+                                        trial_to_add.put("lng", Lng);
                                         trial_to_add.put("user id", UserId);
                                         trial_to_add.put("result", data);
                                         trial_to_add.put("date", date);
-                                        trial_to_add.put("trial id", (int) (10000 - num));
+                                        trial_to_add.put("trial id", (int) ( num));
 
                                         Toast.makeText(ScanBarCode.this, Exp, Toast.LENGTH_SHORT).show();
 
-                                        trials.document("trial " + (int) (10000 -num)).set(trial_to_add);
+
+                                        trials.document("trial " + (int) (num)).set(trial_to_add);
 
                                         finish();
 

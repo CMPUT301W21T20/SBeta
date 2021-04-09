@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -116,6 +117,10 @@ public class GenerateBioQR extends AppCompatActivity {
                     //get location
 
                     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                    if (locationRequired.equals("true") && trialLat[0].equals("null") && trialLng[0].equals("null")){
+                        Toast.makeText(getApplicationContext(), "Location empty!", Toast.LENGTH_LONG).show();
+                        return ;
+                    }
 
                     try {
                         BitMatrix bitMatrix = multiFormatWriter.encode(""+result+" "+trialLat[0] + " " + trialLng[0]+ " "+ userId+ " "+ expName , BarcodeFormat.QR_CODE, 200, 200);
