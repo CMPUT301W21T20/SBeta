@@ -7,14 +7,50 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <ImageButton
-        android:id="@+id/user_profile"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="fitXY"
-        android:translationX="330dp"
-        android:translationY="30dp"
-        app:srcCompat="@drawable/ic_baseline_account_box_24" />
+
+
+    <LinearLayout
+
+        tools:context=".MainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/mySubScription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="subscribed"
+            app:backgroundTint="#73934E" />
+        <Button
+            android:id="@+id/Own"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Owned"
+            app:backgroundTint="#73934E" />
+        <Button
+            android:id="@+id/ScanQr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QrCode"
+            app:backgroundTint="#73934E" />
+        <Button
+            android:id="@+id/ScanBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="barcode"
+            app:backgroundTint="#73934E" />
+    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/user_profile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:translationX="330dp"
+            android:translationY="30dp"
+            app:srcCompat="@drawable/ic_baseline_account_box_24" />
+
+
 
     <EditText
         android:id="@+id/searchKeyWord"

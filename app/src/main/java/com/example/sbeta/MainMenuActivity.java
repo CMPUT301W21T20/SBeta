@@ -45,12 +45,17 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     ArrayAdapter<Experiment> experAdapter;
     ArrayList<Experiment> dataList;
     Button searchButton;
+    Button subscribedButton;
+    Button ownedButton;
+    Button QrButton;
+    Button BarButton;
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
     static String currentUserID;
     CollectionReference collectionReference;
     DocumentReference userDocReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,26 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         logInUserName = getIntent().getStringExtra("userName");
         currentUserID = getIntent().getStringExtra("userID");
         experList = findViewById(R.id.exper_list);
+        subscribedButton = findViewById(R.id.mySubScription);
+        ownedButton = findViewById(R.id.Own);
+        QrButton = findViewById(R.id.ScanQr);
+        BarButton= findViewById(R.id.ScanBar);
+        QrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentUserProfile = new Intent(MainMenuActivity.this, QRScanner.class);
+                startActivity(intentUserProfile);
+            }
+        });
+
+        BarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentUserProfile = new Intent(MainMenuActivity.this, ScanBarCode.class);
+                startActivity(intentUserProfile);
+            }
+        });
+
         searchButton = findViewById(R.id.search_button);
         searchWord = findViewById(R.id.searchKeyWord);
         userProfile = findViewById(R.id.user_profile);
@@ -123,7 +148,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
 //        Experiment []experiments = {testExper1, testExper2, testExper3, testExper4};
 //        dataList.addAll(Arrays.asList(experiments));
 
-        experAdapter = new CustomMainList(this, dataList);
+        experAdapter = new CustomSearchList(this, dataList);
         experList.setAdapter(experAdapter);
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -146,14 +171,55 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     Boolean locationRequired = doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
                     String userId = (String) doc.getData().get("userID");
-                    dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
+
+
+                    userDocReference = db.collection("users").document(userId);
+
+                    //get experiment owner name
+                    userDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document != null) {
+                                    String usern = (String) document.get("userName");
+                                    dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
+                                    experAdapter.notifyDataSetChanged();
+                                    }
+                            }
+                        }
+                    });
+
+
                 }
                 //dataList.add(new Experiment("description", true, true, 1, false, "type", "name", "userId"));
                 experAdapter.notifyDataSetChanged();
             }
         });
+        ownedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, OwnPage.class);
+                intent.putExtra("userID",currentUserID);
+                intent.putExtra("userName", logInUserName);
+                searchWord.setText("");
+                startActivity(intent);
+
+            }
+        });
 
         // search
+        subscribedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, SubPage.class);
+                intent.putExtra("userID", currentUserID);
+                intent.putExtra("userName", logInUserName);
+                searchWord.setText("");
+                startActivity(intent);
+
+            }
+        });
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
