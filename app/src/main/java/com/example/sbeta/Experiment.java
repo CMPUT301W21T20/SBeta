@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Experiment {
     ArrayList<Trial> trials;
-    User owner;
     ArrayList<User> participants;
     String description;
     Boolean isEnded;
@@ -17,7 +16,7 @@ public class Experiment {
     String experimentType;
     String status;
     String name;
-    String userName;
+    String userId;
     ArrayList<Trial> ignoreTrials;
 
 //    public Experiment(User owner, String description, String status, String name) {
@@ -46,7 +45,7 @@ public class Experiment {
      * @param userName
      *      This is the owner of experiments
      */
-    public Experiment(String description, Boolean isEnded, Boolean isPublished, long minTrials, Boolean locationRequired, String experimentType, String name, String userName) {
+    public Experiment(String description, Boolean isEnded, Boolean isPublished, long minTrials, Boolean locationRequired, String experimentType, String name, String userId) {
         this.description = description;
         this.isEnded = isEnded;
         this.isPublished = isPublished;
@@ -54,7 +53,7 @@ public class Experiment {
         this.locationRequired = locationRequired;
         this.experimentType = experimentType;
         this.name = name;
-        this.userName = userName;
+        this.userId = userId;
     }
 
     /**
@@ -67,8 +66,9 @@ public class Experiment {
     /**
      * This set owner
      */
-    public void setOwner(User owner) {
-        this.owner = owner;
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     /**
@@ -141,11 +141,6 @@ public class Experiment {
         return ignoreTrials;
     }
 
-
-
-    public User getOwner() {
-        return owner;
-    }
 
     /**
      * This returns participants
@@ -251,7 +246,7 @@ public class Experiment {
      * @return
      *      Return user name
      */
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 }

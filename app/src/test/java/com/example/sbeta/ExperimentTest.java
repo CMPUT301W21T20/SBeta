@@ -197,9 +197,9 @@ public class ExperimentTest {
     @Test
     public void testGetUserName() {
         Experiment experiment = mockExperiment();
-        assertEquals("mockUserName", experiment.getUserName());
-        experiment.userName = "change";
-        assertEquals("change", experiment.getUserName());
+        assertEquals("mockUserName", experiment.getUserId());
+        experiment.userId = "change";
+        assertEquals("change", experiment.getUserId());
     }
 
 

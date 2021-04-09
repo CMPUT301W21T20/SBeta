@@ -38,6 +38,7 @@ public class GenerateCountQR extends AppCompatActivity {
         ImageView qrImage = findViewById(R.id.qr_count_image);
         Button scanButton = findViewById(R.id.scan_image);
 
+
         String locationRequired = getIntent().getStringExtra("locationRequired");
         final String[] trialLat = {"null"};
         final String[] trialLng = {"null"};
@@ -48,6 +49,7 @@ public class GenerateCountQR extends AppCompatActivity {
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apiKey);
         }
+
         PlacesClient placesClient = Places.createClient(this);
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
