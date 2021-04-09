@@ -34,6 +34,15 @@ public class GenerateBioQR extends AppCompatActivity {
             Button scanButton = findViewById(R.id.scan_image);
             String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
 
+            String userId = getIntent().getStringExtra("userID");
+            String name = getIntent().getStringExtra("userName");
+            String locationRequired = getIntent().getStringExtra("locationRequired");
+
+            String title = getIntent().getStringExtra("chosenExperiment");
+            int trialId = getIntent().getIntExtra("trial number", 0);
+
+            this.setTitle("Binomial Experiment");
+
             success.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

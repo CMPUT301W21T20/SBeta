@@ -56,6 +56,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         String currentUser = intent.getStringExtra("userID");
         String name = intent.getStringExtra("userName");
         String locationRequired = intent.getStringExtra("locationRequired");
+        String isEnd = intent.getStringExtra("isEnd");
         int minTrials = Integer.parseInt(intent.getStringExtra("minTrials"));
 
         String trialListTittle = intent.getStringExtra("chosenExperiment");
@@ -336,44 +337,52 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
                                 switch (item.getItemId()) {
                                     case R.id.manually_add:
-                                        Intent intent;
-                                        if (expType.equals("Binomial trials")) {
-                                            intent = new Intent(TrialActivity.this, AddBinomialTrial.class);
-                                            intent.putExtra("chosenExperiment", trialListTittle);
-                                            intent.putExtra("trial number", trialNum);
-                                            intent.putExtra("userID", currentUser);
-                                            intent.putExtra("userName", name);
-                                            intent.putExtra("locationRequired", locationRequired);
-                                            startActivity(intent);
-                                        }
-                                        else {
-                                            intent = new Intent(TrialActivity.this, AddCountTrial.class);
-                                            intent.putExtra("ExperimentType", expType);
-                                            intent.putExtra("chosenExperiment", trialListTittle);
-                                            intent.putExtra("trial number", trialNum);
-                                            intent.putExtra("userID", currentUser);
-                                            intent.putExtra("userName", name);
-                                            intent.putExtra("locationRequired", locationRequired);
-                                            startActivity(intent);
+                                        if (isEnd.equals("false")) {
+                                            Intent intent;
+                                            if (expType.equals("Binomial trials")) {
+                                                intent = new Intent(TrialActivity.this, AddBinomialTrial.class);
+                                                intent.putExtra("chosenExperiment", trialListTittle);
+                                                intent.putExtra("trial number", trialNum);
+                                                intent.putExtra("userID", currentUser);
+                                                intent.putExtra("userName", name);
+                                                intent.putExtra("locationRequired", locationRequired);
+                                                startActivity(intent);
+                                            } else {
+                                                intent = new Intent(TrialActivity.this, AddCountTrial.class);
+                                                intent.putExtra("ExperimentType", expType);
+                                                intent.putExtra("chosenExperiment", trialListTittle);
+                                                intent.putExtra("trial number", trialNum);
+                                                intent.putExtra("userID", currentUser);
+                                                intent.putExtra("userName", name);
+                                                intent.putExtra("locationRequired", locationRequired);
+                                                startActivity(intent);
+                                            }
+                                        } else {
+                                            Toast.makeText(TrialActivity.this, "This experiment has been ended", Toast.LENGTH_SHORT).show();
                                         }
                                         return true;
                                     case R.id.scan_qr_code:
-                                        Intent intentToGenerate;
-                                        if (expType.equals("Binomial trials")) {
-                                            intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
-                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
-                                            intentToGenerate.putExtra("trial number", trialNum);
-                                            intentToGenerate.putExtra("userID", currentUser);
-                                            intentToGenerate.putExtra("userName", name);
-                                            startActivity(intentToGenerate);
-                                        }
-                                        else {
-                                            intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
-                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
-                                            intentToGenerate.putExtra("trial number", trialNum);
-                                            intentToGenerate.putExtra("userID", currentUser);
-                                            intentToGenerate.putExtra("userName", name);
-                                            startActivity(intentToGenerate);
+                                        if (isEnd.equals("false")) {
+                                            Intent intentToGenerate;
+                                            if (expType.equals("Binomial trials")) {
+                                                intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
+                                                intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                                intentToGenerate.putExtra("trial number", trialNum);
+                                                intentToGenerate.putExtra("userID", currentUser);
+                                                intentToGenerate.putExtra("userName", name);
+                                                startActivity(intentToGenerate);
+                                            } else {
+                                                intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
+                                                intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                                intentToGenerate.putExtra("trial number", trialNum);
+                                                intentToGenerate.putExtra("userID", currentUser);
+                                                intentToGenerate.putExtra("userName", name);
+                                                intentToGenerate.putExtra("ExperimentType", expType);
+                                                intentToGenerate.putExtra("locationRequired", locationRequired);
+                                                startActivity(intentToGenerate);
+                                            }
+                                        } else {
+                                            Toast.makeText(TrialActivity.this, "This experiment has been ended", Toast.LENGTH_SHORT).show();
                                         }
                                         return true;
                                     default:
@@ -386,7 +395,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 }
             }
         };
-
+        trialArrayAdapter.notifyDataSetChanged();
         operationButton.setOnClickListener(listener);
         addButton.setOnClickListener(listener);
 
@@ -394,6 +403,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        trialArrayAdapter.notifyDataSetChanged();
         return false;
     }
 }

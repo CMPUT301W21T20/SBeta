@@ -45,7 +45,7 @@ public class Experiment {
      * @param userName
      *      This is the owner of experiments
      */
-    public Experiment(String description, Boolean isEnded, Boolean isPublished, long minTrials, Boolean locationRequired, String experimentType, String name, String userName) {
+    public Experiment(String description, Boolean isEnded, Boolean isPublished, long minTrials, Boolean locationRequired, String experimentType, String name, String userId) {
         this.description = description;
         this.isEnded = isEnded;
         this.isPublished = isPublished;

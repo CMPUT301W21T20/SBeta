@@ -29,6 +29,23 @@ public class GenerateCountQR extends AppCompatActivity {
         ImageView qrImage = findViewById(R.id.qr_count_image);
         Button scanButton = findViewById(R.id.scan_image);
 
+        String expType = getIntent().getStringExtra("ExperimentType");
+        String userId = getIntent().getStringExtra("userID");
+        String name = getIntent().getStringExtra("userName");
+        String title = getIntent().getStringExtra("chosenExperiment");
+        int trialId = getIntent().getIntExtra("trial number", 0);
+        String locationRequired = getIntent().getStringExtra("locationRequired");
+
+        if (expType.equals("Count-based")) {
+            this.setTitle("Count-based Experiment");
+        }
+        else if (expType.equals("Non-negative integer counts")) {
+            this.setTitle("Non-negative Integer experiment");
+        }
+        else {
+            this.setTitle("Measurement experiment");
+        }
+
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

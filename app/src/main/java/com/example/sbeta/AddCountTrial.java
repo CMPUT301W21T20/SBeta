@@ -48,7 +48,6 @@ public class AddCountTrial extends AppCompatActivity{
         String userId = getIntent().getStringExtra("userID");
         String name = getIntent().getStringExtra("userName");
         String locationRequired = getIntent().getStringExtra("locationRequired");
-
         String title = getIntent().getStringExtra("chosenExperiment");
         int trialId = getIntent().getIntExtra("trial number", 0);
         expName.setText(title);
@@ -129,8 +128,8 @@ public class AddCountTrial extends AppCompatActivity{
                     if (locationRequired.equals("true") && trialLat[0].equals("null") && trialLng[0].equals("null")) {
                         Toast.makeText(AddCountTrial.this, "Please select a location!", Toast.LENGTH_SHORT).show();
                     }
-                    else if (expType.equals("Count-based") && result < 0) {
-                        Toast.makeText(AddCountTrial.this,"Count should be non-negative", Toast.LENGTH_SHORT).show();
+                    else if (expType.equals("Count-based") && (result != (int) result || result < 0)) {
+                        Toast.makeText(AddCountTrial.this,"Count should be non-negative integer", Toast.LENGTH_SHORT).show();
                     }
                     else if (expType.equals("Non-negative integer counts") && (result != (int) result || result < 0)) {
                         Toast.makeText(AddCountTrial.this,"Non-negative integer Count should be a non-negative integer", Toast.LENGTH_SHORT).show();
