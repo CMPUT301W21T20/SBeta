@@ -12,10 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -112,7 +117,7 @@ public class SearchDisplay extends AppCompatActivity {
                             Objects.requireNonNull(type).toLowerCase().contains(keyword.toLowerCase()) ||
                             Objects.requireNonNull(description).toLowerCase().contains(keyword.toLowerCase())) {
                         if (isPublished == Boolean.TRUE) {
-                            resultDataList.add(new Experiment(description, isEnd, true, minTrials, locationRequired, type, name, userName));
+                            resultDataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userName));
                         }
                     }
 
@@ -132,13 +137,29 @@ public class SearchDisplay extends AppCompatActivity {
                 intent.putExtra("ExperimentType", resultDataList.get(position).getExperimentType());
                 intent.putExtra("userID", userID);
                 intent.putExtra("chosenExperiment", name);
+                intent.putExtra("isEnd", resultDataList.get(position).getEnded().toString());
                 intent.putExtra("userName", loginUser);
                 intent.putExtra("locationRequired", resultDataList.get(position).getLocationRequired().toString());
-                intent.putExtra("owner", resultDataList.get(position).getUserId());
+                DocumentReference userDocReference = db.collection("users").document(resultDataList.get(position).getUserId());
                 int minTrials = (int) resultDataList.get(position).getMinTrials();
                 intent.putExtra("minTrials", Integer.toString(minTrials));
 
-                startActivity(intent);
+                //get experiment owner name
+                userDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                                String owner = (String) document.get("userName");
+                                intent.putExtra("owner", owner);
+                                startActivity(intent);}
+                        }
+                    }
+                });
+
+
+                
 
             }
         });

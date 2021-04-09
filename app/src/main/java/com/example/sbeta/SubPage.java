@@ -56,13 +56,31 @@ public class SubPage extends AppCompatActivity {
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(SubPage.this, TrialActivity.class);
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
-                intent.putExtra("userID", userID);
+                intent.putExtra("userID",userID);
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("locationRequired", dataList.get(position).getLocationRequired().toString());
+
+                intent.putExtra("isEnd", dataList.get(position).getEnded().toString());
                 int minTrials = (int) dataList.get(position).getMinTrials();
                 intent.putExtra("minTrials", Integer.toString(minTrials));
+                DocumentReference userDocReference = db.collection("users").document(dataList.get(position).getUserId());
 
-                startActivity(intent);
+                //get experiment owner name
+                userDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                                String owner = (String) document.get("userName");
+                                intent.putExtra("owner", owner);
+                                startActivity(intent);}
+                        }
+                    }
+                });
+
+
+
 
             }
         });
@@ -89,6 +107,9 @@ public class SubPage extends AppCompatActivity {
 
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
+                                    if ( !(boolean) document.get("isPublished")){
+                                        return; //
+                                    }
 
 
                                     String name = document.getId();
