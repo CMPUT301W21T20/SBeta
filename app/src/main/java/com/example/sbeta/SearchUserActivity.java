@@ -21,6 +21,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * This activity ennables the user to search for a user
+ * with a user name. The results are shown as a list of users
+ */
 public class SearchUserActivity extends AppCompatActivity {
 
     @Override

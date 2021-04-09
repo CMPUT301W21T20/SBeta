@@ -4,7 +4,6 @@ package com.example.sbeta;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class CustomSearchList extends ArrayAdapter<Experiment> {
 
         experName.setText(result.getName());
         description.setText(result.getDescription());
-        experOwner.setText(result.getUserName());
+        experOwner.setText(result.getUserId());
         experStatus.setText(result.getStatus());
 
         return view;

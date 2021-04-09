@@ -17,10 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,8 +34,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Main menu acitvity of our program
@@ -53,8 +52,9 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
     EditText searchWord;
     ImageButton userProfile;
     static String logInUserName;
-    static String userID;
+    static String currentUserID;
     CollectionReference collectionReference;
+    DocumentReference userDocReference;
 
 
     @Override
@@ -64,8 +64,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         final String TAG = "Sample";
         FirebaseFirestore db;
         logInUserName = getIntent().getStringExtra("userName");
-        userID = getIntent().getStringExtra("userID");
-
+        currentUserID = getIntent().getStringExtra("userID");
         experList = findViewById(R.id.exper_list);
         subscribedButton = findViewById(R.id.mySubScription);
         ownedButton = findViewById(R.id.Own);
@@ -92,35 +91,52 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         userProfile = findViewById(R.id.user_profile);
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("experiments");
-
         dataList = new ArrayList<>();
 
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentUserProfile = new Intent(MainMenuActivity.this, UserProfileActivity.class);
-                intentUserProfile.putExtra("userID", userID);
+                intentUserProfile.putExtra("userID", currentUserID);
                 startActivity(intentUserProfile);
             }
         });
 
-        //enter trial list
+        //enter trial list of an experiment
         experList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 String name = dataList.get(position).getName();
                 Intent intent = new Intent(MainMenuActivity.this, TrialActivity.class);
                 intent.putExtra("ExperimentType", dataList.get(position).getExperimentType());
-                intent.putExtra("userID", userID);
+                intent.putExtra("userID", currentUserID);
                 intent.putExtra("chosenExperiment", name);
                 intent.putExtra("userName", logInUserName);
                 intent.putExtra("locationRequired", dataList.get(position).getLocationRequired().toString());
-                intent.putExtra("owner", dataList.get(position).getUserName());
+                intent.putExtra("isEnd", dataList.get(position).getEnded().toString());
                 int minTrials = (int) dataList.get(position).getMinTrials();
                 intent.putExtra("minTrials", Integer.toString(minTrials));
 
-                startActivity(intent);
+                //get experiment owner id
+                String ownerID = dataList.get(position).getUserId();
+                if (ownerID == null) {Log.d("***********************", "user id is null");}
+               // Log.d("**************************************************************", ownerID);
+                userDocReference = db.collection("users").document(ownerID);
 
+                //get experiment owner name
+                userDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                            String owner = (String) document.get("userName");
+                            intent.putExtra("owner", owner);
+                            startActivity(intent);}
+                        }
+                    }
+                });
             }
         });
 
@@ -154,8 +170,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     long minTrials = (long) doc.getData().get("minTrials");
                     Boolean locationRequired = doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
-                    String userId = (String) doc.getData().get("userName");
-
+                    String userId = (String) doc.getData().get("userID");
                     dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
                 }
                 //dataList.add(new Experiment("description", true, true, 1, false, "type", "name", "userId"));
@@ -200,7 +215,7 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                 } else {
                     Intent intent = new Intent(MainMenuActivity.this, SearchDisplay.class);
                     intent.putExtra("keyword", searchWord.getText().toString());
-                    intent.putExtra("userID", userID);
+                    intent.putExtra("userID", currentUserID);
                     intent.putExtra("userName", logInUserName);
                     searchWord.setText("");
                     startActivity(intent);
@@ -232,8 +247,8 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
         experiment_to_add.put("isPublished", true);
         experiment_to_add.put("locationRequired", new_experiment.locationRequired);
         experiment_to_add.put("minTrials", new_experiment.minTrials);
-        experiment_to_add.put("userName", new_experiment.getUserName());
-        experiment_to_add.put("userID", userID);
+        experiment_to_add.put("userName", new_experiment.getUserId());
+        experiment_to_add.put("userID", currentUserID);
 
 
         collectionReference

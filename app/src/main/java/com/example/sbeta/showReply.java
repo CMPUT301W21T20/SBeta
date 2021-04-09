@@ -29,6 +29,9 @@ import java.util.ArrayList;
 
 import javax.xml.namespace.QName;
 
+/**
+ * This class displays the replies of a question
+ */
 public class showReply extends AppCompatActivity {
     ArrayList<String> replyData;
     ListView replyList;
@@ -88,6 +91,9 @@ public class showReply extends AppCompatActivity {
         replyAdapter = new CustomReplyList(this, replyData);
         replyList.setAdapter(replyAdapter);
 
+        /**
+         * Get data from firebase
+         */
         // get data from firebase
         final CollectionReference replies = question.collection("replies");
         replies.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -104,7 +110,9 @@ public class showReply extends AppCompatActivity {
                 replyAdapter.notifyDataSetChanged();
             }
         });
-
+        /**
+         * Add a reply
+         */
         // add reply
         addReply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +126,9 @@ public class showReply extends AppCompatActivity {
         });
 
         // show detail of the reply
+        /**
+         * show details of the reply
+         */
         replyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

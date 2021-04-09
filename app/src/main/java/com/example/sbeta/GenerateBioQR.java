@@ -30,6 +30,12 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * This class help generate QR code for binomial trials
+ * where the result is either true or false
+ * It also records the location info if required,
+ * optional if not required.
+ */
 public class GenerateBioQR extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,12 @@ public class GenerateBioQR extends AppCompatActivity {
             ImageView qrImage = findViewById(R.id.qr_bio_image);
             Button scanButton = findViewById(R.id.scan_image);
             String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
+
+
+            String title = getIntent().getStringExtra("chosenExperiment");
+            int trialId = getIntent().getIntExtra("trial number", 0);
+
+            this.setTitle("Binomial Experiment");
 
             success.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,6 +79,7 @@ public class GenerateBioQR extends AppCompatActivity {
                     }
                 }
             });
+
             String locationRequired = getIntent().getStringExtra("locationRequired");
             final String[] trialLat = {"null"};
             final String[] trialLng = {"null"};

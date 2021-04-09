@@ -118,7 +118,9 @@ public class StatActivity extends AppCompatActivity {
             }
         });
 
-
+        /**
+         * Statistics
+         */
         // statistic part //---------------------------------------------------------------
         statDataList = new ArrayList<>();
         for (Trial trialA : trials) {
@@ -188,7 +190,9 @@ public class StatActivity extends AppCompatActivity {
         }
         //---------------------------------------------------------------
 
-
+        /**
+         * display historgram
+         */
         // histogram part //---------------------------------------------------------------
         chartDots = new ArrayList<>();
         fullBarDataSet = new ArrayList<>(); // the final data set for the histogram chart

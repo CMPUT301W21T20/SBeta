@@ -39,6 +39,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * This activity enables adding binomial trials
+ * where the user chooses either Success or Failure
+ * If the corresponding experiment requires location,
+ * it enforces the user to provide a location
+ * otherwise, the location is optional
+ */
 public class AddBinomialTrial extends AppCompatActivity {
 
     @Override

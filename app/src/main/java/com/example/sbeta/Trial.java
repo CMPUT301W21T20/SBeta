@@ -5,6 +5,9 @@ import android.location.Location;
 
 import java.sql.Timestamp;
 
+/**
+ * This is an abstract class representing a trial
+ */
 
 public abstract class Trial {
     double result;
@@ -16,7 +19,14 @@ public abstract class Trial {
 
     Timestamp createdTime;
 
-
+    /**
+     * Constructor for Trial
+     * @param result (Double) trial result
+     * @param participant (String) participant name
+     * @param location (Location) location
+     * @param trialName (String) trial name
+     * @param trialNum (Integer) trial number
+     */
     public Trial(double result, String participant, Location location, String trialName, int trialNum) {
         this.result = result;
         this.participant = participant;

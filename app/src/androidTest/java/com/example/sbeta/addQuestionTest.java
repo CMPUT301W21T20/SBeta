@@ -70,8 +70,8 @@ public class addQuestionTest{
 
         solo.assertCurrentActivity("Wrong Activity", addQuestion.class);
 
-        solo.enterText((EditText) solo.getView(R.id.questionName_context), "qqqqqqqq");
-        solo.enterText((EditText) solo.getView(R.id.quesText), "this is qqqqqq test");
+        solo.enterText((EditText) solo.getView(R.id.questionName_context), "AAAAAAAAAAAAAAA");
+        solo.enterText((EditText) solo.getView(R.id.quesText), "this is AAAAAA test");
 
         solo.clickOnButton("Confirm"); //Click search button
 
@@ -79,7 +79,7 @@ public class addQuestionTest{
         solo.clearEditText((EditText) solo.getView(R.id.quesText)); //Clear the EditText
 
         solo.assertCurrentActivity("Wrong Activity", showQuestion.class);
-        solo.waitForText("qqqqqqqq", 1, 2000);
+        solo.waitForText("AAAAAAAAAAAAAAA", 1, 2000);
 
     }
 

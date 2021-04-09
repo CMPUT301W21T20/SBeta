@@ -39,6 +39,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * This activity represents a page of all trials of an experiment
+ * and a list of option to be taken
+ */
 public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
 
     ListView trialList;
@@ -56,6 +60,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
         String currentUser = intent.getStringExtra("userID");
         String name = intent.getStringExtra("userName");
         String locationRequired = intent.getStringExtra("locationRequired");
+        String isEnd = intent.getStringExtra("isEnd");
         int minTrials = Integer.parseInt(intent.getStringExtra("minTrials"));
 
         String trialListTittle = intent.getStringExtra("chosenExperiment");
@@ -348,51 +353,80 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                         popupMenu2.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                //Toast.makeText(TrialActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
 
                                 switch (item.getItemId()) {
                                     case R.id.manually_add:
-                                        Intent intent;
-                                        if (expType.equals("Binomial trials")) {
-                                            intent = new Intent(TrialActivity.this, AddBinomialTrial.class);
-                                            intent.putExtra("chosenExperiment", trialListTittle);
-                                            intent.putExtra("trial number", trialNum);
-                                            intent.putExtra("userID", currentUser);
-                                            intent.putExtra("userName", name);
-                                            intent.putExtra("locationRequired", locationRequired);
-                                            startActivity(intent);
-                                        }
-                                        else {
-                                            intent = new Intent(TrialActivity.this, AddCountTrial.class);
-                                            intent.putExtra("ExperimentType", expType);
-                                            intent.putExtra("chosenExperiment", trialListTittle);
-                                            intent.putExtra("trial number", trialNum);
-                                            intent.putExtra("userID", currentUser);
-                                            intent.putExtra("userName", name);
-                                            intent.putExtra("locationRequired", locationRequired);
-                                            startActivity(intent);
-                                        }
+                                        DocumentReference endDocReference = db.collection("experiments").document(trialListTittle);
+                                        endDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document != null) {
+                                                        boolean isEnded = (boolean) document.get("isEnded");
+                                                        if (isEnded == false) {
+                                                            Intent intent;
+                                                            if (expType.equals("Binomial trials")) {
+                                                                intent = new Intent(TrialActivity.this, AddBinomialTrial.class);
+                                                                intent.putExtra("chosenExperiment", trialListTittle);
+                                                                intent.putExtra("trial number", trialNum);
+                                                                intent.putExtra("userID", currentUser);
+                                                                intent.putExtra("userName", name);
+                                                                intent.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intent);
+                                                            } else {
+                                                                intent = new Intent(TrialActivity.this, AddCountTrial.class);
+                                                                intent.putExtra("ExperimentType", expType);
+                                                                intent.putExtra("chosenExperiment", trialListTittle);
+                                                                intent.putExtra("trial number", trialNum);
+                                                                intent.putExtra("userID", currentUser);
+                                                                intent.putExtra("userName", name);
+                                                                intent.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intent);
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(TrialActivity.this, "This experiment has been ended", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
                                         return true;
                                     case R.id.scan_qr_code:
-                                        Intent intentToGenerate;
-                                        if (expType.equals("Binomial trials")) {
-                                            intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
-                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
-                                            intentToGenerate.putExtra("trial number", trialNum);
-                                            intentToGenerate.putExtra("userID", currentUser);
-                                            intentToGenerate.putExtra("userName", name);
-                                            intentToGenerate.putExtra("locationRequired", locationRequired);
-                                            startActivity(intentToGenerate);
-                                        }
-                                        else {
-                                            intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
-                                            intentToGenerate.putExtra("chosenExperiment", trialListTittle);
-                                            intentToGenerate.putExtra("trial number", trialNum);
-                                            intentToGenerate.putExtra("userID", currentUser);
-                                            intentToGenerate.putExtra("userName", name);
-                                            intentToGenerate.putExtra("locationRequired", locationRequired);
-                                            startActivity(intentToGenerate);
-                                        }
+                                        DocumentReference endDocReferenceQR = db.collection("experiments").document(trialListTittle);
+                                        endDocReferenceQR.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document != null) {
+                                                        boolean isEnded = (boolean) document.get("isEnded");
+                                                        if (isEnded == false) {
+                                                            Intent intentToGenerate;
+                                                            if (expType.equals("Binomial trials")) {
+                                                                intentToGenerate = new Intent(TrialActivity.this, GenerateBioQR.class);
+                                                                intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                                                intentToGenerate.putExtra("trial number", trialNum);
+                                                                intentToGenerate.putExtra("userID", currentUser);
+                                                                intentToGenerate.putExtra("userName", name);
+                                                                intentToGenerate.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intentToGenerate);
+                                                            } else {
+                                                                intentToGenerate = new Intent(TrialActivity.this, GenerateCountQR.class);
+                                                                intentToGenerate.putExtra("chosenExperiment", trialListTittle);
+                                                                intentToGenerate.putExtra("trial number", trialNum);
+                                                                intentToGenerate.putExtra("userID", currentUser);
+                                                                intentToGenerate.putExtra("userName", name);
+                                                                intentToGenerate.putExtra("locationRequired", locationRequired);
+                                                                startActivity(intentToGenerate);
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(TrialActivity.this, "This experiment has been ended", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
                                         return true;
                                     default:
                                         return false;
@@ -404,7 +438,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 }
             }
         };
-
+        trialArrayAdapter.notifyDataSetChanged();
         operationButton.setOnClickListener(listener);
         addButton.setOnClickListener(listener);
 
@@ -412,6 +446,7 @@ public class TrialActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        trialArrayAdapter.notifyDataSetChanged();
         return false;
     }
 }

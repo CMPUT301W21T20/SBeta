@@ -15,6 +15,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * An ArrayAdapter for trials
+ * It also enables igonring some trials
+ */
 public class TrialAdapter extends ArrayAdapter<Trial> {
 
 
