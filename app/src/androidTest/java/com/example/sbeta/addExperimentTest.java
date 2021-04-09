@@ -57,7 +57,7 @@ public class addExperimentTest {
         solo.assertCurrentActivity("Wrong Activity", MainMenuActivity.class);
         solo.clickOnView(solo.getView(R.id.add_experiment_button));
         //
-        solo.enterText((EditText) solo.getView(R.id.description_input), "addExprTest");
+        solo.enterText((EditText) solo.getView(R.id.description_input), "AAAAAAAAAA");
         solo.enterText((EditText) solo.getView(R.id.region_text), "Edmonton");
         solo.clearEditText((EditText) solo.getView(R.id.minTrials)); //Clear the EditText
         solo.enterText((EditText) solo.getView(R.id.minTrials), "1");
@@ -66,7 +66,7 @@ public class addExperimentTest {
         solo.clickOnView(solo.getView(R.id.Location_required_switch));
         solo.clickOnText("Ok");
 
-        assertTrue(solo.waitForText("addExprTest", 1, 2000));
-        solo.clickLongOnText("addExprTest"); //delete the test
+        assertTrue(solo.waitForText("AAAAAAAAAA", 1, 2000));
+        solo.clickLongOnText("AAAAAAAAAA");
     }
 }
