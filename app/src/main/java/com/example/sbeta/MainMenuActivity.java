@@ -171,7 +171,26 @@ public class MainMenuActivity extends AppCompatActivity implements AddNewExperim
                     Boolean locationRequired = doc.getBoolean("locationRequired");
                     String type = (String) doc.getData().get("experimentType");
                     String userId = (String) doc.getData().get("userID");
-                    dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
+
+
+                    userDocReference = db.collection("users").document(userId);
+
+                    //get experiment owner name
+                    userDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document != null) {
+                                    String usern = (String) document.get("userName");
+                                    dataList.add(new Experiment(description, isEnd, isPublished, minTrials, locationRequired, type, name, userId));
+                                    experAdapter.notifyDataSetChanged();
+                                    }
+                            }
+                        }
+                    });
+
+
                 }
                 //dataList.add(new Experiment("description", true, true, 1, false, "type", "name", "userId"));
                 experAdapter.notifyDataSetChanged();

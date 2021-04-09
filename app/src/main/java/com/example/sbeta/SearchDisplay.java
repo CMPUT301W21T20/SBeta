@@ -105,7 +105,7 @@ public class SearchDisplay extends AppCompatActivity {
                     //Integer minTrials = (Integer) doc.get("minTrials");
                     //Integer minTrials = 1;
                     long minTrials = (long) doc.getData().get("minTrials");
-                    String userName = (String) doc.getData().get("userName");
+                    String userName = (String) doc.getData().get("userID");
 
                     if (name.toLowerCase().contains(keyword.toLowerCase()) ||
                             Objects.requireNonNull(userName).toLowerCase().contains(keyword.toLowerCase()) ||
